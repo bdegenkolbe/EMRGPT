@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.5 – Europe PMC, SNOMED-Autotagging, Evidence-Matching (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie, Struktur, Redundanzen | v1.5: Europe PMC-Anbindung (Kap. 7.2.1.1), automatisches Evidence-Matching (Kap. 7.2.1.2), SNOMED-Autotagging-Pipeline (Kap. 14.2.2), Snowstorm FHIR-API (Kap. 14.2.1), Use Case 4 (Kap. 3.3.4), FA-13 bis FA-16, UI Evidence-Panel (Kap. 4.2)
+v1.5.1 – Evidenz-Domainservice, Studiendatenbanken, QA-Bereinigung (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie, Struktur, Redundanzen | v1.5: Europe PMC-Anbindung (Kap. 7.2.1.1), automatisches Evidence-Matching (Kap. 7.2.1.2), SNOMED-Autotagging-Pipeline (Kap. 14.2.2), Snowstorm FHIR-API (Kap. 14.2.1), Use Case 4 (Kap. 3.3.4), FA-13 bis FA-16, UI Evidence-Panel (Kap. 4.2) | v1.5.1: Evidenz- und Studien-Domainservice als vierte Wissensschicht (Kap. 2.8.6), Studiendatenbanken (Kap. 7.2.1.3), LLM-Regelableitung (Kap. 7.2.1.4), Kap. 7.1 drei→vier Domänen, QA-Bereinigung (40+ Befunde: Querverweise, FHIR-Pfade, Terminologie, Grammatik, Markdown)
 
 ---
 
@@ -383,7 +383,7 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 
 [1.2 Zielbild der Strategie: Die Brücke der Altdaten (The Legacy Data Bridge)](#1.2-zielbild-der-strategie:-die-brücke-der-altdaten-\(the-legacy-data-bridge\))
 
-[1.3 Technische Strategie – Die Rolle von UKLGPT (RAG-Layer)](#1.3-archivierungsstrategie-und-die-rolle-von-uklgpt)
+[1.3 Archivierungsstrategie und die Rolle von UKLGPT](#1.3-archivierungsstrategie-und-die-rolle-von-uklgpt)
 
 [1.4 Kritische Erfolgsfaktoren und Risikomanagement](#1.4-kritische-erfolgsfaktoren-und-risikomanagement)
 
@@ -471,7 +471,7 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 
 [**7\. Datenschicht – Überblick und detaillierte Architektur**](#7.-datenschicht-–-überblick-und-detaillierte-architektur)
 
-[7.1 Die drei Wissensdomänen](#7.1-die-drei-wissensdomänen)
+[7.1 Die vier Wissensdomänen](#7.1-die-vier-wissensdomänen)
 
 [7.2 Detaillierte RAG-Architekturkomponenten](#7.2-detaillierte-rag-architekturkomponenten)
 
@@ -627,8 +627,8 @@ Die primäre Alternative besteht darin, die strukturierten Altdaten nicht in ein
 | :---- | :---- | :---- |
 | Datenqualität / Semantik | **Erhalt der Semantik:** Die Daten bleiben in ihrer ursprünglichen Struktur (z.B. Medikation, Laborwert mit Einheit, Diagnose mit Code) intakt und FHIR-konform. Kein Informationsverlust durch Transformation. | **Komplexität der Migration:** Erfordert eine hochkomplexe **FHIR-Mapping-Logik** für die Altdaten. Hoher Aufwand, um die oft inkonsistenten Altdaten zu bereinigen und zu standardisieren. |
 | RAG-Nutzung (GraphRAG) | **Optimale Graph-Input:** Kann direkt in den GraphRAG oder eine andere graphbasierte Lösung importiert werden. Sofortige Nutzung von FHIR-konformen Knoten und Relationen. | **Datenmenge:** Für die initialen Big-Data-Migrationen können hohe Lizenz- und Betriebskosten für spezialisierte FHIR-Server anfallen. |
-| Performance | **Hohe Performance:** Direkte Abfrage strukturierter Daten ist extrem schnell. Eliminierung der **OCR-Latent** und der **Vektor-Retrieval-Latent** für Fakten. | Nicht direkt relevant für die revisionssichere Langzeitarchivierung (dafür wäre ein spezialisiertes Archivsystem nötig). |
-| Compliance/Archiv |  | **Revisionssicherheit:** Erfordert eine zusätzliche Validierung und Zertifizierung (z.B. IDW PS 880\) für die als Archiv genutzte FHIR-DB, was aufwendiger ist als bei dedizierten Archivsystemen (HYDMedia/AVP). |
+| Performance | **Hohe Performance:** Direkte Abfrage strukturierter Daten ist extrem schnell. Eliminierung der **OCR-Latenz** und der **Vektor-Retrieval-Latenz** für Fakten. | Nicht direkt relevant für die revisionssichere Langzeitarchivierung (dafür wäre ein spezialisiertes Archivsystem nötig). |
+| Compliance/Archiv | – | **Revisionssicherheit:** Erfordert eine zusätzliche Validierung und Zertifizierung (z.B. IDW PS 880\) für die als Archiv genutzte FHIR-DB, was aufwendiger ist als bei dedizierten Archivsystemen (HYDMedia/AVP). |
 
 ## 2.3 Archivierung in Vektor-Datenbanken (nativ für RAG) {#2.3-archivierung-in-vektor-datenbanken-(nativ-für-rag)}
 
@@ -677,7 +677,7 @@ HYDMedia unterstützt laut Conformance Statement nur eine begrenzte Menge an FHI
 | Revisionssicherheit | **Höchste juristische Sicherheit:** PDF/A ist der De-facto-Standard für revisionssichere Langzeitarchivierung. Dies ist **zwingend** für Altdaten erforderlich. | **KI-Feindliches Format:** PDF ist ein Format für Druck und Anzeige, nicht für maschinelle Auswertung. |
 | Einfachheit der Migration | **Prozessuale Einfachheit:** Der Export von SAP-Dokumenten als PDF ist ein etablierter Ablösungsprozess. | **Zusätzlicher Zwischenschritt:** Der gesamte Inhalt muss mittels **OCR** (Optical Character Recognition) erst wieder in maschinenlesbaren Text umgewandelt werden, um überhaupt durchsuchbar zu sein. |
 | Datenqualität / Vollständigkeit | Erhält das Original-Layout des Dokuments (Visuelle Konsistenz). | **Qualitätsverlust durch OCR:** Fehler bei der OCR-Erkennung (insbesondere bei Scans, handschriftlichen Notizen oder schlechten Vorlagen) führen zu **Suchfehlern** im RAG. |
-| Kosten / Performance |  | **Zusätzliche Kosten:** OCR-Lizenzen und Rechenzeit fallen für die **gesamte Altdatenmenge (21 Mio. Dokumente)** an. **Erhöhte Latenz:** OCR ist zeitintensiv. |
+| Kosten / Performance | – | **Zusätzliche Kosten:** OCR-Lizenzen und Rechenzeit fallen für die **gesamte Altdatenmenge (21 Mio. Dokumente)** an. **Erhöhte Latenz:** OCR ist zeitintensiv. |
 
 ### 2.4.4 Fazit und Empfehlung
 
@@ -702,8 +702,6 @@ Die empfohlene hybride Strategie kombiniert die zwingend notwendige revisionssic
 * **Intelligente GraphRAG-Fütterung:**
 
   * Der GraphRAG nutzt primär die **FHIR-Daten** für Fakten und steuert den Dokumenten-RAG (für Freitext) über die Metadaten des PDF-Archivs (DocumentReference).
-
-Dieser Ansatz **erfüllt die Compliance-Anforderungen** (revisionssicheres PDF-Archiv) und **maximiert die Nutzbarkeit und Präzision der KI** (strukturierte Fakten im FHIR-GraphRAG).
 
 ![][image3]
 
@@ -980,12 +978,12 @@ Alle Patientendokumente, die in das UKLGPT-System gelangen (aus HYDMedia, DMI od
 **Stufe 4 – SNOMED-Normalisierung:**
 * Jede erkannte Entität wird über die Snowstorm FHIR-API normalisiert:
   * `$expand` mit ECL-Filter zur Auflösung in den korrekten SNOMED-CT-Code.
-  * `$lookup` zur Abruf der kanonischen Bezeichnung und des Definitionsstatus.
+  * `$lookup` zum Abruf der kanonischen Bezeichnung und des Definitionsstatus.
   * Konfidenz-Score der NER-Erkennung wird mitgeführt (Schwellwert: ≥ 0.85 für automatische Übernahme, < 0.85 → Review-Queue).
 * **ICD-10-Crosswalk:** Über `$translate` (ConceptMap) werden ergänzend ICD-10-Codes abgeleitet, sofern ein valides Mapping existiert.
 
 **Stufe 5 – Speicherung:**
-* Die extrahierten SNOMED-Tags werden als `Coding`-Elemente in der FHIR `DocumentReference.content.attachment`-Metadaten gespeichert.
+* Die extrahierten SNOMED-Tags werden als `Coding`-Elemente in `DocumentReference.category` (CodeableConcept) oder einer dedizierten FHIR-Extension gespeichert.
 * Im **GraphRAG** wird für jedes getaggte Konzept eine Kante `DocumentReference → hasSnomedTag → Concept` angelegt.
 * Im **Vektor-DB**-Index werden die SNOMED-Codes als zusätzliche Filterattribute (Facetten) gespeichert, um hybride Suche (Semantik + Facette) zu ermöglichen.
 
@@ -1010,7 +1008,7 @@ Alle Patientendokumente, die in das UKLGPT-System gelangen (aus HYDMedia, DMI od
 
 * **Modulare Architektur**: Die Datenhaltung wird in logisch getrennte Domänen unterteilt, um Skalierbarkeit, gezielte Aktualisierung und spezifische Sicherheitsanforderungen zu gewährleisten:
 
-  * **Globales Wissen (Evidence-Base)**: Umfasst externe, allgemein gültige Informationsquellen wie klinische Leitlinien, wissenschaftliche Literatur (primär über **Europe PMC** REST-API, vgl. Kap. 7.2.1.1) und Ontologien. Diese Domäne dient als Grundlage für Entscheidungsunterstützungssysteme (Clinical Decision Support, CDS). Die Verknüpfung mit Patientendaten erfolgt über **SNOMED-CT-basiertes Evidence-Matching** (Kap. 7.2.1.2).
+  * **Globales Wissen (Globaler Wissens-RAG)**: Umfasst externe, allgemein gültige Informationsquellen wie klinische Leitlinien, wissenschaftliche Literatur (primär über **Europe PMC** REST-API, vgl. Kap. 7.2.1.1) und Ontologien. Diese Domäne dient als Grundlage für Entscheidungsunterstützungssysteme (Clinical Decision Support, CDS). Die Verknüpfung mit Patientendaten erfolgt über **SNOMED-CT-basiertes Evidence-Matching** (Kap. 7.2.1.2).
 
   * **Patientenbezogene Dokumente (HYDMedia)**: Unstrukturierte oder semi-strukturierte Dokumente wie Arztbriefe, Befunde, Aufklärungsbögen und Bilder, die im Rahmen der Versorgung entstehen. Diese werden in einem hochsicheren Dokumentenarchiv verwaltet.
 
@@ -1140,9 +1138,9 @@ Die technische und systemische Basis der Dokumentenverwaltung am UKL ist durch d
 
 ##### Metadaten-Generierung und Klassifizierungslogik:
 
-#### Die korrekte Verschlagwortung (Metadaten-Generierung) ist ein kritischer Prozess, um die Dokumente im Kontext der Patientenakte verorten und später über RAG-Systeme effizient abfragen zu können.
+Die korrekte Verschlagwortung (Metadaten-Generierung) ist ein kritischer Prozess, um die Dokumente im Kontext der Patientenakte verorten und später über RAG-Systeme effizient abfragen zu können.
 
-* **Quell der Metadaten (IDX-Dateien):** Die Metadaten werden in Form von IDX-Dateien entweder direkt durch den **Scanprozess** (manuelle Dokumente) oder durch elektronische Dokumente, die die zentrale **DMI-Klassifizierungsinstanz** durchlaufen, erzeugt.
+* **Quelle der Metadaten (IDX-Dateien):** Die Metadaten werden in Form von IDX-Dateien entweder direkt durch den **Scanprozess** (manuelle Dokumente) oder durch elektronische Dokumente, die die zentrale **DMI-Klassifizierungsinstanz** durchlaufen, erzeugt.
 
 * **Anbindung der Quellsysteme:** Eine Vielzahl klinischer und administrativer Quellsysteme speist die DMI-Klassifizierung und damit HYDMedia. Zu diesen Systemen zählen:
 
@@ -1156,15 +1154,15 @@ Die technische und systemische Basis der Dokumentenverwaltung am UKL ist durch d
 
 ##### Ausblick und Zukünftige Entwicklungen (Einfluss auf den Scan-Input):
 
-#### Die gesamte Architektur wird sich signifikant durch die bevorstehende Digitalisierungsoffensive verändern:
+Die gesamte Architektur wird sich signifikant durch die bevorstehende Digitalisierungsoffensive verändern:
 
-* **Ablösung analoger Prozesse:** Mit der geplanten Einführung der **elektronischen Patientenakte (ePA)**, die Hand in Hand mit der umfassenden **MKIS-Umstellung** (Medizinische Kommunikations- und Informationssysteme) geht, wird ein Großteil der bisherigen analogen Workflows abgelöst.
+* **Ablösung analoger Prozesse:** Mit der geplanten Einführung der **elektronischen Patientenakte (ePA)**, die Hand in Hand mit der umfassenden **M-KIS-Umstellung** (Meierhofer Klinisches Informationssystem) geht, wird ein Großteil der bisherigen analogen Workflows abgelöst.
 
 * **Reduktion des Scan-Volumens:** Es wird erwartet, dass Scans physischer Dokumente nach dieser Umstellung **nahezu vollständig entfallen** werden. Zukünftig werden Dokumente primär elektronisch entstehen und direkt in die Systeme eingespielt, was die Datenqualität und \-aktualität für die RAG-Systeme deutlich verbessern wird.
 
 #### 3.2.6.2 Voraussetzungen und Schnittstellen
 
-* **HYDMedia API:** Die prinzipielle Verfügbarkeit einer **FHIR-Schnittstelle** in HYDMedia wurde von Dedalus bestätigt (Dokumentation liegt vor). Zudem existiert eine HYDMedia WebApp (z.B. unter s050008132:6444/\[webapp\]()).
+* **HYDMedia API:** Die prinzipielle Verfügbarkeit einer **FHIR-Schnittstelle** in HYDMedia wurde von Dedalus bestätigt (Dokumentation liegt vor). Zudem existiert eine HYDMedia WebApp (z.B. unter s050008132:6444/webapp).
 
 * **Zugriffsrisiko (Dedalus-Position):** Direkte Datenbankzugriffe von Fremdsystemen werden aus datenschutzrechtlichen (DSGVO-Konformität) und sicherheitstechnischen Gründen (ISO 13485, BSI/TR-ESOR/IDW 880 PS W) abgelehnt, da die Protokollierung der Zugriffe außerhalb der HYDMedia-Applikation nicht rechtskonform gewährleistet werden kann. Es wird ein rechtskonformer Weg über einen **Export via FHIR** vorgeschlagen.
 
@@ -1202,7 +1200,7 @@ Das Projekt muss **sofort** die Spezifikation des "Exports via FHIR" mit Dedalus
 
 * Eine klare Zusage und ein Zeitplan von Dedalus für die Bereitstellung dieser exportfähigen FHIR-Schnittstelle vorliegen.
 
-Die aktuelle Formulierung ist ein **Klargang in eine kritische Abhängigkeit und potenzielle Zeitverzögerung**, wenn die FHIR-Schnittstelle nicht bereits die notwendige Export-Performance bietet.
+Die aktuelle Formulierung ist ein **direkter Weg in eine kritische Abhängigkeit und potenzielle Zeitverzögerung**, wenn die FHIR-Schnittstelle nicht bereits die notwendige Export-Performance bietet.
 
 #### 3.2.6.3 Herausforderungen in Vollständigkeit und Datenqualität
 
@@ -1227,7 +1225,7 @@ Die aktuelle Formulierung ist ein **Klargang in eine kritische Abhängigkeit und
 
 ## 3.3 Use Cases von UKLGPT {#3.3-use-cases-von-uklgpt}
 
-Das vorgeschlagene UKLGPT-System (im Text als UKLGPT bezeichnet) ist ein spezialisiertes Large Language Model, das darauf ausgelegt ist, die klinischen Arbeitsabläufe signifikant zu optimieren und die Effizienz in der medizinischen Dokumentation und Recherche zu steigern. Es fokussiert sich auf die Verarbeitung und Bereitstellung von medizinischen Daten aus der elektronischen Patientenakte (EPA).
+Das vorgeschlagene UKLGPT-System ist ein spezialisierter, KI-gestützter klinischer Informationsassistent, der darauf ausgelegt ist, die klinischen Arbeitsabläufe signifikant zu optimieren und die Effizienz in der medizinischen Dokumentation und Recherche zu steigern. Es fokussiert sich auf die Verarbeitung und Bereitstellung von medizinischen Daten aus der elektronischen Patientenakte (ePA).
 
 ### 3.3.1 Use Case 1: Intelligente Dokumenten- und Befundrecherche
 
@@ -1275,7 +1273,7 @@ Der Assistent gewährleistet dabei stets die strikte Einhaltung der Datenschutz-
 
 Angesichts der zunehmenden Komplexität und des Umfangs elektronischer Patientenakten wird eine schnelle Einarbeitung in den Fall eines Patienten kritisch.
 
-#### 3.3.2.1  Funktionalität:
+#### 3.3.2.1 Funktionalität:
 
 UKLGPT nutzt seine Fähigkeit zur Sprachverarbeitung, um umfangreiche Akten (z.B. mehrere hundert Seiten) zu analysieren und eine strukturierte, prägnante Zusammenfassung zu erstellen. Diese Zusammenfassung hebt die **wesentlichen klinischen Inhalte** hervor, kategorisiert nach:
 
@@ -1299,7 +1297,7 @@ UKLGPT nutzt seine Fähigkeit zur Sprachverarbeitung, um umfangreiche Akten (z.B
 
 Als optionales Modul kann UKLGPT zur Überprüfung der formalen Qualität der klinischen Dokumentation eingesetzt werden.
 
-#### 3.3.3.1 Funktionalität**:**
+#### 3.3.3.1 Funktionalität:
 
 Das System kann Dokumente (z.B. OP-Berichte, Anamnesebögen) automatisch scannen und Hinweise auf **formale Unvollständigkeiten oder Inkonsistenzen** geben. Beispiele hierfür sind:
 
@@ -1422,7 +1420,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 ## 15.5 Schnittstellen (Integrationsschicht): {#15.5-schnittstellen-(integrationsschicht):}
 
-* Stellt die Anbindung an externe und interne Drittsysteme sicher (z.B. KIS, EPA, Laborinformationssysteme).
+* Stellt die Anbindung an externe und interne Drittsysteme sicher (z.B. KIS, ePA, Laborinformationssysteme).
 
 * Definiert standardisierte APIs für den sicheren und interoperablen Datenaustausch.
 
@@ -1510,7 +1508,7 @@ Die Leistungsfähigkeit dieser Schicht beruht auf dem Zusammenspiel mehrerer spe
 
 * **Domain- und Intent-Klassifikator (DIC):** Dieses Modul analysiert die eingehende Anfrage und identifiziert die thematische Domäne (z. B. Diagnostik, Therapieempfehlung, Medikationsmanagement) sowie die konkrete Absicht des Nutzers (z. B. "Medikament X suchen", "Wechselwirkungen prüfen"). Es ist die erste Weiche im Verarbeitungsprozess.
 
-* **Kontext-Assembler:** Dieses essentielle Modul sammelt und hält den *state* der aktuellen Interaktion. Es assembliert alle notwendigen Kontextparameter, die die Suchergebnisse personalisieren und präzisieren müssen:
+* **Kontext-Assembler:** Dieses essenzielle Modul sammelt und hält den *state* der aktuellen Interaktion. Es assembliert alle notwendigen Kontextparameter, die die Suchergebnisse personalisieren und präzisieren müssen:
 
   * **Patientenkontext:** Demografische Daten, Vorerkrankungen, Allergien, aktuelle Medikation (aus FHIR).
 
@@ -1560,7 +1558,7 @@ Um eine unnötige Belastung spezialisierter Validierungsschritte zu vermeiden un
 
 ## 6.3 Detaillierte Medizinische Prompt-Pipeline {#6.3-detaillierte-medizinische-prompt-pipeline}
 
-Die medizinische Pipeline ist eine kritische Kontrollstruktur, die sequenziell Abarbeitung und Validierung gewährleistet (siehe Anhang für technische Details). Sie besteht aus den folgenden obligatorischen Schritten:
+Die medizinische Pipeline ist eine kritische Kontrollstruktur, die sequenziell Abarbeitung und Validierung gewährleistet (vgl. Kap. 6.3). Sie besteht aus den folgenden obligatorischen Schritten:
 
 * **Domain Classification:** Klassifizierung der Anfrage, um die Zugehörigkeit zur medizinischen Domäne zu bestätigen und die Notwendigkeit der Aktivierung dieser Pipeline festzustellen.
 
@@ -1592,9 +1590,9 @@ Die Implementierung dieser Prompt-Pipeline führt zu fundamentalen Verbesserunge
 
 # 7\. Datenschicht – Überblick und detaillierte Architektur {#7.-datenschicht-–-überblick-und-detaillierte-architektur}
 
-Die Architektur der Datenschicht ist ein fundamentaler Bestandteil des Systems und gewährleistet die effiziente und zielgerichtete Verarbeitung von Informationen. Sie ist strikt in drei primäre Wissensdomänen unterteilt, um eine klare Trennung der Datenquellen und der jeweiligen Abfrage-Mechanismen (Retrieval-Augmented Generation, RAG) zu gewährleisten.
+Die Architektur der Datenschicht ist ein fundamentaler Bestandteil des Systems und gewährleistet die effiziente und zielgerichtete Verarbeitung von Informationen. Sie ist strikt in vier primäre Wissensdomänen unterteilt, um eine klare Trennung der Datenquellen und der jeweiligen Abfrage-Mechanismen (Retrieval-Augmented Generation, RAG) zu gewährleisten.
 
-## 7.1 Die drei Wissensdomänen {#7.1-die-drei-wissensdomänen}
+## 7.1 Die vier Wissensdomänen {#7.1-die-vier-wissensdomänen}
 
 Die Trennung in Domänen ermöglicht es, für jede Art von Information die optimale Speicher- und Abrufstrategie zu wählen, was die Präzision und Relevanz der generierten Antworten signifikant erhöht.
 
@@ -1772,7 +1770,7 @@ Validierte Regeln werden als strukturierte Objekte im GraphRAG gespeichert und s
 * Jede Regel hat eine **Gültigkeitsdauer** (TTL, default: 24 Monate). Abgelaufene Regeln werden automatisch zur Re-Validierung vorgelegt.
 * Jede Regelanwendung wird im **Audit-Trail** protokolliert (Regel-ID, Patientenkontext, Kliniker-Reaktion).
 * Regeln können nach Fachgebiet, Evidenzgrad und Validierungsstatus gefiltert werden.
-* Eine **Dashboards-Ansicht** zeigt den aktuellen Stand der Regelbasis: Anzahl aktiver Regeln, offene Review-Queue, Regelanwendungen pro Woche, Ablehnungsquote.
+* Eine **Dashboard-Ansicht** zeigt den aktuellen Stand der Regelbasis: Anzahl aktiver Regeln, offene Review-Queue, Regelanwendungen pro Woche, Ablehnungsquote.
 
 **Zusammenspiel der Domainservice-Komponenten:**
 
@@ -1841,7 +1839,7 @@ Die Hauptfunktionen des Graphen im GraphRAG-System sind:
 
 * Anstatt sämtliche Dokumente nach relevanten Informationen zu durchsuchen, nutzt der Graph seine strukturelle Intelligenz zur Vorfilterung.
 
-* Basierend auf der extrahierten Entitäten und den Beziehungen zum klinischen Fall steuert der Graph gezielt, welche Dokument-Chunks, Textabschnitte oder spezifischen Dateien (z. B. Behandlungspläne, Laborberichte, Fachartikel) für die Beantwortung einer Nutzeranfrage im nachgeschalteten Vektor-RAG-Prozess als relevant markiert werden. Dies erhöht die Präzision und reduziert die Latenz erheblich.
+* Basierend auf den extrahierten Entitäten und den Beziehungen zum klinischen Fall steuert der Graph gezielt, welche Dokument-Chunks, Textabschnitte oder spezifischen Dateien (z. B. Behandlungspläne, Laborberichte, Fachartikel) für die Beantwortung einer Nutzeranfrage im nachgeschalteten Vektor-RAG-Prozess als relevant markiert werden. Dies erhöht die Präzision und reduziert die Latenz erheblich.
 
 ### 7.3.3 Primäre Quelle für strukturierte Fakten:
 
@@ -1952,7 +1950,7 @@ Die Daten durchlaufen einen mehrstufigen Transformationsprozess, um von einem re
 
 1. **DWH-Schema → FHIR-Ressourcen:** Die strukturierten DWH-Daten werden zunächst auf den **FHIR (Fast Healthcare Interoperability Resources)**\-Standard gemappt. Dies dient als Zwischenschicht und Brücke zu einem international anerkannten, interoperablen Gesundheitsdatenstandard (z.B. Patient, Encounter, Condition, Procedure, MedicationRequest).
 
-2. **FHIR-Ressourcen → Graphschema:** Die FHIR-Ressourcen werden anschließend in die spezifischen *Nodes* (Knoten) und *Relationships* (Beziehungen) des Graphschemas übersetzt. **Beispiel:** Ein FHIR-Patient wird zum (Patient)\-Knoten; eine FHIR-Encounter (Begegnung) wird zum (Begegnung)\-Knoten, verbunden über die Beziehung \[:HAT\_BEGEGNUNG\].
+2. **FHIR-Ressourcen → Graphschema:** Die FHIR-Ressourcen werden anschließend in die spezifischen *Nodes* (Knoten) und *Relationships* (Beziehungen) des Graphschemas übersetzt. **Beispiel:** Ein FHIR-Patient wird zum (Patient)\-Knoten; eine FHIR-Encounter wird zum (Encounter)\-Knoten, verbunden über die Beziehung \[:HAS\_ENCOUNTER\].
 
 ### 8.2.3 Datenaktualisierung (Upserts)
 
@@ -1974,7 +1972,7 @@ Die Retrieval Augmented Generation (RAG) im Kontext von Graphen (GraphRAG) stell
 
 ## 9.1 Deterministische Abfragen (Primary Path) – Die Faktenbasis {#9.1-deterministische-abfragen-(primary-path)-–-die-faktenbasis}
 
-Der "Primary Path" dient der obligatorischen Extraktion **harte Fakten** und unverzichtbarer, strukturierter Informationen direkt aus dem Graphen. Diese Abfragen basieren auf vordefinierten, robusten Templates und werden *immer* vor jeder nachfolgenden semantischen Suche ausgeführt, um eine korrekte und sichere LLM-Antwort zu gewährleisten. Sie nutzen die Stärken der Graphentechnologie – die schnelle, exakte Navigation und Abfrage von Beziehungen – mittels der Cypher-Abfragesprache.
+Der "Primary Path" dient der obligatorischen Extraktion **harter Fakten** und unverzichtbarer, strukturierter Informationen direkt aus dem Graphen. Diese Abfragen basieren auf vordefinierten, robusten Templates und werden *immer* vor jeder nachfolgenden semantischen Suche ausgeführt, um eine korrekte und sichere LLM-Antwort zu gewährleisten. Sie nutzen die Stärken der Graphentechnologie – die schnelle, exakte Navigation und Abfrage von Beziehungen – mittels der Cypher-Abfragesprache.
 
 ### 9.1.1 Zentrale Anwendungsbeispiele und ihre Bedeutung:
 
@@ -1994,11 +1992,11 @@ Diese Abfragen stellen sicher, dass das LLM nicht halluziniert und die Antwort a
 
 Das Neighborhood Retrieval geht über die reinen Fakten hinaus und zielt darauf ab, den unmittelbar relevanten Kontext für komplexere oder weniger strikt definierte Fragen zu liefern.
 
-### 9.2.1 Mechanismus: 
+### 9.2.1 Mechanismus
 
 Es wird ein **begrenzter Subgraph** um eine oder mehrere zentrale Entitäten (z. B. den aktuellen Encounter, eine spezifische Diagnose) extrahiert. Die Begrenzung erfolgt typischerweise durch eine maximale Anzahl von **Hops** (z. B. 1 bis 2 Kantenentfernungen), um die Informationsmenge kontrollierbar zu halten und die Relevanz zu maximieren.
 
-### 9.2.2 Verwendung für komplexe Kontextfragen: 
+### 9.2.2 Verwendung für komplexe Kontextfragen 
 
 Diese Methode kommt zum Einsatz, wenn die reine Faktenbasis nicht ausreicht. Beispiele hierfür sind:
 
@@ -2361,7 +2359,7 @@ Ab dem Moment, in dem die **Kontext-Erhebung** (Retrieval von Daten) beginnen m�
 
 ### 12.8.3 Daten-Filterung am Ursprung (Kontext-Assembler):
 
-Der **Kontext-Assembler**, die Komponente, die Daten aus den Quellsystemen sammelt, erhält **ausschließlich** die IDs von **freigegebenen Graph-Fakten** und **freigegebenen Dokument-IDs**.Diese IDs werden direkt aus dem Ergebnis der Berechtigungsprüfung (Schritt 6 und 7\) abgeleitet. Der Assembler kann physisch keine Daten abrufen, deren ID nicht explizit als berechtigt markiert wurde.
+Der **Kontext-Assembler**, die Komponente, die Daten aus den Quellsystemen sammelt, erhält **ausschließlich** die IDs von **freigegebenen Graph-Fakten** und **freigegebenen Dokument-IDs**. Diese IDs werden direkt aus dem Ergebnis der Berechtigungsprüfung (Schritt 6 und 7\) abgeleitet. Der Assembler kann physisch keine Daten abrufen, deren ID nicht explizit als berechtigt markiert wurde.
 
 ### 12.8.4 Technisches Nicht-Existieren (Data Obfuscation):
 
@@ -2507,7 +2505,7 @@ Die Bewertung basiert auf der Tatsache, dass das System **Patientendaten (Gesund
 
 ### 13.4.2 Risikoreduktion durch Architektonisches Design (Guardrail-Effekt)
 
-Die Architekturentscheidung, das System explizit auf die **reine Informationsassistenz** zu beschränken (siehe 13.1.3), hat eine direkte Auswirkung auf die Risikobewertung, insbesondere für die **Integrität**:
+Die Architekturentscheidung, das System explizit auf die **reine Informationsassistenz** zu beschränken (siehe 13.1.4), hat eine direkte Auswirkung auf die Risikobewertung, insbesondere für die **Integrität**:
 
 | Schutzbedarfs-ziel | Risikofaktor ohne Guardrail | Architektonische Gegenmaßnahme | Risikoreduzierte Einstufung |
 | :---- | :---- | :---- | :---- |
@@ -2544,16 +2542,20 @@ Die Einstufung als **Hochrisiko-KI** (gemäß EU AI Act) und die Verarbeitung vo
 
 Gerne prüfe ich das vorliegende Konzept der **Zielarchitektur UKLGPT** auf Konsistenz und identifiziere potenzielle Lücken.
 
-Das Konzept ist in seinen Kernprinzipien sehr **konsistent** und weist eine hohe logische Kohärenz auf, insbesondere im Hinblick auf Sicherheit und klinische Verantwortung. Die identifizierten **Lücken** betreffen hauptsächlich die Detaillierung spezifischer technischer Mechanismen sowie organisatorische und metrische Aspekte.-----I. Konsistenz (Stärken des Konzepts)
+Das Konzept ist in seinen Kernprinzipien sehr **konsistent** und weist eine hohe logische Kohärenz auf, insbesondere im Hinblick auf Sicherheit und klinische Verantwortung. Die identifizierten **Lücken** betreffen hauptsächlich die Detaillierung spezifischer technischer Mechanismen sowie organisatorische und metrische Aspekte.
+
+---
+
+### I. Konsistenz (Stärken des Konzepts)
 
 Das Gesamtkonzept ist durch eine klare, disziplinierte Architektur gekennzeichnet. Die Konsistenz zeigt sich in folgenden Punkten:
 
 | Bereich | Konsistenz (Stärke) |
 | ----- | ----- |
-| **Klinische Verantwortung** | Die Positionierung als reine **Informations- und Orientierungsassistenz** ist explizit und wird durchgehend betont (1.1.4, 3.1.3). Dies stellt die **finale klinische Entscheidung und Verantwortung des Fachpersonals** juristisch und prozessual unangreifbar. |
-| **Datengovernance & Sicherheit** | Es gibt eine klare und konsistente Strategie, um Sicherheit (Privacy by Design) und Nachvollziehbarkeit zu gewährleisten (Abschnitt 2). Die Prinzipien **Least Privilege & Need-to-Know** (2.5), die **Episodische Datenverarbeitung/TTL** (2.4) und der umfassende **Audit-Trail** (2.6) stützen sich gegenseitig. |
-| **Terminologie und Semantik** | Die Festlegung auf **FHIR** (Interoperabilität) und **SNOMED CT** (klinische Referenzterminologie) als zentrale Standards (1.3.1, 1.3.2, 2.1, 2.2) ist fundamental für die Präzision und minimiert die Gefahr von KI-Halluzinationen aufgrund terminologischer Inkonsistenzen. |
-| **Qualitätssicherung (Guardrails)** | Die mehrstufige **Prompt-Pipeline** (1.3.4) und die **klare Trennung der Wissensdomänen** (Fakten, Dokumente, Leitlinien; 1.3.5) sind konsistente und essenzielle Mechanismen, um die Verlässlichkeit des KI-Outputs systematisch zu filtern und zu auditieren. |
+| **Klinische Verantwortung** | Die Positionierung als reine **Informations- und Orientierungsassistenz** ist explizit und wird durchgehend betont (Kap. 2.6.4, 3.1.3). Dies stellt die **finale klinische Entscheidung und Verantwortung des Fachpersonals** juristisch und prozessual unangreifbar. |
+| **Datengovernance & Sicherheit** | Es gibt eine klare und konsistente Strategie, um Sicherheit (Privacy by Design) und Nachvollziehbarkeit zu gewährleisten (Abschnitt 2). Die Prinzipien **Least Privilege & Need-to-Know** (Kap. 14.5), die **Episodische Datenverarbeitung/TTL** (Kap. 14.4) und der umfassende **Audit-Trail** (Kap. 12.6) stützen sich gegenseitig. |
+| **Terminologie und Semantik** | Die Festlegung auf **FHIR** (Interoperabilität) und **SNOMED CT** (klinische Referenzterminologie) als zentrale Standards (Kap. 14.1, 14.2, 2.1, 2.2) ist fundamental für die Präzision und minimiert die Gefahr von KI-Halluzinationen aufgrund terminologischer Inkonsistenzen. |
+| **Qualitätssicherung (Guardrails)** | Die mehrstufige **Prompt-Pipeline** (Kap. 6) und die **klare Trennung der Wissensdomänen** (Fakten, Dokumente, Leitlinien; Kap. 14.3) sind konsistente und essenzielle Mechanismen, um die Verlässlichkeit des KI-Outputs systematisch zu filtern und zu auditieren. |
 | **Problem-Lösungs-Fit** | Das System ist darauf ausgelegt, die im Ist-Zustand (3.2) identifizierte **Fragmentierung medizinischer Information** und den **hohen manuellen Suchaufwand** (15–50 Minuten pro Arzt/Tag) direkt durch eine konsolidierte Wissensbasis und natürliche Sprachanfragen zu lösen. |
 
 II. Lücken (Potenzielle Ergänzungsbereiche)
@@ -2630,7 +2632,7 @@ Die Averbis-Lösung umfasst zwei Kernmodule:
 | **Unabhängigkeit / Vendor Lock-in** | **Technologisch unabhängig.** Offene Standards (FHIR, SNOMED). LLM austauschbar. Keine Bindung an einzelnen Anbieter. | **Hoher Vendor Lock-in.** Abhängigkeit von Meierhofer + Averbis. Funktionserweiterungen nur über Anbieter. Preisgestaltung nicht kontrollierbar. |
 | **Innovationstiefe** | **Hoch.** GraphRAG mit FHIR/SNOMED, mehrstufige Prompt-Pipeline, episodisches RAG mit Zweckbindung, deterministische Qualitätssicherung. | Mittel. NLP-basierte Textanalyse (Averbis Health Discovery). Kein GraphRAG, kein FHIR-basiertes Wissensnetz. |
 | **Qualitätssicherung KI** | **Mehrstufige Prompt-Pipeline** mit Domain-Classification, SNOMED-Normalisierung, Validierung, Quellentrennung (Fakten/Dokumente/Leitlinien). | Feedback-Mechanismus (Daumen hoch/runter). Interne Validierungslogik von Averbis (intransparent für UKL). |
-| **Time-to-Market** | Länger: Eigenentwicklung erfordert Aufbau von Team, Infrastruktur, Pilotierung. MVP realistisch ab Q1/2027. | Kürzer: M-KIS 15.1.0 mit Averbis-Funktionen könnte parallel zur KIS-Einführung verfügbar sein. |
+| **Time-to-Market** | Länger: Eigenentwicklung erfordert Aufbau von Team, Infrastruktur, Pilotierung. MVP realistisch ab Q4/2026 (vgl. Kap. 17.2). | Kürzer: M-KIS 15.1.0 mit Averbis-Funktionen könnte parallel zur KIS-Einführung verfügbar sein. |
 | **Kosten (Einschätzung)** | Höhere Initialkosten (Infrastruktur, Personal, LLM-Lizenzen). Langfristig niedrigere laufende Kosten durch Eigenhoheit. | Lizenzkosten für Averbis + Meierhofer-Module. Dienstleistungskosten Averbis noch offen (Angebot ausstehend). Langfristig steigende Lizenzkosten möglich. |
 | **Compliance (EU AI Act, DSGVO)** | Volle Kontrolle über Compliance-Maßnahmen. Transparenz der KI-Pipeline gewährleistet Hochrisiko-KI-Anforderungen. | Compliance-Verantwortung teilweise beim Anbieter. Transparenz der Averbis-Algorithmen für UKL nicht vollständig gegeben. |
 | **Strategischer Wert** | **Hoch.** Aufbau interner KI-Kompetenz. Universitätsklinikum als Innovationsführer. Nachnutzungspotenzial, Forschungsanbindung. | Mittel. Standardprodukt. Kein Kompetenzaufbau am UKL. Kein Alleinstellungsmerkmal. |
@@ -2848,7 +2850,7 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 |------------|-----------------|----------|--------------|----------------------|
 | **Graph-Datenbank (Neo4j)** | Inkrementelles Backup + wöchentliches Full-Backup | Täglich / wöchentlich | 30 Tage | Quartalsweise |
 | **Vektor-Datenbank** | Snapshot + Re-Indexierung aus Quelldaten möglich | Wöchentlich | 14 Tage | Bei Re-Indexierung implizit |
-| **Audit-Log** | Append-Only, replikat auf separatem Storage | Echtzeit-Replikation | ≥ 10 Jahre (Aufbewahrungspflicht) | Halbjährlich |
+| **Audit-Log** | Append-Only, Replikat auf separatem Storage | Echtzeit-Replikation | ≥ 10 Jahre (Aufbewahrungspflicht) | Halbjährlich |
 | **Konfiguration/Code** | Git-Repository + Infrastructure-as-Code | Bei jeder Änderung | Unbegrenzt | Bei jedem Deployment |
 | **LLM-Modell-Artefakte** | Versioniertes Model-Registry | Bei jeder Modelländerung | Alle Versionen | Bei Rollback |
 
@@ -2888,7 +2890,7 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 | Kategorie | Beschreibung | Schweregrad | Beispiele |
 |-----------|-------------|-------------|-----------|
 | **SEC-1** | Datenschutzverstoß / Unbefugter Zugriff auf Patientendaten | **Kritisch** | Berechtigungsfehler → Patient A sieht Daten von Patient B; Audit-Log-Manipulation |
-| **SEC-2** | Sicherheitslücke in Infrastruktur | **Hoch** | Unautorisierer Netzwerkzugriff auf GPU-Server; kompromittierte API-Keys |
+| **SEC-2** | Sicherheitslücke in Infrastruktur | **Hoch** | Unautorisierter Netzwerkzugriff auf GPU-Server; kompromittierte API-Keys |
 | **AI-1** | Systematische KI-Fehlfunktion (Halluzination mit klinischer Relevanz) | **Hoch** | LLM erfindet Medikation, die nicht in Akte steht; falsche Laborwerte zitiert |
 | **AI-2** | Qualitätsverschlechterung der KI-Antworten | **Mittel** | Zunehmend leere Ergebnisse; sinkende Nutzerzufriedenheit; Index-Drift |
 | **OPS-1** | Systemausfall (UKLGPT nicht erreichbar) | **Hoch** | GPU-Server-Ausfall; Datenbank-Crash; Netzwerkproblem |
