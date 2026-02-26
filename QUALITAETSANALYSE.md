@@ -255,7 +255,7 @@ Nur logische Widersprüche, unrealistische Annahmen, Bewertungsinkonsistenzen.
 |----|-----------|------|--------|
 | 1 | **SAP IS-H als „Master of Permission" wird Oktober 2026 abgeschaltet** – Berechtigungskonzept (Kap. 12) basiert vollständig auf einem System, das nicht mehr verfügbar sein wird. Kein Migrationsplan für Berechtigungshoheit auf M-KIS. | P1 | Operativ, Security, Compliance – **No-Go-relevant** |
 | 2 | **Keine Zeitplanung, keine Meilensteine, kein Ressourcenplan** – Das Dokument enthält keinerlei zeitliche Einordnung der beschriebenen Maßnahmen relativ zum SAP-Abschalttermin Oktober 2026. | P1 | Operativ, finanziell – Nicht planbar |
-| 3 | **Keine Kosten-Nutzen-Analyse / Business Case** – Nutzenargumente (Zeitersparnis, FTE-Entlastung) ohne Quantifizierung oder Herleitung. Keine Kostenabschätzung für Infrastruktur, Lizenzen, Personal. | P1 | Finanziell – Nicht entscheidungsfähig |
+| 3 | **Kosten-Nutzen-Analyse / Business Case unvollständig** – Nutzenquantifizierung aus Use-Case-Beschreibung eingebaut (Zeitersparnis). Kostenseite (Infrastruktur, Lizenzen, Personal) fehlt weiterhin. | P1→P2 | Finanziell – Nutzen belegt, Kosten offen |
 | 4 | **Fehlende Variantenbewertung Averbis/Meierhofer** – Die vom MKIS-Hersteller Meierhofer angebotene integrierte KI-Lösung (Averbis Health Discovery) wird nicht bewertet. Laut PSP (3.2 Marktanalyse, 3.5 Vergleich) ist ein Vergleich Pflicht-Deliverable. | P1 | Strategisch – Entscheidungsvorlage unvollständig |
 | 5 | **Doppelte Kapitelnummerierung** – Kapitel 2 und 3 existieren jeweils doppelt mit unterschiedlichem Inhalt. Strukturbruch macht Referenzierung unmöglich. | P2 | Qualität – Board-Untauglich |
 | 6 | **Fehlende PSP-Zuordnung** – Keine Zuordnung der Dokumentinhalte zu den vereinbarten Vorprojekt-Produkten (PSP_Vorprojekt_v0.6.md). Traceability zum Projektauftrag fehlt. | P1 | Governance – Abnahme gefährdet |
@@ -454,6 +454,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Vorläufigen Business Case erstellen: (1) Investitionskosten, (2) Laufende Kosten p.a., (3) Qualitative/quantitative Nutzenargumente, (4) Break-Even-Abschätzung.
 - **Priorität:** P1
 - **Owner:** PMO / Controlling
+- **Status:** TEILWEISE BEHOBEN – Vorläufiger Business Case (Nutzenquantifizierung) aus „EMR GPT Use Case Beschreibung 02.docx" in Kap. 0.5 des Zielarchitektur-Dokuments eingebaut. Kostenseite weiterhin offen.
 
 ### F-02: Recherchezeit-Angaben ohne Erhebungsmethodik
 - **Befund:** „15-50 Minuten Recherchezeit pro Arzt und Tag" – keine Angabe zu Erhebungsmethodik, Stichprobengröße, Repräsentativität.
@@ -462,6 +463,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Erhebungsmethodik dokumentieren (Befragung? Messung? Schätzung?). Wenn Schätzung, explizit als Annahme kennzeichnen.
 - **Priorität:** P2
 - **Owner:** Fachbereich
+- **Status:** TEILWEISE BEHOBEN – Quelle „EMR GPT Use Case Beschreibung 02.docx" (Fachbereich-Erhebung) als Referenz im Dokument hinterlegt. Methodik der Erhebung weiterhin zu dokumentieren.
 
 ### F-03: Quantifizierung „21 Millionen PDFs" ohne Quelle
 - **Befund:** Die Zahl 21 Mio. PDFs wird als Fakt genannt, Quelle ist unklar.

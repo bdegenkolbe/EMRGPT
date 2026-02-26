@@ -45,42 +45,54 @@ Die Eigenlösung UKLGPT bietet signifikant höhere Datenhoheit, Unabhängigkeit 
 
 ---
 
-## 0.2 PSP-Zuordnung Vorprojekt (PRINCE2-Produktstruktur)
+## 0.2 PSP-Zuordnung Vorprojekt (PRINCE2-Produktstruktur) – FÜHRENDE STRUKTUR
 
-Die folgende Tabelle ordnet die Inhalte dieses Dokuments den vereinbarten Produkten des Vorprojekts (PSP_Vorprojekt_v0.6.md) zu und identifiziert Lücken.
+Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit dem Kunden UKL abgestimmte Leitstruktur** dieses Vorprojekts. Jedes Ergebnis dieses Dokuments muss einem PSP-Produkt zuordenbar sein. Die folgende Tabelle bildet den Gesamtstatus aller PSP-Produkte ab.
 
-| PSP-Nr | PSP-Produkt | Abgedeckt in Kapitel | Status |
-|--------|-------------|---------------------|--------|
-| 1.1 | Projektauftrag Vorprojekt | Kap. 0 (Management Summary) | Teilweise – Separater Projektauftrag erforderlich |
-| 1.2 | Projektorganisation | Kap. 0.3 | NEU ERGÄNZT |
-| 1.3 | Stakeholderanalyse | Kap. 0.4 | NEU ERGÄNZT |
-| 1.4 | Kommunikationsplan | – | OFFEN |
-| 1.5 | Vorläufiger Business Case | – | OFFEN (P1-Befund) |
-| 1.6 | Risiko- und Chancenliste | Kap. 1.4, QUALITAETSANALYSE.md | Teilweise |
-| 2.1 | Zielbild EMRgpt | Kap. 1, 2, 3.1 | Abgedeckt |
-| 2.2 | Use-Case-Beschreibung | Kap. 3.3 | Abgedeckt |
-| 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3 | Teilweise |
-| 3.1 | Technische Zielarchitektur | Kap. 4-12 | Umfassend |
-| 3.2 | Marktanalyse | Kap. 16 | NEU ERGÄNZT |
-| 3.3 | Analyse HYDMedia | Kap. 2.4, 3.2.6 | Abgedeckt |
-| 3.4 | Analyse DMI Lösung | Kap. 2.1 | Teilweise |
-| 3.5 | Vergleich HYDMedia vs. DMI | – | OFFEN |
-| 3.6 | Schnittstellenübersicht | Kap. 8, 10 | Abgedeckt |
-| 3.7 | Technisches Vorgehensmodell | Kap. 5, 6, 9 | Abgedeckt |
-| 3.8 | Zugriff auf ISILON | Kap. 3.2.6.1 | Teilweise |
-| 3.9 | KIS-Dokumentenzugriff (Meierhofer) | Kap. 16 | NEU ERGÄNZT |
-| 4.1 | Datenschutzkonzept | Kap. 13.1 | Abgedeckt |
-| 4.2 | DSFA (Vorprüfung) | Kap. 13.1 | Teilweise |
-| 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4 | Teilweise |
-| 4.4 | Berechtigungskonzept | Kap. 12 | Umfassend |
-| 4.5 | SAP-Berechtigungsanalyse | Kap. 12.1 | Teilweise |
-| 4.6 | Logging-Konzept | Kap. 12.6 | Abgedeckt |
-| 5.1 | Entscheidungsgrundlage Datenhaltung | Kap. 2 | Teilweise |
-| 5.2 | Entscheidungsgrundlage LLM | Kap. 5, 6, 7, 16 | Teilweise |
-| 5.3 | Management-Entscheidungsvorlage | Kap. 0 | NEU ERGÄNZT |
-| 6.1 | Empfehlung für Hauptprojekt | Kap. 0 | NEU ERGÄNZT |
-| 6.2 | Grober Umsetzungsfahrplan | – | OFFEN (P1-Befund) |
-| 6.3 | Abnahmedokument | – | Am Ende des Vorprojekts |
+| PSP-Nr | PSP-Produkt | Abgedeckt in Kapitel | Status | Verantwortlich |
+|--------|-------------|---------------------|--------|----------------|
+| **1. Projektorganisation** | | | | |
+| 1.1 | Projektauftrag Vorprojekt | Kap. 0 (Management Summary) | Teilweise – Separater Projektauftrag erforderlich | Auftraggeber |
+| 1.2 | Projektorganisation | Kap. 0.3 | ERGÄNZT | Projektmanager |
+| 1.3 | Stakeholderanalyse | Kap. 0.4 | ERGÄNZT | Projektmanager |
+| 1.4 | Kommunikationsplan | – | OFFEN | Projektmanager |
+| 1.5 | Vorläufiger Business Case | Kap. 0.5 | ERGÄNZT (Nutzen quantifiziert, Kosten offen) | Auftraggeber |
+| 1.6 | Risiko- und Chancenliste | Kap. 1.4 + QUALITAETSANALYSE.md Risiko-Register | Teilweise | Projektmanager |
+| **2. Fachlich** | | | | |
+| 2.1 | Zielbild EMRgpt | Kap. 1, 2, 3.1 | Abgedeckt | PM, Carina, Gert, Robert W. |
+| 2.2 | Use-Case-Beschreibung LLM-Anbindung | Kap. 3.3 + EMR GPT Use Case Beschreibung 02.docx | Abgedeckt | Fachbereich |
+| 2.2.1 | Kostenanalyse | Kap. 0.5 (Nutzen) | Teilweise – Kostenseite offen | PMO / Controlling |
+| 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3 | Teilweise – Formale Anforderungsliste fehlt | Fachbereich |
+| 2.3.1 | Daten aus UKLytics | Kap. 8 (Datenzufluss DWH→GraphRAG) | Abgedeckt | IT |
+| **3. Technisch** | | | | |
+| 3.1 | Technische Zielarchitektur | Kap. 4-12 | Umfassend | IT-Architektur |
+| 3.1.1 | Infrastruktur | Kap. 7, 8 | Teilweise – Sizing/Kosten offen | IT-Infrastruktur |
+| 3.2 | Marktanalyse | Kap. 16 (Variantenvergleich) | ERGÄNZT | PM, 4K |
+| 3.3 | Analyse HYDMedia | Kap. 2.4, 3.2.6 | Abgedeckt | Valentin |
+| 3.3.1 | Schnittstellenbeschreibung FHIR | Kap. 3.2.6.2 | Abgedeckt | Schnittstellenverantwortlicher |
+| 3.4 | Analyse DMI Lösung | Kap. 2.1 | Teilweise | Valentin, Carina |
+| ~~3.5~~ | ~~Vergleich HYDMedia vs. DMI~~ | – | ENTFÄLLT (durch PSP-Abstimmung ersetzt durch Variantenvergleich Kap. 16) | – |
+| 3.6 | Schnittstellenübersicht | Kap. 8, 10 | Abgedeckt | IT-Architektur, Valentin |
+| 3.7 | Technisches Vorgehensmodell | Kap. 5, 6, 9 | Abgedeckt | IT-Architektur, 4K |
+| 3.8 | Zugriff auf ISILON | Kap. 3.2.6.1 | Teilweise – Carina fragt Daniel | IT-Infrastruktur |
+| 3.9 | KIS-Dokumentenzugriff (Meierhofer) | Kap. 16 | ERGÄNZT | Robert W., Carina, Valentin |
+| **4. Rechtebewertung und Sicherheit** | | | | |
+| 4.1 | Datenschutzkonzept | Kap. 13.1 | Abgedeckt | DSB (Hr. Sünkel) |
+| 4.2 | DSFA (Vorprüfung) | Kap. 13.1 | Teilweise | DSB (Hr. Sünkel) |
+| 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4 | Teilweise | ISB (S. Krause) |
+| 4.4 | Berechtigungskonzept | Kap. 12 | Umfassend | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
+| 4.5 | SAP-Berechtigungsanalyse | Kap. 12.1 | Teilweise – Migration auf M-KIS ergänzt | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
+| 4.6 | Logging-/Nachvollziehbarkeitskonzept | Kap. 12.6 | Abgedeckt | IT-Sicherheit, PM |
+| **5. Management Summary** | | | | |
+| 5.1 | Entscheidungsgrundlage Datenhaltung | Kap. 2 | Teilweise | PM, Carina |
+| 5.2 | Entscheidungsgrundlage LLM-Anbindung | Kap. 5, 6, 7, 16 | Teilweise | IT-Architektur, Carina, PM |
+| 5.3 | Management-Entscheidungsvorlage | Kap. 0 | ERGÄNZT | PM |
+| **6. Abschlussdokumentation** | | | | |
+| 6.1 | Empfehlung für Hauptprojekt | Kap. 0, 16.4 | ERGÄNZT | PM |
+| 6.2 | Grober Umsetzungsfahrplan | – | OFFEN (P1-Befund) | PM |
+| 6.3 | Abnahmedokument Vorprojekt | – | Am Ende des Vorprojekts | Auftraggeber |
+
+**Legende:** ERGÄNZT = in dieser Version neu hinzugefügt | OFFEN = noch zu erstellen | ~~Durchgestrichen~~ = entfällt
 
 ---
 
@@ -98,6 +110,47 @@ Die folgende Tabelle ordnet die Inhalte dieses Dokuments den vereinbarten Produk
 | Berechtigungen | Martin Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich | Berechtigungskonzept, SAP-Analyse |
 
 **Hinweis:** Die Rolle des **Projektleiters für das Umsetzungsprojekt** ist derzeit unbesetzt und muss priorisiert installiert werden. PM-Exzellenz ist ein erklärtes Projektziel.
+
+---
+
+## 0.5 Vorläufiger Business Case (PSP 1.5 / PSP 2.2.1)
+
+*Quelle der Nutzendaten: „EMR GPT Use Case Beschreibung 02.docx" (Fachbereich-Erhebung)*
+
+### Ausgangslage und Problemquantifizierung
+
+| Kennzahl | Ambulant | Stationär | Quelle |
+|----------|----------|-----------|--------|
+| Suchanfragen pro Arzt/Tag | 2–5 | 3–5 | Fachbereich-Erhebung |
+| Durchschnittliche Suchdauer | 5–10 Min. | 5–10 Min. | Fachbereich-Erhebung |
+| Maximale Suchdauer (Einzelfälle) | bis 20 Min. | bis 20 Min. | Fachbereich-Erhebung |
+| Gesamter Rechercheaufwand pro Arzt/Tag | 15–50 Min. | 15–50 Min. | Berechnung |
+| Zusätzlicher Aufwand durch „Doppelfragen" | ca. 2–3 Min./Doppelfrage | ca. 2–3 Min./Doppelfrage | Fachbereich-Erhebung |
+
+**[Annahme]** Der theoretische Abrufbedarf liegt laut Fachbereich deutlich höher als die tatsächliche Nutzung, da HydMedia aufgrund seiner Komplexität häufig nicht konsequent genutzt wird. Ärzte behelfen sich mit erneuter Befragung der Patienten.
+
+### Nutzenquantifizierung (Eigenlösung UKLGPT)
+
+| Nutzenkategorie | Quantifizierung | Annahme/Herleitung |
+|-----------------|----------------|-------------------|
+| **Zeitersparnis pro Suchanfrage** | Von Ø 7,5 Min. auf ca. 10 Sek. (Zielwert) | GPT-gestützte Suche lt. Fachbereich-Erhebung |
+| **Zeitersparnis pro Arzt/Tag** | 15–50 Min. Recherchezeit → ca. 1–2 Min. | Bei 3–5 Anfragen × 10 Sek. |
+| **Hochrechnung UKL (Ärzte)** | [Annahme: 500 Ärzte] × Ø 30 Min./Tag = **250 Arztstunden/Tag** eingesparte Recherchezeit | Muss mit Personaldaten validiert werden |
+| **Qualitative Verbesserung** | Reduktion von Informationslücken, weniger Doppelfragen, höhere Patientensicherheit | Fachbereich-Erhebung (qualitativ) |
+| **Reduktion Frustrationslast** | Signifikant – HydMedia-Komplexität wird durch natürliche Sprache ersetzt | Fachbereich-Erhebung |
+
+### Kostenabschätzung (Grobrahmen – noch zu detaillieren)
+
+| Kostenblock | Eigenlösung UKLGPT | Averbis/Meierhofer | Anmerkung |
+|-------------|--------------------|--------------------|-----------|
+| Infrastruktur (GPU, Speicher, Netz) | Zu kalkulieren | Entfällt (Cloud/SaaS) | On-Premise vs. Cloud |
+| LLM-Lizenzen / API-Kosten | Zu kalkulieren | In Lizenz enthalten | Abhängig von Modellwahl |
+| Personal (Entwicklung, Betrieb) | Zu kalkulieren | Gering (SaaS-Betrieb) | Kompetenzaufbau vs. Einkauf |
+| OCR-Verarbeitung (21 Mio. PDFs) | Zu kalkulieren | Nicht enthalten | Beide Varianten benötigen OCR |
+| Meierhofer/Averbis-Lizenz | Entfällt | Angebot ausstehend | |
+| Externe Beratung | Zu kalkulieren | Zu kalkulieren | |
+
+**Handlungsbedarf:** Die Kostenseite muss im weiteren Verlauf des Vorprojekts detailliert werden. Mindestens erforderlich: (1) Infrastruktur-Sizing und -Kosten durch IT, (2) Averbis-Angebot abwarten, (3) FTE-Planung für Entwicklung und Betrieb.
 
 ---
 
