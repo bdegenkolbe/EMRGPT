@@ -846,6 +846,52 @@ Ein fundamentaler Sicherheitsmechanismus ist die **strikt logische Trennung der 
 
 Durch diese klare Unterscheidung kann das KI-System präzise angeben, auf welcher Grundlage eine Aussage getroffen wird (z. B. "Laut Laborwert vom TT.MM.JJJJ ist der Wert X erhöht" vs. "Gemäß AWMF-Leitlinie Y sollte in diesem Fall Z erfolgen"). Dies erhöht die **Transparenz, Auditierbarkeit und die klinische Akzeptanz** des generierten Outputs.
 
+### 2.8.6 Evidenz- und Studien-Domainservice – Die vierte Wissensschicht
+
+Die vielleicht weitreichendste Innovation unserer Architektur liegt in der Einführung eines eigenständigen **Evidenz- und Studien-Domainservice**, der als vierte, dynamische Wissensschicht neben Fakten, Dokumenten und Leitlinien tritt. Im Gegensatz zu statischen Leitlinien-RAGs, die manuell befüllt und periodisch aktualisiert werden, handelt es sich hier um einen **lebenden, sich selbst aktualisierenden Wissensservice**, der drei fundamentale Fähigkeiten vereint:
+
+**1. Automatische Evidenz-Zuordnung (Evidence-Matching als Domainservice):**
+
+Der Service wird nicht als monolithischer Baustein implementiert, sondern als **entkoppelter Domainservice**, der über definierte Schnittstellen sowohl an die Patientendaten (GraphRAG) als auch an die Wissensbasis (Globaler Wissens-RAG) angebunden werden kann. Konzeptionell bedeutet das:
+
+* **Andockpunkt Patientendaten:** Bei jedem Patientenkontakt extrahiert der Service die SNOMED-kodierten Diagnosen aus dem GraphRAG und übersetzt sie automatisch in Suchanfragen gegen externe Evidenzquellen (Europe PMC, ClinicalTrials.gov). Das Ergebnis sind patientenspezifische Evidenz-Karten, die dem Kliniker proaktiv angezeigt werden – nicht als generische Literaturliste, sondern als **kontextualisierte, nach klinischer Relevanz gewichtete Empfehlungen**.
+
+* **Andockpunkt Wissensbasis:** Derselbe Service speist gleichzeitig die globale Wissensbasis mit aktuellen Erkenntnissen. Neue hochzitierte Publikationen, aktualisierte Leitlinien und relevante Studienergebnisse werden automatisch in den Wissens-RAG-Index aufgenommen und stehen damit allen zukünftigen Patientenkontakten zur Verfügung.
+
+**2. LLM-gestützte Regelableitung aus Evidenz:**
+
+Ein wesentlicher konzeptioneller Unterschied zu reinen Literatur-Suchsystemen besteht darin, dass der Domainservice nicht nur Publikationen *findet*, sondern aus ihnen **klinisch anwendbare Regeln ableitet**. Durch den Einsatz von LLMs auf den abgerufenen Volltexten (Open Access via Europe PMC) können strukturierte Aussagen extrahiert werden:
+
+* **Therapie-Regeln:** „Bei HFrEF mit LVEF < 35 % → SGLT2-Inhibitor erwägen (ESC Guidelines 2023, Klasse I, Evidenzgrad A)"
+* **Kontraindikations-Checks:** „Metformin kontraindiziert bei eGFR < 30 ml/min (KDIGO 2024)"
+* **Dosierungshinweise:** „Empagliflozin 10 mg/d – keine Dosisanpassung bei Niereninsuffizienz bis eGFR 20 ml/min (EMPEROR-Preserved, NEJM 2021)"
+
+Diese aus der Literatur abgeleiteten Regeln werden nicht direkt als Handlungsanweisungen ausgegeben, sondern als **Evidenz-Annotationen** dem Kliniker zur Validierung vorgelegt. Der Kliniker kann bestätigen, anpassen oder verwerfen – bestätigte Regeln fließen in die hauseigene Regelbasis ein und stehen fortan als validierter Bestandteil der klinischen Entscheidungsunterstützung (CDS) zur Verfügung. So entsteht über die Zeit ein **lernender, evidenzbasierter Regelkatalog**, der die Brücke zwischen Literatur und Praxis schlägt.
+
+**3. Klinische Studienanbindung (Clinical Trial Matching):**
+
+Als dritte Säule integriert der Domainservice die automatische Suche nach **laufenden klinischen Studien**, die für den jeweiligen Patienten relevant sein könnten. Über die ClinicalTrials.gov API v2 (REST, öffentlich, ohne Authentifizierung) werden SNOMED-Diagnosen in Studiensuchen übersetzt:
+
+* **Automatische Studien-Vorschläge:** „Für Ihre Diagnose *Herzinsuffizienz* laufen aktuell 47 rekrutierende Studien, davon 3 an Zentren in Sachsen/Thüringen."
+* **Eignungsprüfung:** Basierend auf dem Patientenprofil (Alter, Geschlecht, Diagnosen, Medikation) kann eine erste automatische Vorfilterung der Ein-/Ausschlusskriterien erfolgen.
+* **Standortbezug:** Durch den geografischen Filter (`filter.geo`) werden Studien priorisiert, die am UKL selbst oder in erreichbarer Nähe durchgeführt werden.
+
+Dies ist besonders für ein Universitätsklinikum von strategischer Bedeutung: Die Studienrekrutierung wird beschleunigt, Patienten erhalten frühzeitiger Zugang zu innovativen Therapien, und das Klinikum stärkt seine Position als Forschungsstandort.
+
+**Warum ist das eine wesentliche Innovation?**
+
+Die meisten existierenden klinischen KI-Systeme (einschließlich kommerzieller Anbieter wie hAIppokrates/GreenBay) beschränken sich auf die **Beantwortung von Fragen** auf Basis einer statischen Wissensbasis. Unser Ansatz geht fundamental weiter:
+
+| Merkmal | Konventionelle Systeme | UKLGPT-Ansatz |
+|---------|----------------------|---------------|
+| Evidenzbasis | Statisch, manuell kuratiert | Dynamisch, automatisch aktualisiert |
+| Literaturanbindung | Keine oder manuell | Automatisches SNOMED → Europe PMC Matching |
+| Regelableitung | Hardcodiert oder manuell | LLM-extrahiert, kliniker-validiert, lernend |
+| Studienmatching | Nicht vorhanden | Automatisch via ClinicalTrials.gov + Patientenprofil |
+| Architektur | Monolithisch | Domainservice, andockbar an Patient *und* Wissensbasis |
+
+Der Domainservice transformiert UKLGPT von einem *reaktiven Frage-Antwort-System* zu einem **proaktiven klinischen Wissenspartner**, der nicht nur antwortet, sondern aktiv relevante Evidenz, abgeleitete Regeln und Studienoptionen in den klinischen Workflow einbringt.
+
 **Zusammenfassend entsteht dadurch ein kontrolliertes, domänenspezifisches KI-System, das die Leistungsfähigkeit von LLMs mit der Präzision, Struktur und Sicherheit klinischer Informationssysteme verbindet.**
 
 # 14\. Leitprinzipien der Datenarchitektur und \-verarbeitung {#14.-leitprinzipien-der-datenarchitektur-und--verarbeitung}
@@ -1557,6 +1603,7 @@ Die Trennung in Domänen ermöglicht es, für jede Art von Information die optim
 | **Strukturierte Fakten (Struktur-RAG)** | GraphRAG | DWH-Daten, FHIR/SNOMED-Klassifikationen | Bereitstellung eines präzisen, klinischen Kontextes und Steuerung der Abfragepfade (Faktenbasiert). |
 | **Unstrukturierte Dokumente (Patienten-Dokumenten-RAG)** | Vektor-DB (episodisch, zeitbasiert) | HYDMedia G6 Dokumente, klinische Berichte, Arztbriefe | Erfassung des Patientenverlaufs, detaillierte Befunde, individuelle Historie (Kontext). |
 | **Globales Wissen (Globaler Wissens-RAG)** | Vektor-DB + Europe PMC API | Leitlinien, Europe PMC / PubMed-Artikel, Medizinische Klassifikationen | Bereitstellung evidenzbasierter Informationen, medizinischer Evidenz und fachlicher Einordnung (Leitlinien). Automatisches Evidence-Matching via SNOMED → Europe PMC (Kap. 7.2.1.1). |
+| **Evidenz- und Studien-Domainservice** (Kap. 2.8.6) | Europe PMC + ClinicalTrials.gov API + LLM-Regelableitung | Aktuelle Publikationen, laufende klinische Studien, LLM-extrahierte Therapieregeln | Dynamische, sich selbst aktualisierende Wissensschicht: patientenspezifische Evidenz-Karten, automatisches Trial-Matching, LLM-gestützte Ableitung klinischer Regeln mit Human-in-the-Loop-Validierung. Andockbar an Patientendaten *und* Wissensbasis (Kap. 7.2.1.3, 7.2.1.4). |
 
 ## 7.2 Detaillierte RAG-Architekturkomponenten {#7.2-detaillierte-rag-architekturkomponenten}
 
@@ -1627,6 +1674,140 @@ Das **Evidence-Matching** ist der Kernmechanismus, der bei jedem Patientenkontak
 **Datenschutz-Konformität:** Es werden keine Patientendaten an Europe PMC übermittelt. Die Suchanfragen enthalten ausschließlich medizinische Fachbegriffe (SNOMED-Terme), keine personenbezogenen Daten.
 
 **Referenzimplementierung:** `Codebeispiele/europe-pmc-api/europe_pmc_examples.py` (Suche, Leitlinien, Text-Mining, Evidence-Matching) und `Codebeispiele/snomed-fhir-api/snomed_to_europepmc_bridge.py` (End-to-End: SNOMED→Terme→Europe PMC).
+
+#### 7.2.1.3 Klinische Studiendatenbanken als Datenquelle
+
+Neben der wissenschaftlichen Literatur (Europe PMC) bindet der Evidenz-Domainservice (vgl. Kap. 2.8.6) **klinische Studienregister** als eigenständige Datenquelle an. Ziel ist die automatische Identifikation laufender Studien, die für die Diagnosen eines Patienten relevant sein könnten – insbesondere für ein Universitätsklinikum ein strategischer Vorteil bei der Studienrekrutierung.
+
+**Primäre Quelle: ClinicalTrials.gov API v2**
+
+ClinicalTrials.gov ist das weltweit größte Studienregister (> 500.000 Studien) und bietet seit 2024 eine moderne REST-API (v2, OpenAPI 3.0):
+
+| Parameter | Funktion | Beispiel |
+|-----------|----------|---------|
+| `query.cond` | Suche nach Krankheitsbegriff (Condition) | `query.cond=heart+failure` |
+| `query.intr` | Suche nach Intervention (Medikament, Prozedur) | `query.intr=sacubitril` |
+| `filter.overallStatus` | Filter auf Studienstatus | `RECRUITING`, `NOT_YET_RECRUITING` |
+| `filter.geo` | Geografischer Filter (Standort) | Filter auf Sachsen/Deutschland |
+| `pageSize` | Ergebnisse pro Seite (max. 1.000) | `pageSize=20` |
+| `format` | Antwortformat | `json` oder `csv` |
+
+**Beispiel-Abfrage:** `https://clinicaltrials.gov/api/v2/studies?query.cond=heart+failure&filter.overallStatus=RECRUITING&pageSize=10&format=json`
+
+**Integration in den UKLGPT-Workflow:**
+
+```
+┌──────────────────┐    ┌───────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│ 1. Patienten-    │───→│ 2. SNOMED-Term-   │───→│ 3. ClinicalTrials│───→│ 4. Eignungs-     │
+│    diagnosen     │    │    Expansion       │    │    .gov API v2   │    │    vorfilterung   │
+│ (aus GraphRAG)   │    │ (Snowstorm $lookup)│    │ (query.cond +   │    │ (Alter, Geschl., │
+│                  │    │                    │    │  filter.geo=DE)  │    │  Diagnosen vs.   │
+│                  │    │                    │    │                  │    │  Ein-/Ausschluss) │
+└──────────────────┘    └───────────────────┘    └──────────────────┘    └──────────────────┘
+```
+
+1. **SNOMED→Suchterm:** Die Patientendiagnosen (SNOMED-kodiert) werden über Snowstorm `$lookup` in englische MeSH-kompatible Terme übersetzt.
+2. **Studiensuche:** Die Terme werden als `query.cond` an ClinicalTrials.gov gesendet, gefiltert auf `RECRUITING` + geografische Nähe.
+3. **Eignungsvorfilterung:** Das Patientenprofil (Alter, Geschlecht, aktive Diagnosen, Medikation) wird gegen die Eligibility-Criteria der gefundenen Studien abgeglichen. Dies erfolgt LLM-gestützt, da die Eligibility-Kriterien als Freitext vorliegen.
+4. **Ergebnisdarstellung:** Relevante Studien werden als Karten im UI angezeigt (NCT-Nummer, Titel, Phase, Rekrutierungsstatus, Standort, Kontakt).
+
+**Sekundäre Quellen:**
+
+| Register | Status | Zugriff |
+|----------|--------|---------|
+| **EU CTIS** (Clinical Trials Information System) | Seit 01/2025 verpflichtend für EU-Studien. Kein offizielles REST-API, Webportal unter euclinicaltrials.eu | Semi-automatisch über R-Paket `ctrdata` oder Web-Scraping |
+| **DRKS** (Deutsches Register Klinischer Studien, BfArM) | WHO-Primärregister für Deutschland. API geplant, aktuell JSON-Export möglich | JSON-Export über drks.de; perspektivisch automatisiert über geplante API |
+| **WHO ICTRP** (International Clinical Trials Registry Platform) | Meta-Register, enthält DRKS-Daten | Batch-Download, keine REST-API |
+
+**Datenschutz:** Analog zu Europe PMC werden ausschließlich medizinische Fachbegriffe an externe Studienregister übermittelt. Es fließen keine Patientendaten (Name, Geburtsdatum, Fallnummer) nach außen.
+
+#### 7.2.1.4 LLM-gestützte Regelableitung aus Evidenz
+
+Ein konzeptioneller Kernbaustein des Evidenz-Domainservice (vgl. Kap. 2.8.6) ist die Fähigkeit, aus der abgerufenen Literatur nicht nur *Informationen* zu liefern, sondern **klinisch anwendbare Regeln** zu extrahieren, die in die hauseigene Entscheidungsunterstützung (CDS) einfließen können.
+
+**Abgrenzung:** Dieser Mechanismus ersetzt keine klinischen Leitlinien und keine ärztliche Urteilsbildung. Er dient als *Vorschlagssystem*, das neue Evidenz identifiziert und strukturiert aufbereitet. Jede abgeleitete Regel durchläuft einen **humanen Validierungsprozess**, bevor sie in die aktive Regelbasis aufgenommen wird.
+
+**Workflow der Regelableitung:**
+
+```
+┌──────────────┐    ┌───────────────┐    ┌──────────────────┐    ┌───────────────┐    ┌──────────────┐
+│ 1. Evidenz-  │───→│ 2. Volltext-  │───→│ 3. LLM-gestützte │───→│ 4. Klinische  │───→│ 5. Integration│
+│    Retrieval │    │    Analyse    │    │    Extraktion    │    │    Validierung│    │    in CDS     │
+│ (Europe PMC  │    │ (Open Access  │    │ (Strukturierte   │    │ (Mensch-in-  │    │ (Regelbasis + │
+│  Top-Artikel)│    │  fullTextXML) │    │  Regel-Templates)│    │  the-Loop)   │    │  GraphRAG)   │
+└──────────────┘    └───────────────┘    └──────────────────┘    └───────────────┘    └──────────────┘
+```
+
+**Schritt 1 – Evidenz-Retrieval:** Der Europe-PMC-Service identifiziert hochzitierte, aktuelle Publikationen zu den relevanten Diagnosen (vgl. Kap. 7.2.1.1). Priorisiert werden: Systematische Reviews, Leitlinien-Updates, RCTs mit > 100 Zitationen.
+
+**Schritt 2 – Volltextanalyse:** Für Open-Access-Artikel wird der Volltext über die Europe PMC `fullTextXML`-API abgerufen. Bei Nicht-OA-Artikeln werden Abstract und Conclusion ausgewertet.
+
+**Schritt 3 – LLM-Extraktion:** Ein spezialisierter Prompt extrahiert aus dem Volltext strukturierte Regel-Kandidaten nach einem definierten Template:
+
+| Feld | Beschreibung | Beispiel |
+|------|-------------|---------|
+| `condition` | SNOMED-kodierte Bedingung | `84114007` (Heart failure) + `LVEF < 35%` |
+| `action` | Empfohlene Maßnahme | „SGLT2-Inhibitor initiieren" |
+| `evidence_grade` | Evidenzgrad (wenn angegeben) | Klasse I, Evidenzgrad A |
+| `source` | Quellennachweis (DOI, PMID) | DOI: 10.1093/eurheartj/ehab368 |
+| `contraindications` | Gegenanzeigen (wenn extrahiert) | „eGFR < 20 ml/min" |
+| `confidence` | LLM-Konfidenz der Extraktion | 0.92 |
+
+**Schritt 4 – Klinische Validierung (Human-in-the-Loop):**
+
+Extrahierte Regel-Kandidaten werden **nicht** automatisch aktiviert. Stattdessen werden sie in eine **Review-Queue** eingestellt, die von klinischem Fachpersonal bearbeitet wird:
+
+* **Bestätigt:** Die Regel wird in die aktive CDS-Regelbasis aufgenommen, mit Quellennachweis und Gültigkeitsdatum.
+* **Modifiziert:** Der Kliniker passt Bedingungen, Dosierungen oder Kontraindikationen an lokale Gegebenheiten an.
+* **Verworfen:** Die Regel wird als nicht relevant oder nicht korrekt markiert; das Feedback fließt in die Prompt-Optimierung zurück.
+
+**Schritt 5 – Integration in CDS:**
+
+Validierte Regeln werden als strukturierte Objekte im GraphRAG gespeichert und stehen der Prompt-Pipeline (Kap. 6.3, Schritt „Medizinische Validierung") zur Verfügung. Bei zukünftigen Patientenkontakten werden die Regeln automatisch gegen das Patientenprofil gematcht:
+
+* Patient hat SNOMED `84114007` (Herzinsuffizienz) + LVEF 30% → Regel wird ausgelöst → Hinweis an Kliniker: „Gemäß ESC 2023 (validiert am TT.MM.JJJJ): SGLT2-Inhibitor erwägen."
+
+**Governance und Qualitätssicherung:**
+
+* Jede Regel hat eine **Gültigkeitsdauer** (TTL, default: 24 Monate). Abgelaufene Regeln werden automatisch zur Re-Validierung vorgelegt.
+* Jede Regelanwendung wird im **Audit-Trail** protokolliert (Regel-ID, Patientenkontext, Kliniker-Reaktion).
+* Regeln können nach Fachgebiet, Evidenzgrad und Validierungsstatus gefiltert werden.
+* Eine **Dashboards-Ansicht** zeigt den aktuellen Stand der Regelbasis: Anzahl aktiver Regeln, offene Review-Queue, Regelanwendungen pro Woche, Ablehnungsquote.
+
+**Zusammenspiel der Domainservice-Komponenten:**
+
+```
+                    ┌──────────────────────────────────┐
+                    │     Evidenz- und Studien-        │
+                    │        Domainservice             │
+                    │                                  │
+                    │  ┌────────────┐ ┌──────────────┐ │
+                    │  │ Europe PMC │ │ClinicalTrials│ │
+                    │  │  Literatur │ │  .gov Studien│ │
+                    │  └─────┬──────┘ └──────┬───────┘ │
+                    │        │               │         │
+                    │  ┌─────▼───────────────▼───────┐ │
+                    │  │    LLM-Regelableitung       │ │
+                    │  │  (Extraktion + Strukturierung)│ │
+                    │  └─────────────┬───────────────┘ │
+                    └────────────────┼─────────────────┘
+                                     │
+                    ┌────────────────▼─────────────────┐
+                    │     Human-in-the-Loop            │
+                    │  (Klinische Validierung)          │
+                    └────────────────┬─────────────────┘
+                                     │
+              ┌──────────────────────┼──────────────────────┐
+              ▼                      ▼                      ▼
+    ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
+    │   Patientendaten │   │   Wissensbasis   │   │   CDS-Regelbasis│
+    │   (GraphRAG)     │   │ (Wissens-RAG)    │   │  (validierte    │
+    │   → Evidenz-     │   │   → aktuelle     │   │   Regeln im     │
+    │     Karten       │   │     Artikel       │   │   GraphRAG)     │
+    └─────────────────┘   └─────────────────┘   └─────────────────┘
+```
+
+Der Domainservice wirkt damit auf **drei Ebenen** gleichzeitig: Er liefert dem Kliniker patientenspezifische Evidenz (links), hält die Wissensbasis aktuell (Mitte) und baut über die Zeit eine validierte, evidenzbasierte Regelbasis auf (rechts). Diese dreifache Wirkung – Information, Wissen, Regeln – ist das, was UKLGPT von einem reinen Frage-Antwort-System zu einem **lernenden klinischen Wissenspartner** transformiert.
 
 ### 7.2.2 Patienten-Dokumenten-RAG
 
