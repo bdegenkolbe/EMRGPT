@@ -1,0 +1,63 @@
+Hi Rico, 
+
+anbei die Antwort bzgl. der Anbindung von HydMedia an das integrierte KI-Produkt im MKIS. Das klingt – unabhängig von der Cloud-Geschichte – technisch erstmal vielversprechend, zumindest muss es als eine Variante mit in die Entscheidungsvorlage eingebracht werden. Allerdings müssten wir dafür noch einmal technisch mehr verstehen. Ich werde bei Meierhofer einen Termin mit einem Techniker anfragen, um die Variante detaillierter aufbereiten zu können.  
+
+Viele Grüße
+Carina
+
+Von: Grass, Samira <Samira.Grass@meierhofer.com> 
+Gesendet: Montag, 9. Februar 2026 15:55
+An: Müller, Rico <Rico.Mueller@medizin.uni-leipzig.de>; Waschipky, Robert <Robert.Waschipky@medizin.uni-leipzig.de>; Cundius, Carina <Carina.Cundius@medizin.uni-leipzig.de>; Jänig, Philipp <Philipp.Jaenig@medizin.uni-leipzig.de>; Ranft, Donald <Donald.Ranft@medizin.uni-leipzig.de>; Neef, Martin <Martin.Neef@medizin.uni-leipzig.de>; Schubert, Sara <Sara.Schubert@medizin.uni-leipzig.de>; Vogel, Ines <Ines.Vogel@medizin.uni-leipzig.de>; Rühling, Valentin <Valentin.Ruehling@medizin.uni-leipzig.de>
+Betreff: Beantwortung Rückfragen Averbis Präsentation
+
+WARNUNG: Diese E-Mail kam von außerhalb der Organisation. Klicken Sie nicht auf Links oder öffnen Sie keine Anhänge, es sei denn, Sie kennen den Absender und wissen, dass der Inhalt sicher ist. 
+
+Guten Tag zusammen, 
+
+vielen Dank für Ihre Teilnahme an der Averbis Präsentation am 30.01. Im Rahmen der Präsentation wurden einige offene Fragen angesprochen, die nun innerhalb des Meierhofer Produktmanagements in Abstimmung mit dem Produktmanagement von Averbis geprüft wurden. Gerne würde ich Ihnen hierzu Rückmeldung geben. 
+
+1.	Medical Summary
+
+Anbindung an Dokumentenarchiv und ePA
+Averbis ist in der Lage eine Anbindung an HYDMedia herzustellen. Mithilfe der Averbis Health Discovery Technologie können so Informationen aus dem Archiv für die Erstellung der Medical Summary genutzt werden. In der Regel erfolgt die Anbindung über den Kommunikationsserver der Klinik, wodurch die Patientenakte direkt aus dem Archiv abgerufen werden kann.
+Hinsichtlich der ePA wartet das Meierhofer Produktmanagement derzeit noch auf die Implementierung der Volltextsuche in der ePA. Details zur Umsetzung können bislang noch nicht gegeben werden.
+
+Fallbezug 
+Aktuell wird in der Medical Summary die Patienten-ID angezeigt und die Inhalte werden fallübergreifend gezogen. Der von Ihnen angesprochene Fallbezug ist seitens Averbis für März geplant. Damit wird es möglich sein, Inhalte auch für einen spezifischen Fall zu verwerten. 
+
+2.	Gesprächsdokumentation
+
+Medikamentenübernahme
+Es wurde die Frage aufgeworfen, ob Medikamente von der KI automatisch in die Medikation übernommen werden. Derzeit erfolgt keine automatische Übernahme, da die Medikation ein Medizinprodukt darstellt und daher eine sorgfältige Überprüfung erforderlich ist. Langfristig ist jedoch eine strukturierte Übernahme von Medikationsangaben in den Entwurfsmodus der Vormedikation im Medikationsmodul vorgesehen. Dies setzt jedoch eine MDR-Zertifizierung voraus und ist daher nicht kurzfristig realisierbar.
+
+Validierung / Feedback
+Es wurde gefragt, ob es möglich ist, Medikamente zu validieren (d.h. zu überprüfen, ob die KI ein Medikament korrekt erkannt hat) und ob Anwender generell Feedback zur KI geben können, wenn Fehler festgestellt werden. In der Medical Summary gibt es bereits zwei Symbole (Daumen hoch/runter), um der KI Feedback zu geben. Aktuell prüft das Produktmanagement, ob es auch in der Gesprächsdokumentation nach der Freigabe („Vidierung“) der Änderungen durch den Arzt eine Möglichkeit gibt, dieses Feedback an Averbis weiterzugeben, damit die KI daraus lernen kann.
+
+Hierzu einhergehend auch die Beantwortung der Frage, ob es in M-KIS ersichtlich sein wird, was ein Arzt notiert hat und welche Informationen von der KI kommen. Dies ist bereits im aktuellen Entwicklungsstand umgesetzt und wird mit dem Release der M-KIS Version 15.1.0 zur Verfügung stehen. 
+Die Umsetzung erfolgt dabei wie folgt: Die Zusammenfassung der Gesprächsdokumentation kommt von der KI. Ist das Gespräch beendet, kann der durchführende Arzt jeden Abschnitt der Zusammenfassung ändern. Bis zur Freigabe (Vidierung) der Gesprächszusammenfassung wird immer ein Zurücksetzen auf den KI-Stand möglich sein. Die Hervorhebung der manuellen Änderungen (Löschen oder Einfügen) wird dabei berücksichtigt. 
+
+3.	Angebotserstellung
+Ein Angebot ist bereits in Erstellung. Wir warten hier derzeit noch auf die Zulieferung der Dienstleistungsaufwände von Averbis, so dass Sie dieses ebenfalls zeitnah erhalten. 
+
+
+
+Sollten Sie weitere Rückfragen oder zusätzliche Informationen benötigen, stehe ich Ihnen gerne zur Verfügung. 
+
+Mit freundlichen Grüßen
+Samira Grass
+
+
+Samira Grass | Account Managerin
+F  +49 89 442316-831 | M  +49 152 26512909
+E  samira.grass@meierhofer.com   
+
+Meierhofer AG | Einsteinring 30 | D-85609 Aschheim | www.meierhofer.com
+           
+
+Amtsgericht München HRB 134472 | USt-ID: DE198612833
+Vorstandsvorsitzender: Matthias Meierhofer
+Aufsichtsratsvorsitzender: Dipl.-Kfm. StB Jan Börnigen
+ 
+
+ 
+
