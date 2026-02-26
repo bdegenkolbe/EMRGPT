@@ -667,4 +667,28 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ---
 
-*Ende der Qualitätsanalyse – Version 1.2, erstellt am 2026-02-26*
+## Aktualisierter Ampel-Score (v1.3)
+
+*Erstellt am 2026-02-26 nach Ergänzung von: Kapitelnummerierung, Umsetzungsfahrplan, RACI-Matrix, Kommunikationsplan, Anforderungsliste.*
+
+| Dimension | Score v1.2 | Score v1.3 | Ampel | Begründung Änderung |
+|-----------|-----------|-----------|-------|---------------------|
+| A) Vollständigkeit & Lebenszyklus | 1 | **2** | **GELB** | Umsetzungsfahrplan (Kap. 17) ergänzt, Anforderungsliste (Kap. 0.10) erstellt. Betriebskonzept weiterhin offen. |
+| B) Struktur & Logik | 2 | **3** | **GRÜN** | Doppelte Kapitelnummerierung vollständig korrigiert (Kap. 2→14, Kap. 3→15, 2.5-Kaskade). Eindeutige Referenzierung möglich. |
+| C) Konsistenz & Traceability | 2 | **2,5** | **GELB** | Anforderungsliste mit PSP-Traceability ergänzt. Formale Abnahme durch Fachbereich steht aus. |
+| D) Umsetzbarkeit & Realismus | 1,5 | **2,5** | **GELB** | Grober Umsetzungsfahrplan mit 4 Phasen, Meilensteinen, Go/No-Go-Kriterien und Rollback-Strategie vorhanden. Detailplanung durch PL erforderlich. |
+| E) Governance, Compliance, Security | 2,5 | **3** | **GRÜN** | RACI-Matrix für alle PSP-Produkte ergänzt, Kommunikationsplan mit Eskalationswegen vorhanden. Incident-Response-Plan weiterhin offen. |
+| F) Evidenz & Quantifizierung | 1,5 | **1,5** | GELB | Unverändert – Kostenseite weiterhin offen. |
+| G) Präsentationsreife (Board) | 2 | **2,5** | **GELB** | Zeitplan vorhanden, RACI definiert, Anforderungen strukturiert. Für GRÜN fehlen: detaillierte Kosten + Averbis-Angebotsbewertung. |
+
+**Gesamturteil v1.3: Conditional Go** (deutliche Fortschritte: 5 von 7 Dimensionen auf GELB oder besser, 2× GRÜN erreicht)
+
+**Verbleibende Showstopper für Board-Vorlage:**
+1. ~~Zeitplan~~ → BEHOBEN (Kap. 17)
+2. **Kostenseite Business Case** → weiterhin OFFEN (Infrastruktur-Sizing, FTE, Averbis-Angebot abwarten)
+3. **Projektleiter installieren** → weiterhin OFFEN (Person + Mandat)
+4. **Betriebskonzept** → weiterhin OFFEN (SLA, Monitoring, Support)
+
+---
+
+*Ende der Qualitätsanalyse – Version 1.3, erstellt am 2026-02-26*

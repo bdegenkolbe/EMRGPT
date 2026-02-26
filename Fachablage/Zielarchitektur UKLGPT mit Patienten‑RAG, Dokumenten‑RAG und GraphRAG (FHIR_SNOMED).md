@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.2 – Fachliche Quellenintegration (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz
+v1.3 – Kapitelnummerierung korrigiert, Umsetzungsfahrplan, RACI-Matrix, Kommunikationsplan, Anforderungsliste (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste
 
 ---
 
@@ -53,16 +53,16 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 |--------|-------------|---------------------|--------|----------------|
 | **1. Projektorganisation** | | | | |
 | 1.1 | Projektauftrag Vorprojekt | Kap. 0 (Management Summary) | Teilweise – Separater Projektauftrag erforderlich | Auftraggeber |
-| 1.2 | Projektorganisation | Kap. 0.3 | ERGÄNZT | Projektmanager |
+| 1.2 | Projektorganisation | Kap. 0.3, **Kap. 0.9 (RACI)** | ERGÄNZT (inkl. RACI-Matrix) | Projektmanager |
 | 1.3 | Stakeholderanalyse | Kap. 0.4 | ERGÄNZT | Projektmanager |
-| 1.4 | Kommunikationsplan | – | OFFEN | Projektmanager |
+| 1.4 | Kommunikationsplan | Kap. 0.8 | ERGÄNZT (Template) | Projektmanager |
 | 1.5 | Vorläufiger Business Case | Kap. 0.5 | ERGÄNZT (Nutzen quantifiziert, Kosten offen) | Auftraggeber |
 | 1.6 | Risiko- und Chancenliste | Kap. 1.4 + QUALITAETSANALYSE.md Risiko-Register | Teilweise | Projektmanager |
 | **2. Fachlich** | | | | |
 | 2.1 | Zielbild EMRgpt | Kap. 1, 2, 3.1 | Abgedeckt | PM, Carina, Gert, Robert W. |
 | 2.2 | Use-Case-Beschreibung LLM-Anbindung | Kap. 3.3 + EMR GPT Use Case Beschreibung 02.docx | Abgedeckt | Fachbereich |
 | 2.2.1 | Kostenanalyse | Kap. 0.5 (Nutzen) | Teilweise – Kostenseite offen | PMO / Controlling |
-| 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3 | Teilweise – Formale Anforderungsliste fehlt | Fachbereich |
+| 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3, **Kap. 0.10** | ERGÄNZT (Entwurf – FA/NFA extrahiert, Abstimmung mit Fachbereich erforderlich) | Fachbereich |
 | 2.3.1 | Daten aus UKLytics | Kap. 8 (Datenzufluss DWH→GraphRAG) | Abgedeckt | IT |
 | **3. Technisch** | | | | |
 | 3.1 | Technische Zielarchitektur | Kap. 4-12, **Kap. 0.6** | Umfassend – Dokumentenpipeline + Datenqualität ergänzt | IT-Architektur |
@@ -89,7 +89,7 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | 5.3 | Management-Entscheidungsvorlage | Kap. 0 | ERGÄNZT | PM |
 | **6. Abschlussdokumentation** | | | | |
 | 6.1 | Empfehlung für Hauptprojekt | Kap. 0, 16.4 | ERGÄNZT | PM |
-| 6.2 | Grober Umsetzungsfahrplan | – | OFFEN (P1-Befund) | PM |
+| 6.2 | Grober Umsetzungsfahrplan | **Kap. 17** | ERGÄNZT (Grobentwurf – Detailplanung durch PL) | PM |
 | 6.3 | Abnahmedokument Vorprojekt | – | Am Ende des Vorprojekts | Auftraggeber |
 
 **Legende:** ERGÄNZT = in dieser Version neu hinzugefügt | OFFEN = noch zu erstellen | ~~Durchgestrichen~~ = entfällt
@@ -268,6 +268,106 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 
 ---
 
+## 0.8 Kommunikationsplan (PSP 1.4)
+
+| Nr | Kommunikationsmaßnahme | Zielgruppe | Format | Frequenz | Verantwortlich |
+|----|----------------------|------------|--------|----------|----------------|
+| K-01 | **Lenkungsausschuss-Bericht** | Vorstand, Klinikumsleitung | Entscheidungsvorlage (max. 5 Seiten) + Präsentation | Monatlich (oder bei Meilensteinen) | Projektleiter |
+| K-02 | **Projekt-Statusbericht** | IT-Leitung, Auftraggeber, Stakeholder | Statusbericht (Ampellogik, Risiken, Meilensteine) | 2-wöchentlich | Projektleiter |
+| K-03 | **Technisches Jour fixe** | IT-Architektur, Entwicklungsteam, Schnittstellenverantwortliche | Arbeitsbesprechung (Protokoll) | Wöchentlich | IT-Architektur (Gert/Carina) |
+| K-04 | **Fachbereich-Abstimmung** | Ärztlicher Direktor, Fachbereich Medizin, Pflege | Workshop / Review | Monatlich | Fachbereich (Felix, Martin Neef) |
+| K-05 | **Datenschutz-/Sicherheits-Review** | DSB, ISB | Review-Meeting | Bei Meilensteinen + quartalsweise | DSB (Hr. Sünkel), ISB (S. Krause) |
+| K-06 | **Externe Partner-Abstimmung** | Meierhofer, Dedalus, ggf. GreenBay | Jour fixe / Telko | Nach Bedarf, mind. monatlich | Projektleiter, KIS-Verantwortlicher |
+| K-07 | **Change-Management / Klinik-Info** | Klinisches Personal (Ärzte, Pflege) | Newsletter, Info-Veranstaltung | Quartalsweise, intensiver ab Pilotphase | Projektleiter, Fachbereich |
+
+**Eskalationswege:**
+- Stufe 1: Projektleiter → Auftraggeber
+- Stufe 2: Auftraggeber → Lenkungsausschuss
+- Stufe 3: Lenkungsausschuss → Vorstand
+
+---
+
+## 0.9 RACI-Matrix (PSP-Produkte)
+
+**Legende:** R = Responsible (durchführend) | A = Accountable (verantwortlich) | C = Consulted (beratend) | I = Informed (informiert)
+
+| PSP-Produkt | Projektleiter | IT-Architektur | Fachbereich | DSB | ISB | KIS-Verantwortl. | Auftraggeber | PMO/Controlling |
+|-------------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1. Projektorganisation** | | | | | | | | |
+| 1.1 Projektauftrag | C | I | I | I | I | I | **A/R** | C |
+| 1.2 Projektorganisation | **A/R** | C | C | I | I | I | I | C |
+| 1.3 Stakeholderanalyse | **A/R** | C | C | C | C | C | I | I |
+| 1.4 Kommunikationsplan | **A/R** | I | I | I | I | I | I | I |
+| 1.5 Vorläufiger Business Case | R | C | C | I | I | I | **A** | **R** |
+| 1.6 Risiko- und Chancenliste | **A/R** | C | C | C | C | C | I | I |
+| **2. Fachlich** | | | | | | | | |
+| 2.1 Zielbild EMRgpt | **A** | R | R | C | I | C | I | I |
+| 2.2 Use-Case-Beschreibung | C | C | **A/R** | I | I | I | I | I |
+| 2.2.1 Kostenanalyse | C | C | I | I | I | I | **A** | **R** |
+| 2.3 Fachliche Anforderungen | C | C | **A/R** | C | C | C | I | I |
+| **3. Technisch** | | | | | | | | |
+| 3.1 Technische Zielarchitektur | C | **A/R** | C | C | C | C | I | I |
+| 3.2 Marktanalyse | **A/R** | C | C | I | I | C | I | I |
+| 3.3 Analyse HYDMedia | C | C | I | I | I | **A/R** | I | I |
+| 3.3.1 Schnittstellenbeschr. FHIR | C | **A/R** | I | I | I | C | I | I |
+| 3.6 Schnittstellenübersicht | C | **A/R** | I | I | C | C | I | I |
+| 3.7 Techn. Vorgehensmodell | C | **A/R** | I | I | I | I | I | I |
+| **4. Rechtebewertung & Sicherheit** | | | | | | | | |
+| 4.1 Datenschutzkonzept | C | C | I | **A/R** | C | I | I | I |
+| 4.2 DSFA (Vorprüfung) | C | C | I | **A/R** | C | I | I | I |
+| 4.3 InfoSec-Bewertung | C | C | I | C | **A/R** | I | I | I |
+| 4.4 Berechtigungskonzept | C | C | I | C | C | C | I | I |
+| 4.5 SAP-Berechtigungsanalyse | C | I | I | C | C | C | I | I |
+| 4.6 Logging-Konzept | C | R | I | C | **A** | I | I | I |
+| **5. Management Summary** | | | | | | | | |
+| 5.3 Entscheidungsvorlage | **A/R** | C | C | C | C | C | I | C |
+| **6. Abschlussdokumentation** | | | | | | | | |
+| 6.1 Empfehlung Hauptprojekt | **A/R** | C | C | C | C | C | I | I |
+| 6.2 Umsetzungsfahrplan | **A/R** | C | C | I | I | C | I | C |
+| 6.3 Abnahmedokument | C | I | I | I | I | I | **A/R** | I |
+
+---
+
+## 0.10 Anforderungsliste (PSP 2.3 – Entwurf)
+
+*Extrahiert aus dem Zielarchitektur-Dokument. Formale Priorisierung und Abnahmekriterien sind mit dem Fachbereich abzustimmen.*
+
+### Funktionale Anforderungen
+
+| ID | Anforderung | Priorität | PSP-Bezug | Quelle (Kapitel) |
+|----|------------|-----------|-----------|------------------|
+| FA-01 | Semantische Suche in natürlicher Sprache über medizinische Altdaten (21 Mio. Dokumente) | MUSS | 2.1, 3.1 | Kap. 1.2, 3.1 |
+| FA-02 | Konsolidierte, fallbezogene Antworten mit Quellenangabe (Dokument, Datum, Typ) | MUSS | 2.1, 3.1 | Kap. 1.2.2, 6.4 |
+| FA-03 | Patientenkontextbezogene Recherche (nach Patient, Zeitraum, Dokumenttyp) | MUSS | 2.2 | Kap. 3.3.1 |
+| FA-04 | Automatisierte Zusammenfassung von Patientenakten | SOLL | 2.2 | Kap. 3.3.2 |
+| FA-05 | Unterstützung bei Visitenvorbereitung (Visitenlisten, offene Befunde) | SOLL | 2.2 | Kap. 2.7.1 |
+| FA-06 | Leitlinienabgleich: Patientensituation gegen klinische Leitlinien prüfen | KANN | 2.2 | Kap. 2.7.1 |
+| FA-07 | Strukturierte Übergabeberichte (Handover) generieren | SOLL | 2.2 | Kap. 2.7.1 |
+| FA-08 | Integration in M-KIS-Oberfläche (Aufruf aus Patientenkontext) | MUSS | 3.9 | Kap. 4.1, 12.7.2 |
+| FA-09 | GraphRAG-basierte Faktenabfrage (Diagnosen, Medikation, Labor aus DWH) | MUSS | 2.3.1, 3.1 | Kap. 7.3, 9.1 |
+| FA-10 | Dokumenten-RAG: Volltextsuche über OCR-verarbeitete PDFs | MUSS | 3.1, 3.3 | Kap. 7.2.2, 10.1 |
+| FA-11 | Tumorboard-/Konsilunterstützung (Fallzusammenstellung) | KANN | 2.2 | Kap. 2.7.1 |
+| FA-12 | OCR-Verarbeitung der Dokumentenbasis (mind. computergenerierte Dokumente) | MUSS | 3.1 | Kap. 1.3.1, 0.6 |
+
+### Nicht-funktionale Anforderungen
+
+| ID | Anforderung | Priorität | PSP-Bezug | Quelle (Kapitel) |
+|----|------------|-----------|-----------|------------------|
+| NFA-01 | Antwortzeit < 30 Sekunden für Standard-Rechercheanfragen | MUSS | 3.1 | Kap. 0.5 (Zielwert 10 Sek.) |
+| NFA-02 | Verfügbarkeit > 99,5% während klinischer Kernzeiten (Mo-Fr 7-20 Uhr) | SOLL | 3.1.1 | – (noch zu definieren) |
+| NFA-03 | Berechtigungsprüfung vor jedem Datenzugriff (Gatekeeper-Prinzip) | MUSS | 4.4, 4.5 | Kap. 12.2, 12.7 |
+| NFA-04 | Revisionssicherer Audit-Trail aller Abfragen und Zugriffe | MUSS | 4.6 | Kap. 12.6 |
+| NFA-05 | DSGVO-Konformität (Zweckbindung, Datenminimierung, Löschkonzept) | MUSS | 4.1 | Kap. 13.1 |
+| NFA-06 | On-Premise-Betrieb (keine Patientendaten in externe Cloud) | MUSS | 3.1.1 | Kap. 0, 16.2 |
+| NFA-07 | Episodische Datenverarbeitung mit TTL-Mechanismus | SOLL | 4.1 | Kap. 14.4 |
+| NFA-08 | EU AI Act Konformität (Transparenz, Risikomanagement, Aufsicht) | MUSS | 4.3 | Kap. 13.3 |
+| NFA-09 | Break-the-Glass Notfallzugriff mit dokumentierter Begründung | MUSS | 4.4 | Kap. 12.4 |
+| NFA-10 | Skalierbarkeit: System muss für 500+ gleichzeitige Nutzer ausgelegt sein | SOLL | 3.1.1 | – (noch zu validieren) |
+| NFA-11 | Dokumentenschutz PSY/KJP (Sonderbehandlung sensibler Fachbereiche) | MUSS | 4.4 | Kap. 12.3.3 |
+| NFA-12 | KRITIS-konforme Infrastruktur (BSI, IT-Sicherheitsgesetz) | MUSS | 4.3 | Kap. 13.4 |
+
+---
+
 [**1\. Zielbeschreibung: Technische Strategie zur Migration und Nutzung medizinischer Altdaten mittels UKLGPT**](#1.-zielbeschreibung:-technische-strategie-zur-migration-und-nutzung-medizinischer-altdaten-mittels-uklgpt)
 
 [1.1 Einleitung und Hintergrund](#1.1-einleitung-und-hintergrund)
@@ -290,23 +390,25 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 
 [2.5 Hybride Strategie zur KI-Readiness und Compliance](#2.5-hybride-strategie-zur-ki-readiness-und-compliance)
 
-[2.5 Nutzen der Einbindung von UKLGPT](#2.5-nutzen-der-einbindung-von-uklgpt)
+[2.6 Nutzen der Einbindung von UKLGPT](#2.6-nutzen-der-einbindung-von-uklgpt)
 
-[2.6 Anwendungsszenarien und Abgrenzung](#2.6-anwendungsszenarien-und-abgrenzung)
+[2.7 Anwendungsszenarien und Abgrenzung](#2.7-anwendungsszenarien-und-abgrenzung)
 
-[**2\. Leitprinzipien der Datenarchitektur und \-verarbeitung**](#2.-leitprinzipien-der-datenarchitektur-und--verarbeitung)
+[2.8 Innovation des Ansatzes](#2.8-innovation-des-ansatzes)
 
-[2.1 FHIR-zentrierte Semantik (Fast Healthcare Interoperability Resources)](#2.1-fhir-zentrierte-semantik-\(fast-healthcare-interoperability-resources\))
+[**14\. Leitprinzipien der Datenarchitektur und \-verarbeitung**](#14.-leitprinzipien-der-datenarchitektur-und--verarbeitung)
 
-[2.2 SNOMED CT als klinische Referenzterminologie](#2.2-snomed-ct-als-klinische-referenzterminologie)
+[14.1 FHIR-zentrierte Semantik (Fast Healthcare Interoperability Resources)](#14.1-fhir-zentrierte-semantik-\(fast-healthcare-interoperability-resources\))
 
-[2.3 Trennung der Wissensdomänen und Datenhaltungsschichten](#2.3-trennung-der-wissensdomänen-und-datenhaltungsschichten)
+[14.2 SNOMED CT als klinische Referenzterminologie](#14.2-snomed-ct-als-klinische-referenzterminologie)
 
-[2.4 Episodische Datenverarbeitung (Privacy by Design)](#2.4-episodische-datenverarbeitung-\(privacy-by-design\))
+[14.3 Trennung der Wissensdomänen und Datenhaltungsschichten](#14.3-trennung-der-wissensdomänen-und-datenhaltungsschichten)
 
-[2.5 Least Privilege & Need-to-Know (Zugriffskontrolle)](#2.5-least-privilege-&-need-to-know-\(zugriffskontrolle\))
+[14.4 Episodische Datenverarbeitung (Privacy by Design)](#14.4-episodische-datenverarbeitung-\(privacy-by-design\))
 
-[2.6 Nachvollziehbarkeit und klinische Sicherheit (Governance)](#2.6-nachvollziehbarkeit-und-klinische-sicherheit-\(governance\))
+[14.5 Least Privilege & Need-to-Know (Zugriffskontrolle)](#14.5-least-privilege-&-need-to-know-\(zugriffskontrolle\))
+
+[14.6 Nachvollziehbarkeit und klinische Sicherheit (Governance)](#14.6-nachvollziehbarkeit-und-klinische-sicherheit-\(governance\))
 
 [**3\. Fachliches Zielbild & Anwendung**](#3.-fachliches-zielbild-&-anwendung)
 
@@ -318,19 +420,19 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 
 [3.4 Wichtiger Hinweis, Abgrenzung und Haftungsausschluss zur Nutzung des UKLGPT-Systems (UKLGPT)](#3.4-wichtiger-hinweis,-abgrenzung-und-haftungsausschluss-zur-nutzung-des-uklgpt-systems-\(uklgpt\))
 
-[**3\. Gesamtarchitektur – Überblick**](#3.-gesamtarchitektur-–-überblick)
+[**15\. Gesamtarchitektur – Überblick**](#15.-gesamtarchitektur-–-überblick)
 
-[3.1 Frontend / UI (Präsentationsschicht):](#3.1-frontend-/-ui-\(präsentationsschicht\):)
+[15.1 Frontend / UI (Präsentationsschicht):](#15.1-frontend-/-ui-\(präsentationsschicht\):)
 
-[3.1 Applikations- und Orchestrierungsschicht (Business/Service-Schicht):](#3.1-applikations--und-orchestrierungsschicht-\(business/service-schicht\):)
+[15.2 Applikations- und Orchestrierungsschicht (Business/Service-Schicht):](#15.2-applikations--und-orchestrierungsschicht-\(business/service-schicht\):)
 
-[3.2 Qualitätssicherung über Prompt-Pipeline (RAG-Orchestrierung):](#3.2-qualitätssicherung-über-prompt-pipeline-\(rag-orchestrierung\):)
+[15.3 Qualitätssicherung über Prompt-Pipeline (RAG-Orchestrierung):](#15.3-qualitätssicherung-über-prompt-pipeline-\(rag-orchestrierung\):)
 
-[3.3 Datenschicht (Retrieval Augmented Generation \- RAG):](#3.3-datenschicht-\(retrieval-augmented-generation---rag\):)
+[15.4 Datenschicht (Retrieval Augmented Generation \- RAG):](#15.4-datenschicht-\(retrieval-augmented-generation---rag\):)
 
-[3.4 Schnittstellen (Integrationsschicht):](#3.4-schnittstellen-\(integrationsschicht\):)
+[15.5 Schnittstellen (Integrationsschicht):](#15.5-schnittstellen-\(integrationsschicht\):)
 
-[3.5 Berechtigungs- und Sicherheitskonzept (Querschnittsfunktion):](#3.5-berechtigungs--und-sicherheitskonzept-\(querschnittsfunktion\):)
+[15.6 Berechtigungs- und Sicherheitskonzept (Querschnittsfunktion):](#15.6-berechtigungs--und-sicherheitskonzept-\(querschnittsfunktion\):)
 
 [**4\. Frontend / Benutzeroberfläche (UI)**](#4.-frontend-/-benutzeroberfläche-\(ui\))
 
@@ -616,31 +718,31 @@ Dieser Ansatz **erfüllt die Compliance-Anforderungen** (revisionssicheres PDF-A
 
 ![][image3]
 
-## 2.5 Nutzen der Einbindung von UKLGPT {#2.5-nutzen-der-einbindung-von-uklgpt}
+## 2.6 Nutzen der Einbindung von UKLGPT {#2.6-nutzen-der-einbindung-von-uklgpt}
 
 UKLGPT stellt eine innovative Lösung für ein fundamentales Problem der modernen klinischen Versorgung dar: die Flut und die Fragmentierung medizinischer Information. Obwohl hochrelevantes Wissen – von aktuellen Forschungsergebnissen über interne Patientenakten bis hin zu nationalen und internationalen Leitlinien – prinzipiell vorhanden ist, ist es im zeitkritischen klinischen Alltag oft schwer, dieses konsistent, schnell und im richtigen Kontext nutzbar zu machen. UKLGPT adressiert diese Lücke direkt durch die Bereitstellung eines kontextsensitiven, intelligenten Informationsassistenzsystems.
 
 Die Kernvorteile der Anwendung manifestieren sich in folgenden Bereichen:
 
-### 2.5.1 Steigerung der Effizienz und Reduktion der Kognitiven Last
+### 2.6.1 Steigerung der Effizienz und Reduktion der Kognitiven Last
 
 * **Signifikanter Zeitgewinn im klinischen Alltag:** Durch die Fähigkeit, komplexe klinische Fragen schnell zu verarbeiten und unmittelbar kontextbezogene, quellenbasierte Antworten zu liefern, entfällt die zeitaufwendige manuelle Recherche in unterschiedlichen Dokumentensystemen (Krankenhausinformationssystem, Archiv, Leitlinien-Datenbanken). Dies ermöglicht es dem Fachpersonal, mehr Zeit direkt am Patienten zu verbringen.
 
 * **Reduktion kognitiver Last:** UKLGPT agiert als intelligenter Aggregator. Es führt relevante Dokumente, Laborfakten, historische Patienteninformationen und aktuelle, evidenzbasierte Leitlinien passend zur gestellten klinischen Frage zusammen. Diese **konsolidierte Wissensbasis** minimiert die Notwendigkeit für den Arzt oder das Pflegepersonal, sich gleichzeitig eine Vielzahl fragmentierter Informationen im Gedächtnis zu behalten oder mühsam abzugleichen.
 
-### 2.5.2 Erhöhung der Patientensicherheit und Qualitätssicherung
+### 2.6.2 Erhöhung der Patientensicherheit und Qualitätssicherung
 
 * **Verbesserte Patientensicherheit durch strukturierte, quellenbasierte Antworten:** Jede generierte Antwort basiert auf nachvollziehbaren, im System hinterlegten Quellen. Diese **Transparenz und Verifizierung** gewährleisten, dass die bereitgestellte Information aktuell, validiert und relevant für den spezifischen klinischen Fall ist. Dies senkt das Risiko von Fehlentscheidungen, die auf veralteten oder unvollständigen Informationen beruhen.
 
 * **Verbesserte Nachvollziehbarkeit medizinischer Aussagen:** Da jede Empfehlung oder Faktenzusammenfassung quellenbasiert ist, wird die Argumentationskette hinter einer medizinischen Aussage transparent. Dies ist essenziell für die Dokumentation, die Fallbesprechung und die Qualitätssicherung.
 
-### 2.5.3 Optimierung der Interdisziplinären Prozesse
+### 2.6.3 Optimierung der Interdisziplinären Prozesse
 
 * **Unterstützung interdisziplinärer Zusammenarbeit:** UKLGPT kann als zentrale Wissensplattform dienen, die sicherstellt, dass alle Mitglieder des Behandlungsteams – von der Pflege über die unterschiedlichen Fachabteilungen bis hin zur Verwaltung – Zugriff auf die gleiche, konsistente und aktuelle Informationsbasis haben. Dies optimiert die Kommunikationswege und harmonisiert die Behandlungsstrategien.
 
 * **Wissensmanagement und Schulung:** Die Anwendung kann auch zur schnellen Einarbeitung neuer Mitarbeiter oder zur Auffrischung von Fachwissen genutzt werden, indem sie komplexe klinische Szenarien und die dazugehörigen Standard Operating Procedures (SOPs) kompakt und verständlich zusammenfasst.
 
-### 2.5.4 Definition des Anwendungsspektrums: Assistenz, nicht Autonomie
+### 2.6.4 Definition des Anwendungsspektrums: Assistenz, nicht Autonomie
 
 Es muss klar hervorgehoben werden, dass UKLGPT explizit als Informations- und Orientierungsassistenz konzipiert ist. Die Rolle des Systems ist strikt die eines Werkzeugs zur Informationsverbesserung.
 
@@ -656,11 +758,11 @@ Die **finale klinische Entscheidung** und die **Verantwortung** für die Behandl
 
 ## 
 
-## 2.6 Anwendungsszenarien und Abgrenzung {#2.6-anwendungsszenarien-und-abgrenzung}
+## 2.7 Anwendungsszenarien und Abgrenzung {#2.7-anwendungsszenarien-und-abgrenzung}
 
 Die vorliegende Lösung zielt darauf ab, klinisches Personal in wesentlichen Bereichen der Patientenversorgung durch den Einsatz intelligenter Informationsverarbeitung zu unterstützen. Dabei liegt der Fokus auf der Verbesserung der Informationslage, der Entscheidungsunterstützung und der Effizienz klinischer Prozesse.
 
-### 2.6.1 Explizit unterstützte Use Cases (Ziel‑Szenarien)
+### 2.7.1 Explizit unterstützte Use Cases (Ziel‑Szenarien)
 
 Die folgenden Anwendungsszenarien stellen die Kernbereiche dar, in denen das System einen direkten Mehrwert bietet:
 
@@ -698,7 +800,7 @@ Die folgenden Anwendungsszenarien stellen die Kernbereiche dar, in denen das Sys
 
   * **Kodierunterstützung:** Vorbereitung von Datenstrukturen zur späteren Unterstützung der medizinischen Kodierung (z.B. ICD, OPS) durch Aggregation relevanter Diagnosen und Prozeduren.
 
-### 2.6.2 Nicht‑Ziel‑Szenarien (Abgrenzung)
+### 2.7.2 Nicht‑Ziel‑Szenarien (Abgrenzung)
 
 Die folgenden Szenarien liegen explizit außerhalb des Funktionsumfangs und der Verantwortung des Systems, da sie eine unmittelbare ärztliche oder pflegerische Entscheidung sowie die ethische und juristische Verantwortung erfordern:
 
@@ -710,15 +812,15 @@ Die folgenden Szenarien liegen explizit außerhalb des Funktionsumfangs und der 
 
 ### 
 
-### 2.7 Innovation des Ansatzes
+### 2.8 Innovation des Ansatzes
 
 Die wahre Innovation und der signifikante Mehrwert unseres Ansatzes liegen nicht in der isolierten Verwendung eines Large Language Models (LLM), sondern in der **synergistischen Kombination streng definierter, domänenspezifischer Komponenten**. Diese Integration schafft ein robustes, kontrolliertes und klinisch sicheres KI-System:
 
-### 2.7.1 FHIR-konformer klinischer Graph
+### 2.8.1 FHIR-konformer klinischer Graph
 
 Das Herzstück des Systems bildet ein **FHIR (Fast Healthcare Interoperability Resources)-konformer klinischer Graph**, implementiert in einer leistungsstarken Graphdatenbank wie **Neo4j**. Dies ermöglicht die Abbildung komplexer, hochgradig vernetzter Patientenpfade, Behandlungszusammenhänge und klinischer Entitäten. Durch die Einhaltung des FHIR-Standards wird maximale Interoperabilität und die semantische Konsistenz der Daten über verschiedene Gesundheitseinrichtungen und Systeme hinweg gewährleistet. Die Graphenstruktur ist essenziell, um kausale oder zeitliche Zusammenhänge schnell und präzise abfragen zu können, was in linearen Datenbanken ineffizient wäre.
 
-### 2.7.2 SNOMED-normalisierte Semantik
+### 2.8.2 SNOMED-normalisierte Semantik
 
 Alle klinischen Informationen, Diagnosen, Prozeduren und Medikationen werden mithilfe der **SNOMED CT (Systematized Nomenclature of Medicine – Clinical Terms)** normalisiert. SNOMED CT dient als weltweit anerkanntes, umfassendes klinisches Referenzvokabular. Diese Normalisierung ist entscheidend, um:
 
@@ -726,7 +828,7 @@ Alle klinischen Informationen, Diagnosen, Prozeduren und Medikationen werden mit
 
 * **Präzise Semantik** für das LLM bereitzustellen, wodurch die Gefahr von Halluzinationen, die auf missverstandener Terminologie basieren, minimiert wird.
 
-### 2.7.3 Episodisches Patienten-RAG mit Zweckbindung
+### 2.8.3 Episodisches Patienten-RAG mit Zweckbindung
 
 Wir nutzen einen spezialisierten **Retrieval-Augmented Generation (RAG)**\-Ansatz, der nicht den gesamten Datenbestand abfragt, sondern sich auf **episodische Patientendaten mit klarer Zweckbindung** fokussiert. Das bedeutet:
 
@@ -736,7 +838,7 @@ Wir nutzen einen spezialisierten **Retrieval-Augmented Generation (RAG)**\-Ansat
 
 * Dieses zielgerichtete RAG-System verbessert die **Antwortqualität**, reduziert die **Latenz** und erhöht die **Datensicherheit**, da nur die minimal notwendigen Informationen für die Generierung bereitgestellt werden.
 
-### 2.7.4 Mehrstufige Prompt-Pipeline zur Qualitätssicherung
+### 2.8.4 Mehrstufige Prompt-Pipeline zur Qualitätssicherung
 
 Um die Verlässlichkeit der KI-generierten Ergebnisse zu garantieren, kommt eine **mehrstufige Prompt-Pipeline** zum Einsatz. Diese Pipeline beinhaltet dedizierte Prüf- und Validierungsschritte, bevor die endgültige Antwort ausgegeben wird:
 
@@ -747,7 +849,7 @@ Um die Verlässlichkeit der KI-generierten Ergebnisse zu garantieren, kommt eine
 * **Stufe 3 (Formatierung/Erklärung):** Die Antwort wird in ein klinisch verwertbares Format gebracht und die Herkunft der Fakten (Zitierfähigkeit) wird sichergestellt.  
   Diese Architektur dient als essenzieller Filtermechanismus gegen Halluzinationen und klinische Fehler.
 
-### 2.7.5 Klare Trennung von Fakten, Dokumenten und Leitlinien
+### 2.8.5 Klare Trennung von Fakten, Dokumenten und Leitlinien
 
 Ein fundamentaler Sicherheitsmechanismus ist die **strikt logische Trennung der Informationsquellen** im Retrieval-Prozess:
 
@@ -763,17 +865,17 @@ Durch diese klare Unterscheidung kann das KI-System präzise angeben, auf welche
 
 # 
 
-# 2\. Leitprinzipien der Datenarchitektur und \-verarbeitung {#2.-leitprinzipien-der-datenarchitektur-und--verarbeitung}
+# 14\. Leitprinzipien der Datenarchitektur und \-verarbeitung {#14.-leitprinzipien-der-datenarchitektur-und--verarbeitung}
 
 Die folgenden Leitprinzipien definieren den Rahmen für die Architektur, die semantische Modellierung, die Datenverarbeitung und die Sicherheitsstrategie unserer digitalen Versorgungsplattform. Sie gewährleisten Interoperabilität, klinische Relevanz, Nachvollziehbarkeit und Compliance.
 
-## 2.1 FHIR-zentrierte Semantik (Fast Healthcare Interoperability Resources) {#2.1-fhir-zentrierte-semantik-(fast-healthcare-interoperability-resources)}
+## 14.1 FHIR-zentrierte Semantik (Fast Healthcare Interoperability Resources) {#14.1-fhir-zentrierte-semantik-(fast-healthcare-interoperability-resources)}
 
 * **Primäre Abbildungsgrundlage**: Strukturierte klinische und administrative Daten werden vorrangig und konsistent entlang des offiziellen FHIR-Ressourcenmodells (aktuell R4 oder R5) abgebildet. FHIR dient als zentraler Standard für den Datenaustausch und die interne Datenrepräsentation, um die Interoperabilität mit nationalen und internationalen Gesundheitssystemen zu maximieren.
 
 * **Nutzung von FHIR-Profilen**: Wo nötig, werden spezifische FHIR-Profile (z.B. aus der Medizininformatik-Initiative, MII) angewendet, um die nationale Spezifität und die Einhaltung lokaler Anforderungen sicherzustellen.
 
-## 2.2 SNOMED CT als klinische Referenzterminologie {#2.2-snomed-ct-als-klinische-referenzterminologie}
+## 14.2 SNOMED CT als klinische Referenzterminologie {#14.2-snomed-ct-als-klinische-referenzterminologie}
 
 * **Zentrale Klassifikation**: SNOMED CT (Systematized Nomenclature of Medicine – Clinical Terms) wird als obligatorische, hierarchische Referenzterminologie für die detaillierte Kodierung von Diagnosen, Prozeduren, Symptomen und klinischen Beobachtungen eingesetzt.
 
@@ -785,7 +887,7 @@ Die folgenden Leitprinzipien definieren den Rahmen für die Architektur, die sem
 
   * **LOINC (Logical Observation Identifiers Names and Codes)**: Für die standardisierte Kodierung von Laborergebnissen und klinischen Messungen.
 
-## 2.3 Trennung der Wissensdomänen und Datenhaltungsschichten {#2.3-trennung-der-wissensdomänen-und-datenhaltungsschichten}
+## 14.3 Trennung der Wissensdomänen und Datenhaltungsschichten {#14.3-trennung-der-wissensdomänen-und-datenhaltungsschichten}
 
 * **Modulare Architektur**: Die Datenhaltung wird in logisch getrennte Domänen unterteilt, um Skalierbarkeit, gezielte Aktualisierung und spezifische Sicherheitsanforderungen zu gewährleisten:
 
@@ -795,19 +897,19 @@ Die folgenden Leitprinzipien definieren den Rahmen für die Architektur, die sem
 
   * **Strukturierte Versorgungsdaten (GraphRAG)**: Die im FHIR-Format abgebildeten, strukturierten Patientendaten (z.B. Medikation, Vitalparameter, Diagnosen) werden in einer graph-basierten oder Retrieval-Augmented Generation (RAG)-fähigen Datenbank gespeichert, um komplexe Abfragen und KI-gestützte Analysen zu ermöglichen.
 
-## 2.4 Episodische Datenverarbeitung (Privacy by Design) {#2.4-episodische-datenverarbeitung-(privacy-by-design)}
+## 14.4 Episodische Datenverarbeitung (Privacy by Design) {#14.4-episodische-datenverarbeitung-(privacy-by-design)}
 
 * **Zweckbindung und Datenminimierung**: Patientenbezogene Daten werden primär nur für die Dauer der *aktiven Versorgungsepisode* verarbeitet. Dieses Prinzip stellt sicher, dass Daten nicht unnötig lange im aktiven Verarbeitungsspeicher verbleiben.
 
 * **Time-to-Live (TTL)**: Zur strikten Einhaltung der Speicherbegrenzung wird ein TTL-Mechanismus implementiert. Außerhalb einer aktiven Episode sind die Daten nur über einen manuell initiierten, expliziten *Abruf* (z.B. durch eine autorisierte Fachkraft für eine nachfolgende Episode) zugänglich, was die Verarbeitung auf das absolut Notwendige beschränkt.
 
-## 2.5 Least Privilege & Need-to-Know (Zugriffskontrolle) {#2.5-least-privilege-&-need-to-know-(zugriffskontrolle)}
+## 14.5 Least Privilege & Need-to-Know (Zugriffskontrolle) {#14.5-least-privilege-&-need-to-know-(zugriffskontrolle)}
 
 * **Basis**: Die Zugriffskontrolle basiert auf den Prinzipien des **Least Privilege** (geringste notwendige Berechtigung) und **Need-to-Know** (Zugriff nur auf die Daten, die zur Erfüllung der aktuellen Aufgabe notwendig sind).
 
 * **Implementierung**: Dies wird über **AD-basierte (Active Directory) RBAC (Role-Based Access Control)** und dynamische **ABAC (Attribute-Based Access Control)**\-Policies durchgesetzt. ABAC ermöglicht eine feingranulare, kontextabhängige Steuerung des Zugriffs (z.B. "Darf nur auf Daten von Patienten zugreifen, die aktuell auf dieser Station behandelt werden").
 
-## 2.6 Nachvollziehbarkeit und klinische Sicherheit (Governance) {#2.6-nachvollziehbarkeit-und-klinische-sicherheit-(governance)}
+## 14.6 Nachvollziehbarkeit und klinische Sicherheit (Governance) {#14.6-nachvollziehbarkeit-und-klinische-sicherheit-(governance)}
 
 * **Transparenz (Quellen)**: Jede Information, die in der Plattform verarbeitet wird und für klinische Entscheidungen relevant ist, muss eine klare, verifizierbare Quelle aufweisen (z.B. FHIR Provenance Ressourcen).
 
@@ -1122,7 +1224,7 @@ Die Inanspruchnahme und Verwendung des UKLGPT-Systems hat **zwingend und ausnahm
 
 ## 
 
-# 3\. Gesamtarchitektur – Überblick {#3.-gesamtarchitektur-–-überblick}
+# 15\. Gesamtarchitektur – Überblick {#15.-gesamtarchitektur-–-überblick}
 
 Die Zielarchitektur ist konsequent nach dem Leitprinzip **"vom klinischen Nutzer zur gesicherten Datenquelle"** ausgerichtet. Dieses Prinzip stellt sicher, dass die Anwendung stets die Kontrolle über die dargebotenen Informationen behält und eine hohe Qualität sowie eine nachvollziehbare Herkunft der Antworten gewährleistet wird.
 
@@ -1130,7 +1232,7 @@ Zentrale Idee und ein fundamentaler architektonischer Pfeiler ist die Festlegung
 
 Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Layered Architecture) gegliedert, um Modularität, Skalierbarkeit, einfache Wartbarkeit und eine strikte Trennung der Verantwortlichkeiten (Separation of Concerns) zu gewährleisten:
 
-## 3.1 Frontend / UI (Präsentationsschicht): {#3.1-frontend-/-ui-(präsentationsschicht):}
+## 15.1 Frontend / UI (Präsentationsschicht): {#15.1-frontend-/-ui-(präsentationsschicht):}
 
 * Verantwortlich für die Interaktion mit dem klinischen Nutzer (z.B. Eingabe von Prompts, Anzeige der Antworten).
 
@@ -1138,7 +1240,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 * Hier erfolgt die Erfassung und initialen Validierung der Nutzereingaben.
 
-## 3.1 Applikations- und Orchestrierungsschicht (Business/Service-Schicht): {#3.1-applikations--und-orchestrierungsschicht-(business/service-schicht):}
+## 15.2 Applikations- und Orchestrierungsschicht (Business/Service-Schicht): {#15.2-applikations--und-orchestrierungsschicht-(business/service-schicht):}
 
 * Das Herzstück der Logik und Steuerung.
 
@@ -1148,7 +1250,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 * Implementiert die Geschäftslogik und stellt sicher, dass alle Schritte gemäß den klinischen Anforderungen ausgeführt werden.
 
-## 3.2 Qualitätssicherung über Prompt-Pipeline (RAG-Orchestrierung): {#3.2-qualitätssicherung-über-prompt-pipeline-(rag-orchestrierung):}
+## 15.3 Qualitätssicherung über Prompt-Pipeline (RAG-Orchestrierung): {#15.3-qualitätssicherung-über-prompt-pipeline-(rag-orchestrierung):}
 
 * Eine kritische Zwischenschicht zur Gewährleistung von Halluzinationsfreiheit und Faktenbasierung (Groundedness).
 
@@ -1160,7 +1262,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 * Führt ggf. eine Validierung des LLM-Outputs gegen die abgerufenen Quelldaten durch.
 
-## 3.3 Datenschicht (Retrieval Augmented Generation \- RAG): {#3.3-datenschicht-(retrieval-augmented-generation---rag):}
+## 15.4 Datenschicht (Retrieval Augmented Generation \- RAG): {#15.4-datenschicht-(retrieval-augmented-generation---rag):}
 
 * Enthält alle gesicherten, validierten und strukturierten Wissensquellen.
 
@@ -1172,7 +1274,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
   * **Wissens-RAG:** Für strukturiertes, kuratiertes Wissen (z.B. Terminologien, Medikamenteninformationen).
 
-## 3.4 Schnittstellen (Integrationsschicht): {#3.4-schnittstellen-(integrationsschicht):}
+## 15.5 Schnittstellen (Integrationsschicht): {#15.5-schnittstellen-(integrationsschicht):}
 
 * Stellt die Anbindung an externe und interne Drittsysteme sicher (z.B. KIS, EPA, Laborinformationssysteme).
 
@@ -1180,7 +1282,7 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 * Diese Schicht ist essenziell für die Echtzeit-Kontextualisierung mit patientenspezifischen Daten.
 
-## 3.5 Berechtigungs- und Sicherheitskonzept (Querschnittsfunktion): {#3.5-berechtigungs--und-sicherheitskonzept-(querschnittsfunktion):}
+## 15.6 Berechtigungs- und Sicherheitskonzept (Querschnittsfunktion): {#15.6-berechtigungs--und-sicherheitskonzept-(querschnittsfunktion):}
 
 * Eine übergreifende, nicht-funktionale Anforderung, die alle Schichten durchdringt.
 
@@ -2239,4 +2341,105 @@ Die **Averbis/Meierhofer-Lösung** hat Vorteile bei Time-to-Market und könnte a
 1. Angebot von Meierhofer/Averbis liegt noch nicht vor – Kosten müssen verglichen werden.
 2. Technischer Klärungstermin mit Meierhofer ist anzusetzen, um die Averbis-Variante detaillierter zu prüfen.
 3. Prüfung, ob Averbis als Übergangslösung (Medical Summary only) parallel zur UKLGPT-Entwicklung einsetzbar ist, ohne Lock-in zu erzeugen.
+
+---
+
+# 17\. Grober Umsetzungsfahrplan (PSP 6.2) {#17.-grober-umsetzungsfahrplan}
+
+*Harter Constraint: SAP i.s.h.med wird im **Oktober 2026** abgeschaltet. Alle archivrelevanten Maßnahmen müssen bis dahin produktiv sein.*
+
+## 17.1 Phasenübersicht
+
+```
+2026                                                          2027
+Feb   Mär   Apr   Mai   Jun   Jul   Aug   Sep   Okt   Nov   Dez   Q1    Q2
+ ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ │◄── Phase 0: Vorprojekt ──►│                                             │
+ │     Abschluss Q2/26       │                                             │
+ │                      │◄── Phase 1: Infrastruktur + Archiv ──►│         │
+ │                      │     MVP-Infrastruktur + SAP-DOK-Mig.  │         │
+ │                            │◄── Phase 2: UKLGPT MVP ────►│             │
+ │                            │     Core-RAG + Pilot          │             │
+ │                                                       │◄─ SAP OFF ─►│  │
+ │                                                            │◄── Phase 3: Vollausbau ──►│
+ │                                                            │     GraphRAG, Leitlinien   │
+```
+
+## 17.2 Detaillierter Phasenplan
+
+### Phase 0: Vorprojekt-Abschluss (bis Ende Q2/2026)
+
+| Meilenstein | Zieldatum | Deliverable | Abhängigkeit | Go/No-Go |
+|------------|-----------|-------------|--------------|----------|
+| M0.1 | Mär 2026 | Vorprojekt-Ergebnisse konsolidiert, QA abgeschlossen | – | – |
+| M0.2 | Mär 2026 | Variantenvergleich finalisiert (Averbis-Angebot liegt vor) | Meierhofer-Angebot | – |
+| M0.3 | Apr 2026 | Kostenseite Business Case fertiggestellt | IT-Sizing, Averbis-Angebot | – |
+| M0.4 | Apr 2026 | **LA-Entscheidung: Umsetzungsvariante + Ressourcenfreigabe** | M0.1–M0.3 | **Go/No-Go** |
+| M0.5 | Mai 2026 | Projektleiter installiert, Team aufgestellt | M0.4 | – |
+| M0.6 | Jun 2026 | Vorprojekt formal abgenommen (PSP 6.3) | Alle PSP-Produkte | – |
+
+### Phase 1: Infrastruktur und Archiv-Migration (Mai – Sep 2026)
+
+| Meilenstein | Zieldatum | Deliverable | Abhängigkeit | Go/No-Go |
+|------------|-----------|-------------|--------------|----------|
+| M1.1 | Mai 2026 | GPU-Infrastruktur bestellt / bereitgestellt | Budgetfreigabe (M0.4) | – |
+| M1.2 | Jun 2026 | SAP-DOK-Migration nach HYDMedia abgeschlossen | DMI, IT (gestartet KW7/2026) | – |
+| M1.3 | Jul 2026 | OCR-Pilottest abgeschlossen (1000 Dokumente, Qualitätsrate dokumentiert) | OCR-Installation (Feb 2026) | – |
+| M1.4 | Jul 2026 | Dedalus FHIR-Schnittstelle validiert (Performance-Test, Scope bestätigt) | Dedalus-Zusage | **Go/No-Go** |
+| M1.5 | Aug 2026 | M-KIS-Berechtigungskonzept fertig, Meierhofer-Abstimmung abgeschlossen | M-KIS Go-Live-Planung | – |
+| M1.6 | Sep 2026 | Basisinfrastruktur produktionsreif (Vektor-DB, Graph-DB, LLM-Instanz) | M1.1 | – |
+
+### Phase 2: UKLGPT MVP (Jul – Dez 2026)
+
+| Meilenstein | Zieldatum | Deliverable | Abhängigkeit | Go/No-Go |
+|------------|-----------|-------------|--------------|----------|
+| M2.1 | Aug 2026 | Dokumenten-RAG Prototyp (Suche über OCR-PDFs, Pilotstichprobe) | M1.3, M1.4 | – |
+| M2.2 | Sep 2026 | Berechtigungs-Integration M-KIS → UKLGPT validiert | M1.5 | – |
+| M2.3 | Sep 2026 | Audit-Trail und Logging implementiert | – | – |
+| M2.4 | **Okt 2026** | **MVP Go-Live: Dokumentensuche über HYDMedia (1 Pilotstation)** | M1.6, M2.1–M2.3, **SAP-Abschaltung** | **Go/No-Go** |
+| M2.5 | Nov 2026 | Pilotfeedback ausgewertet, Iterationsplanung | M2.4 | – |
+| M2.6 | Dez 2026 | MVP auf 3 weitere Stationen ausgerollt | M2.5 | – |
+
+### Phase 3: Vollausbau (Q1–Q2/2027)
+
+| Meilenstein | Zieldatum | Deliverable | Abhängigkeit | Go/No-Go |
+|------------|-----------|-------------|--------------|----------|
+| M3.1 | Jan 2027 | GraphRAG-Integration (strukturierte Fakten aus UKLytics/DWH) | DWH-Anbindung | – |
+| M3.2 | Feb 2027 | Leitlinien-RAG (Globales Wissen) integriert | – | – |
+| M3.3 | Mär 2027 | Vollständige OCR-Verarbeitung des Dokumentenbestands abgeschlossen | Rechenkapazität | – |
+| M3.4 | Apr 2027 | Labor-FHIR-Connector (UKLytics) produktiv | DWH-Team | – |
+| M3.5 | Mai 2027 | **Klinikweiter Rollout UKLGPT** | M3.1–M3.4 | **Go/No-Go** |
+| M3.6 | Jun 2027 | Projektabschluss, Übergabe an Linienbetrieb | Betriebskonzept | – |
+
+## 17.3 Kritischer Pfad
+
+```
+SAP-DOK-Migration (KW7–Jun 2026)
+        │
+        ▼
+Dedalus FHIR validiert (Jul 2026) ──► Dokumenten-RAG Prototyp (Aug 2026)
+        │                                       │
+        ▼                                       ▼
+M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄── SAP OFF
+                                                │
+                                                ▼
+                                        Vollausbau (Q1-Q2/2027)
+```
+
+**Kritische Abhängigkeiten:**
+1. **Dedalus FHIR-Zusage** – ohne validierte Schnittstelle kein Dokumentenzugriff
+2. **SAP-DOK-Migration** – ohne migrierte Altdaten kein vollständiger Dokumentenbestand
+3. **M-KIS-Berechtigungshoheit** – ohne M-KIS als Permission-Master kein Sicherheitskonzept nach SAP-Abschaltung
+4. **GPU-Infrastruktur** – Vorlauf für Beschaffung ca. 8–12 Wochen
+
+## 17.4 Rollback-Strategie
+
+| Szenario | Fallback | Trigger |
+|----------|----------|---------|
+| FHIR-Schnittstelle nicht performant | Direkter ISILON-Zugriff mit eigenem Audit-Layer | M1.4 scheitert |
+| MVP nicht rechtzeitig zu SAP-Abschaltung | HYDMedia Viewer als manuelle Recherche-Alternative (Ist-Zustand) | M2.4 scheitert |
+| Berechtigungs-Migration verzögert | Temporäre Whitelist + verschärftes Logging | M1.5 verzögert |
+| OCR-Qualität unzureichend | Beschränkung auf computergenerierte Dokumente, Handschrift nachgelagert | M1.3 zeigt < 90% |
+
+**Hinweis:** Dieser Fahrplan ist ein Grobentwurf auf Basis der aktuellen Informationslage. Die detaillierte Planung erfolgt durch den installierten Projektleiter im Rahmen des Hauptprojekts.
 
