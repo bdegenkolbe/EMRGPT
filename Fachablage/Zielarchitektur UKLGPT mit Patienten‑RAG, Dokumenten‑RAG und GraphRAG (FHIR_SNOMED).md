@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.4.1 – QA-Korrekturrunde (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen (Querverweis 9.3→12.3.3, EU AI Act aktualisiert, Cobra→Copra, Pinecone→On-Premise, BSI-KRITIS in Kap. 19.3, RACI 4.4/4.5 R/A, Kostengerüst +FHIR/DWH/M-KIS, Support L3 klargestellt)
+v1.4.2 – Dokumentbereinigung (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie (HYDMedia, UKLGPT), Struktur (Kap. 0.4/0.5 Reihenfolge, 2.4.3/4, 2.8 Heading, leere Headings), Duplikat 13.1.5, Redundanz 3.2.4, Kap. 99 Updates
 
 ---
 
@@ -118,47 +118,6 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 
 ---
 
-## 0.5 Vorläufiger Business Case (PSP 1.5 / PSP 2.2.1)
-
-*Quelle der Nutzendaten: „EMR GPT Use Case Beschreibung 02.docx" (Fachbereich-Erhebung)*
-
-### Ausgangslage und Problemquantifizierung
-
-| Kennzahl | Ambulant | Stationär | Quelle |
-|----------|----------|-----------|--------|
-| Suchanfragen pro Arzt/Tag | 2–5 | 3–5 | Fachbereich-Erhebung |
-| Durchschnittliche Suchdauer | 5–10 Min. | 5–10 Min. | Fachbereich-Erhebung |
-| Maximale Suchdauer (Einzelfälle) | bis 20 Min. | bis 20 Min. | Fachbereich-Erhebung |
-| Gesamter Rechercheaufwand pro Arzt/Tag | 15–50 Min. | 15–50 Min. | Berechnung |
-| Zusätzlicher Aufwand durch „Doppelfragen" | ca. 2–3 Min./Doppelfrage | ca. 2–3 Min./Doppelfrage | Fachbereich-Erhebung |
-
-**[Annahme]** Der theoretische Abrufbedarf liegt laut Fachbereich deutlich höher als die tatsächliche Nutzung, da HydMedia aufgrund seiner Komplexität häufig nicht konsequent genutzt wird. Ärzte behelfen sich mit erneuter Befragung der Patienten.
-
-### Nutzenquantifizierung (Eigenlösung UKLGPT)
-
-| Nutzenkategorie | Quantifizierung | Annahme/Herleitung |
-|-----------------|----------------|-------------------|
-| **Zeitersparnis pro Suchanfrage** | Von Ø 7,5 Min. auf ca. 10 Sek. (Zielwert) | GPT-gestützte Suche lt. Fachbereich-Erhebung |
-| **Zeitersparnis pro Arzt/Tag** | 15–50 Min. Recherchezeit → ca. 1–2 Min. | Bei 3–5 Anfragen × 10 Sek. |
-| **Hochrechnung UKL (Ärzte)** | [Annahme: 500 Ärzte] × Ø 30 Min./Tag = **250 Arztstunden/Tag** eingesparte Recherchezeit | Muss mit Personaldaten validiert werden |
-| **Qualitative Verbesserung** | Reduktion von Informationslücken, weniger Doppelfragen, höhere Patientensicherheit | Fachbereich-Erhebung (qualitativ) |
-| **Reduktion Frustrationslast** | Signifikant – HydMedia-Komplexität wird durch natürliche Sprache ersetzt | Fachbereich-Erhebung |
-
-### Kostenabschätzung (Grobrahmen – noch zu detaillieren)
-
-| Kostenblock | Eigenlösung UKLGPT | Averbis/Meierhofer | Anmerkung |
-|-------------|--------------------|--------------------|-----------|
-| Infrastruktur (GPU, Speicher, Netz) | Zu kalkulieren | Entfällt (Cloud/SaaS) | On-Premise vs. Cloud |
-| LLM-Lizenzen / API-Kosten | Zu kalkulieren | In Lizenz enthalten | Abhängig von Modellwahl |
-| Personal (Entwicklung, Betrieb) | Zu kalkulieren | Gering (SaaS-Betrieb) | Kompetenzaufbau vs. Einkauf |
-| OCR-Verarbeitung (21 Mio. PDFs) | Zu kalkulieren | Nicht enthalten | Beide Varianten benötigen OCR |
-| Meierhofer/Averbis-Lizenz | Entfällt | Angebot ausstehend | |
-| Externe Beratung | Zu kalkulieren | Zu kalkulieren | |
-
-**Handlungsbedarf:** Die Kostenseite muss im weiteren Verlauf des Vorprojekts detailliert werden. Mindestens erforderlich: (1) Infrastruktur-Sizing und -Kosten durch IT, (2) Averbis-Angebot abwarten, (3) FTE-Planung für Entwicklung und Betrieb.
-
----
-
 ## 0.4 Stakeholder-Übersicht (PSP 1.3)
 
 | Stakeholder | Interesse | Einfluss | Strategie |
@@ -175,6 +134,47 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | Klinisches Personal (Ärzte, Pflege) | Alltagstauglichkeit, Zeitersparnis | Hoch | Pilotierung, Feedback-Schleifen, Champions |
 | DMI GmbH & Co. KG | Dokumentenarchiv-Anbieter (AVP Infinity), Klassifizierungsinstanz | Mittel | Evaluierung als potenzielle HYDMedia-Alternative |
 | GreenBay Healthcare (hAIppokrates) | KI-Implementierungspartner, Sovereign-Cloud-Angebot | Mittel | Vertragliche Abstimmung Preismodell und Betrieb |
+
+---
+
+## 0.5 Vorläufiger Business Case (PSP 1.5 / PSP 2.2.1)
+
+*Quelle der Nutzendaten: „EMR GPT Use Case Beschreibung 02.docx" (Fachbereich-Erhebung)*
+
+### Ausgangslage und Problemquantifizierung
+
+| Kennzahl | Ambulant | Stationär | Quelle |
+|----------|----------|-----------|--------|
+| Suchanfragen pro Arzt/Tag | 2–5 | 3–5 | Fachbereich-Erhebung |
+| Durchschnittliche Suchdauer | 5–10 Min. | 5–10 Min. | Fachbereich-Erhebung |
+| Maximale Suchdauer (Einzelfälle) | bis 20 Min. | bis 20 Min. | Fachbereich-Erhebung |
+| Gesamter Rechercheaufwand pro Arzt/Tag | 15–50 Min. | 15–50 Min. | Berechnung |
+| Zusätzlicher Aufwand durch „Doppelfragen" | ca. 2–3 Min./Doppelfrage | ca. 2–3 Min./Doppelfrage | Fachbereich-Erhebung |
+
+**[Annahme]** Der theoretische Abrufbedarf liegt laut Fachbereich deutlich höher als die tatsächliche Nutzung, da HYDMedia aufgrund seiner Komplexität häufig nicht konsequent genutzt wird. Ärzte behelfen sich mit erneuter Befragung der Patienten.
+
+### Nutzenquantifizierung (Eigenlösung UKLGPT)
+
+| Nutzenkategorie | Quantifizierung | Annahme/Herleitung |
+|-----------------|----------------|-------------------|
+| **Zeitersparnis pro Suchanfrage** | Von Ø 7,5 Min. auf ca. 10 Sek. (Zielwert) | GPT-gestützte Suche lt. Fachbereich-Erhebung |
+| **Zeitersparnis pro Arzt/Tag** | 15–50 Min. Recherchezeit → ca. 1–2 Min. | Bei 3–5 Anfragen × 10 Sek. |
+| **Hochrechnung UKL (Ärzte)** | [Annahme: 500 Ärzte] × Ø 30 Min./Tag = **250 Arztstunden/Tag** eingesparte Recherchezeit | Muss mit Personaldaten validiert werden |
+| **Qualitative Verbesserung** | Reduktion von Informationslücken, weniger Doppelfragen, höhere Patientensicherheit | Fachbereich-Erhebung (qualitativ) |
+| **Reduktion Frustrationslast** | Signifikant – HYDMedia-Komplexität wird durch natürliche Sprache ersetzt | Fachbereich-Erhebung |
+
+### Kostenabschätzung (Grobrahmen – noch zu detaillieren)
+
+| Kostenblock | Eigenlösung UKLGPT | Averbis/Meierhofer | Anmerkung |
+|-------------|--------------------|--------------------|-----------|
+| Infrastruktur (GPU, Speicher, Netz) | Zu kalkulieren | Entfällt (Cloud/SaaS) | On-Premise vs. Cloud |
+| LLM-Lizenzen / API-Kosten | Zu kalkulieren | In Lizenz enthalten | Abhängig von Modellwahl |
+| Personal (Entwicklung, Betrieb) | Zu kalkulieren | Gering (SaaS-Betrieb) | Kompetenzaufbau vs. Einkauf |
+| OCR-Verarbeitung (21 Mio. PDFs) | Zu kalkulieren | Nicht enthalten | Beide Varianten benötigen OCR |
+| Meierhofer/Averbis-Lizenz | Entfällt | Angebot ausstehend | |
+| Externe Beratung | Zu kalkulieren | Zu kalkulieren | |
+
+**Handlungsbedarf:** Die Kostenseite muss im weiteren Verlauf des Vorprojekts detailliert werden. Mindestens erforderlich: (1) Infrastruktur-Sizing und -Kosten durch IT, (2) Averbis-Angebot abwarten, (3) FTE-Planung für Entwicklung und Betrieb. *Detailliertes Kostengerüst-Template: siehe Kap. 20.*
 
 ---
 
@@ -543,8 +543,6 @@ Die Altdaten liegen aktuell fragmentiert in verschiedenen IT-Silos. Die Herausfo
 
 ![][image1]
 
-## 
-
 ## 1.2 Zielbild der Strategie: Die Brücke der Altdaten (The Legacy Data Bridge) {#1.2-zielbild-der-strategie:-die-brücke-der-altdaten-(the-legacy-data-bridge)}
 
 Die technische Strategie zielt darauf ab, die Integrität, Verfügbarkeit und semantische Erschließbarkeit der medizinischen Altdaten zu gewährleisten, indem eine leistungsstarke, KI-gestützte Recherche- und Assistenzebene über das Archivsystem gelegt wird.
@@ -555,13 +553,11 @@ Die technische Strategie zielt darauf ab, die Integrität, Verfügbarkeit und se
 
 ### 1.2.1 Architektonisches Ziel: Konsolidiertes Dokumentenarchiv
 
-* **Konsolidierung:** Alle relevanten medizinischen Dokumente und Berichte aus SAP IS-H/i.s.h.med und assoziierten Altsystemen (z. B. Laborsysteme, Bildgebung) werden in einem zentralen, revisionssicheren Dokumentenarchiv (entweder **HYDmedia G6** oder **DMI AVP Infinity**) in einem standardisierten Format (**PDF/A**) abgelegt.
+* **Konsolidierung:** Alle relevanten medizinischen Dokumente und Berichte aus SAP IS-H/i.s.h.med und assoziierten Altsystemen (z. B. Laborsysteme, Bildgebung) werden in einem zentralen, revisionssicheren Dokumentenarchiv (entweder **HYDMedia G6** oder **DMI AVP Infinity**) in einem standardisierten Format (**PDF/A**) abgelegt.
 
 * **Rechtssicherheit:** Das gewählte Archivsystem muss die Anforderungen an ein revisionssicheres elektronisches Archiv (z. B. IDW PS 880, ISO 13485, BSI TR-03125) erfüllen, insbesondere hinsichtlich der Protokollierung, Unveränderbarkeit und Verfügbarkeit der Dokumente.
 
 * **FHIR-Metadaten:** Die Archivierung muss die Erzeugung und Speicherung von strukturierten Metadaten (z. B. Patient-ID, Dokumententyp, Erstellungsdatum, Fachabteilung) im **HL7 FHIR DocumentReference**\-Format gewährleisten, um die spätere Anbindung an den GraphRAG zu ermöglichen.
-
-### 
 
 ### 1.2.2 Anwendungsziel: UKLGPT als zentrale Recherche-Instanz
 
@@ -571,8 +567,6 @@ Die technische Strategie zielt darauf ab, die Integrität, Verfügbarkeit und se
 
 * **Kontextualisierte Antworten:** UKLGPT liefert die gefundenen Informationen nicht als rohe Dokumentenliste, sondern als **strukturierte, konsolidierte und fallbezogene Antworten**, basierend auf den Altdaten. Die Quellenangabe (welches Altdokument, wann erstellt) wird dabei zwingend mitgeliefert.
 
-## 
-
 ## 1.3 Archivierungsstrategie und die Rolle von UKLGPT  {#1.3-archivierungsstrategie-und-die-rolle-von-uklgpt}
 
 ### 1.3.1 Dokumenten-Ingestion und Indexierung
@@ -580,11 +574,9 @@ Die technische Strategie zielt darauf ab, die Integrität, Verfügbarkeit und se
 | Phase | Komponente | Beschreibung |
 | :---- | :---- | :---- |
 | 1\. Extraktion (PDF-Archiv) | Legacy-Export-Tool (SAP/Subsysteme) | Vollständiger, einmaliger Export aller relevanten medizinischen Dokumente aus den Altsystemen in PDF/A-Format. |
-| 2\. Archivierung | HYDmedia G6 / AVP Infinity | Revisionssichere Ablage der PDFs und Verwaltung der Basis-Metadaten. |
+| 2\. Archivierung | HYDMedia G6 / AVP Infinity | Revisionssichere Ablage der PDFs und Verwaltung der Basis-Metadaten. |
 | 3\. Vorverarbeitung (OCR) | OCR-Engine (integriert oder extern) | Obligatorische Durchführung der **Optical Character Recognition (OCR)** für alle PDFs (insbesondere gescannte Dokumente), um Freitext durchsuchbar zu machen. |
 | 4\. Semantische Indexierung | Embedding-Modell & Vektor-DB | Generierung von **Vektor-Embeddings** aus dem gesamten Textinhalt der Dokumente. Die Vektoren werden in einer **Vektor-Datenbank** (Teil des Patienten-Dokumenten-RAG) indexiert. |
-
-### 
 
 ### 1.3.2 Die GraphRAG-Steuerung
 
@@ -604,8 +596,6 @@ Der GraphRAG spielt eine essenzielle Rolle bei der Steuerung der Altdaten-Recher
 
 * **Audit-Trail:** Jede Abfrage und der Zugriff auf Altdaten über UKLGPT muss revisionssicher protokolliert werden, um die Einhaltung der Datenschutz- und Compliance-Vorgaben zu gewährleisten.
 
-## 
-
 ## 1.4 Kritische Erfolgsfaktoren und Risikomanagement {#1.4-kritische-erfolgsfaktoren-und-risikomanagement}
 
 | Erfolgsfaktor | Details | Risiko bei Nichterfüllung |
@@ -613,9 +603,7 @@ Der GraphRAG spielt eine essenzielle Rolle bei der Steuerung der Altdaten-Recher
 | Vollständigkeit des Exports | Sicherstellung, dass *alle* klinisch relevanten Dokumente (insbesondere Vorbefunde, Tumorboard-Protokolle, OP-Dokumentation) aus SAP und Subsystemen migriert werden. | **Verlust klinisch essenzieller Informationen** und hohes juristisches Risiko. |
 | Qualität der Metadaten (FHIR) | Generierung präziser, konsistenter und FHIR-konformer Metadaten während des Archivierungsprozesses zur Steuerung des GraphRAG. | **Unauffindbarkeit** von Dokumenten, da der Graph das Retrieval nicht korrekt steuern kann. |
 | OCR-Qualität | Hohe Erkennungsrate für Text in gescannten und älteren Dokumenten. | Die semantische Suche schlägt bei fehlerhaft oder nicht erkannten Texten fehl; **"Verlust" von Informationen im Archiv**. |
-| Performance der Schnittstelle | Der Zugriff von UKLGPT auf die PDFs im Archiv (HYDmedia/AVP) muss hochperformant sein, um Echtzeit-Antworten zu ermöglichen. | Hohe Latenz im Chatbot; Ablehnung durch klinisches Personal aufgrund von **Zeitverlust**. |
-
-# 
+| Performance der Schnittstelle | Der Zugriff von UKLGPT auf die PDFs im Archiv (HYDMedia/AVP) muss hochperformant sein, um Echtzeit-Antworten zu ermöglichen. | Hohe Latenz im Chatbot; Ablehnung durch klinisches Personal aufgrund von **Zeitverlust**. |
 
 # 2\. Nutzen, Anwendung und Innovation {#2.-nutzen,-anwendung-und-innovation}
 
@@ -648,25 +636,23 @@ Die primäre Alternative besteht darin, die strukturierten Altdaten nicht in ein
 | RAG-Nutzung | **Niedrigste Latenz:** Optimiert für Dokumenten-RAG-Abfragen (semantische Suche in Altdaten). | **Revisionssicherheit:** Ein Vektor-Archiv ist **kein revisionssicheres Archiv** im Sinne des deutschen Rechts (IDW PS 880). Das Originaldokument (PDF/A) muss parallel revisionssicher archiviert werden. |
 | Kosten | Reduzierung der OCR-Kosten für die Altdaten (da kein PDF-zu-Text-Schritt notwendig ist, wenn Text nativ vorliegt). | Kosten für die Vektor-DB-Infrastruktur und das Embedding-Modell. |
 
-## 
-
 ## 2.4 Bewertung des Ansatzes “Reine PDF-Archivierung” {#2.4-bewertung-des-ansatzes-“reine-pdf-archivierung”}
 
 Der im Dokument beschriebene Ansatz – die Überführung *aller* klinischen Altdaten in das revisionssichere PDF/A-Archiv (HYDMedia/AVP) – **hat primär juristische Vorteile**, schafft aber erhebliche technische Hürden für die KI-Nutzung.
 
-**HydMedia G6 ist kein „nativer" FHIR-Store**, der beliebige FHIR-Ressourcen (wie Observation, Condition oder Medication) als JSON/XML speichert und unverändert wiedergibt. Es handelt sich vielmehr um ein Enterprise Content Management (ECM) System mit einer **FHIR-Fassade**.
+**HYDMedia G6 ist kein „nativer" FHIR-Store**, der beliebige FHIR-Ressourcen (wie Observation, Condition oder Medication) als JSON/XML speichert und unverändert wiedergibt. Es handelt sich vielmehr um ein Enterprise Content Management (ECM) System mit einer **FHIR-Fassade**.
 
 ### 2.4.1 Technische Funktionsweise (Fassade vs. Store)
 
-HydMedia speichert keine FHIR-Ressourcen als solche. Stattdessen nimmt es FHIR-Anfragen entgegen und mappt diese auf seine internen Datenbankstrukturen (Patient, Fall, Dokument, Archiv).
+HYDMedia speichert keine FHIR-Ressourcen als solche. Stattdessen nimmt es FHIR-Anfragen entgegen und mappt diese auf seine internen Datenbankstrukturen (Patient, Fall, Dokument, Archiv).
 
-* **Input:** Wenn eine FHIR-Nachricht an HydMedia gesendet wird, wird der Dokumenteninhalt (Binary) im Dateisystem (z.B. Isilon) abgelegt und die Metadaten (DocumentReference) in die HydMedia-SQL-Datenbank geschrieben.
+* **Input:** Wenn eine FHIR-Nachricht an HYDMedia gesendet wird, wird der Dokumenteninhalt (Binary) im Dateisystem (z.B. Isilon) abgelegt und die Metadaten (DocumentReference) in die HYDMedia-SQL-Datenbank geschrieben.
 
-* **Output:** Bei einer Abfrage baut HydMedia die FHIR-Ressource „on-the-fly" aus seinen internen Daten zusammen und sendet sie zurück.
+* **Output:** Bei einer Abfrage baut HYDMedia die FHIR-Ressource „on-the-fly" aus seinen internen Daten zusammen und sendet sie zurück.
 
 ### 2.4.2 Unterstützte Ressourcen (Eingeschränkter Umfang)
 
-HydMedia unterstützt laut Conformance Statement nur eine begrenzte Menge an FHIR-Ressourcen, die für die Dokumentenverwaltung notwendig sind:
+HYDMedia unterstützt laut Conformance Statement nur eine begrenzte Menge an FHIR-Ressourcen, die für die Dokumentenverwaltung notwendig sind:
 
 * DocumentReference (Metadaten zum Dokument)
 
@@ -678,11 +664,9 @@ HydMedia unterstützt laut Conformance Statement nur eine begrenzte Menge an FHI
 
 * Organization, Practitioner
 
-**Nicht unterstützt** werden typische strukturierte klinische Ressourcen, die für einen medizinischen Wissensgraphen benötigt würden, wie Observation (Laborwerte), MedicationStatement (Medikation) oder Condition (Diagnosen als Ressource). Diese Daten können in HydMedia nur als Teil eines Dokuments (z.B. PDF-Arztbrief) liegen, aber nicht als einzeln abfragbare FHIR-Datenpunkte.
+**Nicht unterstützt** werden typische strukturierte klinische Ressourcen, die für einen medizinischen Wissensgraphen benötigt würden, wie Observation (Laborwerte), MedicationStatement (Medikation) oder Condition (Diagnosen als Ressource). Diese Daten können in HYDMedia nur als Teil eines Dokuments (z.B. PDF-Arztbrief) liegen, aber nicht als einzeln abfragbare FHIR-Datenpunkte.
 
-### 
-
-### 2.4.5 Herausforderungen in Vollständigkeit und Datenqualität
+### 2.4.3 Herausforderungen in Vollständigkeit und Datenqualität
 
 | Aspekt | Vorteil des PDF-Ansatzes (Aktuell) | Nachteil aus KI/RAG-Perspektive |
 | :---- | :---- | :---- |
@@ -691,19 +675,15 @@ HydMedia unterstützt laut Conformance Statement nur eine begrenzte Menge an FHI
 | Datenqualität / Vollständigkeit | Erhält das Original-Layout des Dokuments (Visuelle Konsistenz). | **Qualitätsverlust durch OCR:** Fehler bei der OCR-Erkennung (insbesondere bei Scans, handschriftlichen Notizen oder schlechten Vorlagen) führen zu **Suchfehlern** im RAG. |
 | Kosten / Performance |  | **Zusätzliche Kosten:** OCR-Lizenzen und Rechenzeit fallen für die **gesamte Altdatenmenge (21 Mio. Dokumente)** an. **Erhöhte Latenz:** OCR ist zeitintensiv. |
 
-### 2.4.6 Fazit und Empfehlung
+### 2.4.4 Fazit und Empfehlung
 
 Die Umwandlung strukturierter Altdaten in PDFs ist für die **revisionssichere Archivierung** zwingend erforderlich und muss beibehalten werden.
 
 Für die **KI-Nutzung (UKLGPT)** sollte jedoch die **Alternative 1 (FHIR-Mapping für GraphRAG)** in Betracht gezogen werden, da der Weg über PDF \+ OCR \+ Vektor-DB zu einem **erheblichen Informationsverlust und einer Reduktion der Datenqualität** führen kann, insbesondere für Fakten, die im Altsystem strikt strukturiert waren (z.B. Medikationshistorie).
 
-### 
-
-## 
-
 ## 2.5 Hybride Strategie zur KI-Readiness und Compliance {#2.5-hybride-strategie-zur-ki-readiness-und-compliance}
 
-Da HydMedia nicht als Speicher für feingranulare, strukturierte FHIR-Daten dient, bestätigt dies die Entscheidung für die **Hybride Architektur-Strategie**. Dieser hybride Weg **erfüllt die Compliance-Anforderungen** (revisionssicheres PDF-Archiv) und **maximiert die Nutzbarkeit und Präzision der KI** (strukturierte Fakten im FHIR-GraphRAG). 
+Da HYDMedia nicht als Speicher für feingranulare, strukturierte FHIR-Daten dient, bestätigt dies die Entscheidung für die **Hybride Architektur-Strategie**. Dieser hybride Weg **erfüllt die Compliance-Anforderungen** (revisionssicheres PDF-Archiv) und **maximiert die Nutzbarkeit und Präzision der KI** (strukturierte Fakten im FHIR-GraphRAG). 
 
 Die empfohlene hybride Strategie kombiniert die zwingend notwendige revisionssichere Archivierung mit der KI-optimierten Aufbereitung von Altdaten, um maximale Compliance und KI-Effizienz zu gewährleisten:
 
@@ -761,8 +741,6 @@ Die Anwendung ist NICHT konzipiert als:
 
 Die **finale klinische Entscheidung** und die **Verantwortung** für die Behandlung verbleiben **uneingeschränkt beim behandelnden Fachpersonal**. UKLGPT liefert die bestmögliche Informationsgrundlage, interpretiert oder ersetzt jedoch nicht das klinische Urteilsvermögen.
 
-## 
-
 ## 2.7 Anwendungsszenarien und Abgrenzung {#2.7-anwendungsszenarien-und-abgrenzung}
 
 Die vorliegende Lösung zielt darauf ab, klinisches Personal in wesentlichen Bereichen der Patientenversorgung durch den Einsatz intelligenter Informationsverarbeitung zu unterstützen. Dabei liegt der Fokus auf der Verbesserung der Informationslage, der Entscheidungsunterstützung und der Effizienz klinischer Prozesse.
@@ -815,9 +793,7 @@ Die folgenden Szenarien liegen explizit außerhalb des Funktionsumfangs und der 
 
 * **Bewertung oder Auswahl von Personen (z.B. Personaleinsatzplanung oder Eignungsfeststellung):** Der Fokus liegt rein auf der klinischen Patientenversorgung und nicht auf administrativen oder personalbezogenen Prozessen.
 
-### 
-
-### 2.8 Innovation des Ansatzes
+## 2.8 Innovation des Ansatzes
 
 Die wahre Innovation und der signifikante Mehrwert unseres Ansatzes liegen nicht in der isolierten Verwendung eines Large Language Models (LLM), sondern in der **synergistischen Kombination streng definierter, domänenspezifischer Komponenten**. Diese Integration schafft ein robustes, kontrolliertes und klinisch sicheres KI-System:
 
@@ -867,8 +843,6 @@ Ein fundamentaler Sicherheitsmechanismus ist die **strikt logische Trennung der 
 Durch diese klare Unterscheidung kann das KI-System präzise angeben, auf welcher Grundlage eine Aussage getroffen wird (z. B. "Laut Laborwert vom TT.MM.JJJJ ist der Wert X erhöht" vs. "Gemäß AWMF-Leitlinie Y sollte in diesem Fall Z erfolgen"). Dies erhöht die **Transparenz, Auditierbarkeit und die klinische Akzeptanz** des generierten Outputs.
 
 **Zusammenfassend entsteht dadurch ein kontrolliertes, domänenspezifisches KI-System, das die Leistungsfähigkeit von LLMs mit der Präzision, Struktur und Sicherheit klinischer Informationssysteme verbindet.**
-
-# 
 
 # 14\. Leitprinzipien der Datenarchitektur und \-verarbeitung {#14.-leitprinzipien-der-datenarchitektur-und--verarbeitung}
 
@@ -921,8 +895,6 @@ Die folgenden Leitprinzipien definieren den Rahmen für die Architektur, die sem
 * **Audit-Trail**: Ein umfassendes, manipulationssicheres **Audit-Protokoll** (Audit-Log) zeichnet jeden Zugriff, jede Verarbeitung und jede Änderung an patientenbezogenen Daten auf, um die forensische Nachvollziehbarkeit zu gewährleisten und datenschutzrechtlichen Anforderungen zu genügen.
 
 * **Guardrails**: Es werden technische und prozessuale **Guardrails** implementiert (z.B. Plausibilitätsprüfungen, Warnmeldungen bei potenziell gefährlichen Medikationskombinationen), um die klinische Sicherheit zu erhöhen und menschliche Fehler zu minimieren.
-
-# 
 
 # 3\. Fachliches Zielbild & Anwendung {#3.-fachliches-zielbild-&-anwendung}
 
@@ -998,14 +970,7 @@ Ein zentrales und oft unterschätztes Problem stellen **externe Befunde** dar. H
 
 ### 3.2.4 Quantifizierung des Suchaufwands und der Ineffizienz
 
-Die aktuelle Einschätzung des klinischen Suchaufwands belegt die gravierenden Effizienzverluste:
-
-| Bereich | Geschätzte Suchanfragen pro Arzt und Tag | Durchschnittliche Suchdauer | Maximale Suchdauer (Einzelfälle) |
-| ----- | ----- | ----- | ----- |
-| Ambulanter Bereich | ca. **2–5** Suchanfragen | **5–10 Minuten** | bis zu **20 Minuten** |
-| Stationärer Bereich | ca. **3–5** Suchanfragen | **5–10 Minuten** | bis zu **20 Minuten** |
-
-Diese Zahlen verdeutlichen, dass pro Arzt und Tag zwischen 15 und 50 Minuten reine Recherchezeit anfallen, die von der direkten Patientenversorgung abgezogen wird.
+Die Fachbereich-Erhebung zeigt erhebliche Effizienzverluste: Pro Arzt und Tag fallen **15–50 Minuten reine Recherchezeit** an (2–5 Anfragen × 5–10 Min. Suchdauer, Einzelfälle bis 20 Min.). Die detaillierte Aufschlüsselung findet sich im Business Case (Kap. 0.5).
 
 ### 3.2.5 Folgen der Ineffizienz
 
@@ -1017,9 +982,7 @@ Der hohe Zeitaufwand hat weitreichende negative Konsequenzen:
 
 * **Potenzielle Informationslücken:** Die größten Risiken bestehen in der Entstehung potenzieller Informationslücken, die für die Patientensicherheit relevant sein können, insbesondere bei der Übernahme von Patienten durch neue Behandler.
 
-Der von Ihnen bereitgestellte detaillierte Abschnitt zur **HydMedia-Schnittstelle** und den damit verbundenen Herausforderungen passt ideal als technische Vertiefung der im Abschnitt 3.2 beschriebenen Problemanalyse.
-
-### 3.2.6 HydMedia – Schnittstelle zu UKL GPT: Technische Basis und Herausforderungen
+### 3.2.6 HYDMedia – Schnittstelle zu UKLGPT: Technische Basis und Herausforderungen
 
 Das Dokumentenmanagementsystem (DMS) **HYDMedia** ist als primäre Quelle für unstrukturierte und semi-strukturierte Patientendokumente (Dokumenten-RAG) in das UKLGPT-Konzept integriert. Die Anbindung und Nutzung dieser Quelle unterliegt spezifischen technischen Rahmenbedingungen und weist Herausforderungen in der Datenqualität auf.
 
@@ -1029,11 +992,11 @@ Die technische und systemische Basis der Dokumentenverwaltung am UKL ist durch d
 
 ##### Aktueller Bestand und Speichermedium:
 
-* **Dokumentenumfang:** Im zentralen Dokumentenarchivsystem, **HydMedia**, sind aktuell rund **21 Millionen PDFs** gespeichert. Diese immense Datenmenge stellt die Basis für die digitalen Patientenakten dar.
+* **Dokumentenumfang:** Im zentralen Dokumentenarchivsystem, **HYDMedia**, sind aktuell rund **21 Millionen PDFs** gespeichert. Diese immense Datenmenge stellt die Basis für die digitalen Patientenakten dar.
 
 * **Speicherarchitektur:** Die eigentlichen PDF-Dateien liegen physisch auf einem dedizierten **Isilon-Speicher** (Scale-out NAS).
 
-* **Metadatenverwaltung:** Die zugehörigen Metadaten, die essenziell für die Klassifizierung, Suche und Archivierung sind, werden separat in der **HydMedia Datenbank** verwaltet.
+* **Metadatenverwaltung:** Die zugehörigen Metadaten, die essenziell für die Klassifizierung, Suche und Archivierung sind, werden separat in der **HYDMedia Datenbank** verwaltet.
 
 ##### Metadaten-Generierung und Klassifizierungslogik:
 
@@ -1041,7 +1004,7 @@ Die technische und systemische Basis der Dokumentenverwaltung am UKL ist durch d
 
 * **Quell der Metadaten (IDX-Dateien):** Die Metadaten werden in Form von IDX-Dateien entweder direkt durch den **Scanprozess** (manuelle Dokumente) oder durch elektronische Dokumente, die die zentrale **DMI-Klassifizierungsinstanz** durchlaufen, erzeugt.
 
-* **Anbindung der Quellsysteme:** Eine Vielzahl klinischer und administrativer Quellsysteme speist die DMI-Klassifizierung und damit HydMedia. Zu diesen Systemen zählen:
+* **Anbindung der Quellsysteme:** Eine Vielzahl klinischer und administrativer Quellsysteme speist die DMI-Klassifizierung und damit HYDMedia. Zu diesen Systemen zählen:
 
   * **Klinische Systeme:** Copra5/6, Medavis, Viewpoint, Cardworks, IDScorer.
 
@@ -1061,9 +1024,9 @@ Die technische und systemische Basis der Dokumentenverwaltung am UKL ist durch d
 
 #### 3.2.6.2 Voraussetzungen und Schnittstellen
 
-* **HydMedia API:** Die prinzipielle Verfügbarkeit einer **FHIR-Schnittstelle** in HYDMedia wurde von Dedalus bestätigt (Dokumentation liegt vor). Zudem existiert eine HydMedia WebApp (z.B. unter s050008132:6444/\[webapp\]()).
+* **HYDMedia API:** Die prinzipielle Verfügbarkeit einer **FHIR-Schnittstelle** in HYDMedia wurde von Dedalus bestätigt (Dokumentation liegt vor). Zudem existiert eine HYDMedia WebApp (z.B. unter s050008132:6444/\[webapp\]()).
 
-* **Zugriffsrisiko (Dedalus-Position):** Direkte Datenbankzugriffe von Fremdsystemen werden aus datenschutzrechtlichen (DSGVO-Konformität) und sicherheitstechnischen Gründen (ISO 13485, BSI/TR-ESOR/IDW 880 PS W) abgelehnt, da die Protokollierung der Zugriffe außerhalb der HydMedia-Applikation nicht rechtskonform gewährleistet werden kann. Es wird ein rechtskonformer Weg über einen **Export via FHIR** vorgeschlagen.
+* **Zugriffsrisiko (Dedalus-Position):** Direkte Datenbankzugriffe von Fremdsystemen werden aus datenschutzrechtlichen (DSGVO-Konformität) und sicherheitstechnischen Gründen (ISO 13485, BSI/TR-ESOR/IDW 880 PS W) abgelehnt, da die Protokollierung der Zugriffe außerhalb der HYDMedia-Applikation nicht rechtskonform gewährleistet werden kann. Es wird ein rechtskonformer Weg über einen **Export via FHIR** vorgeschlagen.
 
 * **Anspruch zur Umsetzung:** Die Architektur zielt darauf ab, Patientendaten in Echtzeit zu suchen, diese im Hintergrund zu indexieren und die Originaldokumente in einem übersichtlichen Viewer anzuzeigen. Die Bedenken von Dedalus sind zwar nachvollziehbar, bergen jedoch erhebliche **Implikationen** für die Umsetzung der Zielarchitektur, die Echtzeit-Suchen und Indexierung vorsieht:
 
@@ -1105,8 +1068,8 @@ Die aktuelle Formulierung ist ein **Klargang in eine kritische Abhängigkeit und
 
 | Problem | Details |
 | ----- | ----- |
-| **Duplikate** | Dokumente können durch unterschiedliche Zuwege (elektronisch aus Subsystemen, Scanstrecke, Verbucher) mehrfach in HydMedia vorhanden sein (teilweise 3–5-fach) – oft mit unterschiedlichen Zeitstempeln. Eine nachträgliche Zuordnung von Duplikaten für nicht in der Registry registrierte Dokumente findet nicht statt. |
-| **Unvollständigkeit** | **Labordaten** sind aktuell nicht an HydMedia angebunden und müssen separat aus **UKLytics** bezogen werden. Die **SAP DOK Migration** (Dokumente der letzten 20 Jahre) ist zwar geplant, erfordert aber einen mehrmonatigen Prozess. |
+| **Duplikate** | Dokumente können durch unterschiedliche Zuwege (elektronisch aus Subsystemen, Scanstrecke, Verbucher) mehrfach in HYDMedia vorhanden sein (teilweise 3–5-fach) – oft mit unterschiedlichen Zeitstempeln. Eine nachträgliche Zuordnung von Duplikaten für nicht in der Registry registrierte Dokumente findet nicht statt. |
+| **Unvollständigkeit** | **Labordaten** sind aktuell nicht an HYDMedia angebunden und müssen separat aus **UKLytics** bezogen werden. Die **SAP DOK Migration** (Dokumente der letzten 20 Jahre) ist zwar geplant, erfordert aber einen mehrmonatigen Prozess. |
 | **Mangelnde Strukturierung** | Dokumente, die nicht über die DMI-Schnittstelle eingebunden wurden, sind **nicht IHE-konform** und **nicht KDL-klassifiziert** (Registry). Dies erschwert eine semantische Durchsuchbarkeit. Fehler bei der händischen Eingabe in der Nomenklatur beim Verbucher können ebenfalls zu Suchfehlern führen. |
 | **Fehlende OCR-Basis** | Für eine semantische Suche in den 21 Mio. PDFs ist eine **OCR-Erkennung** (Optical Character Recognition) zwingend erforderlich, da handschriftliche oder bildbasierte Inhalte aktuell nicht durchsuchbar sind. |
 
@@ -1114,9 +1077,9 @@ Die aktuelle Formulierung ist ein **Klargang in eine kritische Abhängigkeit und
 
 | Bereich | ToDo / Maßnahme |
 | ----- | ----- |
-| **OCR-Integration** | Installation der OCR-Funktionalität für HydMedia (geplant für 17.02.2026). |
-| **UKL GPT API-Anbindung** | Prüfung, wie über die **FHIR Connectoren** eine *DocumentReference* zur Originaldokument-Datei (Binary) aufgelöst werden kann. Ziel ist es, die Originaldokumente aus dem DMS in den RAG-Prozess zu integrieren. Ggf. Anbindung einer weiteren HydMedia API (z.B. REST-API für die OCR-Datenbank). |
-| **Archiv-Strategie (DMI/AVP)** | Es ist zu prüfen, ob zur vollen KI-Readiness eine erweiterte AVP-Version (**AVP Infinity**) notwendig ist. Dies würde einen Release-Wechsel der DMI-Klassifizierungsinstanz bedeuten und potenziell HydMedia als Dokumentenarchiv ablösen, was jedoch ein eigenes, komplexes Projekt (inkl. Infrastruktur und Migration) nach sich ziehen würde. **Prüfung der WebAPI von DMI (x-tention).** |
+| **OCR-Integration** | Installation der OCR-Funktionalität für HYDMedia (geplant für 17.02.2026). |
+| **UKLGPT API-Anbindung** | Prüfung, wie über die **FHIR Connectoren** eine *DocumentReference* zur Originaldokument-Datei (Binary) aufgelöst werden kann. Ziel ist es, die Originaldokumente aus dem DMS in den RAG-Prozess zu integrieren. Ggf. Anbindung einer weiteren HYDMedia API (z.B. REST-API für die OCR-Datenbank). |
+| **Archiv-Strategie (DMI/AVP)** | Es ist zu prüfen, ob zur vollen KI-Readiness eine erweiterte AVP-Version (**AVP Infinity**) notwendig ist. Dies würde einen Release-Wechsel der DMI-Klassifizierungsinstanz bedeuten und potenziell HYDMedia als Dokumentenarchiv ablösen, was jedoch ein eigenes, komplexes Projekt (inkl. Infrastruktur und Migration) nach sich ziehen würde. **Prüfung der WebAPI von DMI (x-tention).** |
 | **RAG-Strategie** | Umsetzung konkreter, fallbezogener Abfragen über RAG (ggf. auch Long Context RAG), um die Inhalte der Dokumente semantisch zu erschließen und bereitzustellen. |
 
 ## 3.3 Use Cases von UKLGPT {#3.3-use-cases-von-uklgpt}
@@ -1207,8 +1170,6 @@ Das System kann Dokumente (z.B. OP-Berichte, Anamnesebögen) automatisch scannen
 
 * **Vorbereitung auf Audits:** Das System unterstützt bei der Einhaltung von Dokumentationsrichtlinien und der Vorbereitung auf interne und externe Audits.
 
-## 
-
 ## 3.4 Wichtiger Hinweis, Abgrenzung und Haftungsausschluss zur Nutzung des UKLGPT-Systems (UKLGPT) {#3.4-wichtiger-hinweis,-abgrenzung-und-haftungsausschluss-zur-nutzung-des-uklgpt-systems-(uklgpt)}
 
 Das **UKLGPT-System** (im Folgenden auch als **UKLGPT** bezeichnet) ist ein hochentwickeltes KI-gestütztes Tool, das **ausschließlich zur Unterstützung** des medizinischen Fachpersonals in der täglichen klinischen Praxis konzipiert wurde. Seine Funktion ist strikt auf die **Bereitstellung von Informationen und assistierenden Textvorschlägen** begrenzt.
@@ -1226,8 +1187,6 @@ Die Nutzung von UKLGPT entbindet das medizinische Personal **in keiner Weise** v
 ### 3.4.3 Nutzungsbedingungen:
 
 Die Inanspruchnahme und Verwendung des UKLGPT-Systems hat **zwingend und ausnahmslos** im Rahmen der geltenden **internen Richtlinien** der Einrichtung sowie der strengen **Datenschutz- und Sicherheitsvorgaben** zu erfolgen. Jegliche missbräuchliche oder nicht autorisierte Nutzung ist untersagt und kann zu internen Konsequenzen führen.
-
-## 
 
 # 15\. Gesamtarchitektur – Überblick {#15.-gesamtarchitektur-–-überblick}
 
@@ -1435,8 +1394,6 @@ Die Implementierung dieser Prompt-Pipeline führt zu fundamentalen Verbesserunge
 
 * **Reproduzierbare, auditierbare Antworten:** Jeder Schritt der Pipeline ist protokollierbar und nachvollziehbar. Die Antwort ist nicht das Ergebnis eines "Black Box"-Prozesses, sondern die deterministische Aggregation validierter Zwischenergebnisse, was eine lückenlose Auditierbarkeit (Nachprüfbarkeit) ermöglicht.
 
-## 
-
 # 7\. Datenschicht – Überblick und detaillierte Architektur {#7.-datenschicht-–-überblick-und-detaillierte-architektur}
 
 Die Architektur der Datenschicht ist ein fundamentaler Bestandteil des Systems und gewährleistet die effiziente und zielgerichtete Verarbeitung von Informationen. Sie ist strikt in drei primäre Wissensdomänen unterteilt, um eine klare Trennung der Datenquellen und der jeweiligen Abfrage-Mechanismen (Retrieval-Augmented Generation, RAG) zu gewährleisten.
@@ -1574,8 +1531,6 @@ Ein entscheidendes Merkmal dieses Datenmodells ist die **Berücksichtigung zeitl
 
 Diese zeitliche Dimension ermöglicht es, Fragen zu beantworten wie: "Welche Diagnosen waren *aktiv* in der EpisodeOfCare des letzten Jahres?" und erhöht damit die Präzision der aus dem Graphen abgeleiteten Antworten.
 
-## 
-
 # 8\. Datenzufluss: Echtzeit-DWH → GraphRAG {#8.-datenzufluss:-echtzeit-dwh-→-graphrag}
 
 Dieser Abschnitt beschreibt den geplanten Datenfluss aus der zentralen *Echtzeit-Data-Warehouse (DWH)*\-Umgebung in die Graphdatenbank, die als analytische Schicht für komplexe Beziehungsanalysen und 360-Grad-Sichten dient.
@@ -1591,8 +1546,6 @@ Die Datenbasis für das Graph-Modell wird primär aus den harmonisierten und int
 | **PDMS Copra** | Das Patientendaten-Managementsystem, typischerweise eingesetzt auf Intensivstationen (ITS) und in der Anästhesie. Liefert hochfrequente, kritische Vitalparameter, Medikation und Verlaufsdaten. |
 | **Polypoint** | Ein System zur Personal- und Einsatzplanung. Liefert Informationen über die Verfügbarkeit, Qualifikation und Schichtpläne des medizinischen und pflegerischen Personals. Relevant für die Verknüpfung von Behandlungen mit den verantwortlichen Ärzten/Pflegeteams. |
 | **SAP HR, MARA, FICO** | **SAP HR (Human Resources)** liefert strukturierte Daten zu Mitarbeitern (Rollen, Organisationseinheiten). **MARA (Material Management)** liefert Daten zu Medikamenten und medizinischem Material. **FICO (Finance and Controlling)** liefert Kosten- und Leistungsdaten. Diese Systeme ergänzen die klinischen Daten um administrative und logistische Kontextinformationen. |
-
-## 
 
 ## 8.2 Integrationsmuster und ETL-Logik {#8.2-integrationsmuster-und-etl-logik}
 
@@ -1625,8 +1578,6 @@ Die Daten durchlaufen einen mehrstufigen Transformationsprozess, um von einem re
 * **Historisierung medizinisch relevanter Änderungen:** Nicht jede Datenänderung führt zu einem einfachen Update (Überschreiben) eines Knoten-Properties. Für klinisch oder forensisch relevante Daten (z.B. Diagnosen, Medikationspläne, Befunde) muss die zeitliche Abfolge der Änderungen dokumentiert werden.
 
   * **Implementierung im Graph:** Dies wird erreicht, indem die Beziehungen (Relationships) zwischen Knoten mit **Zeitstempel-Properties** (z.B. gültig\_von, gültig\_bis) versehen werden, oder indem neue, zeitgestempelte Knoten erstellt werden, die über eine Beziehung auf den Ursprungsknoten verweisen (z.B. (Patient)-\[:HAT\_DIAGNOSE\_ZU\_ZEITPUNKT {datum: '2026-01-10'}\]-\>(Diagnose)).
-
-# 
 
 # 9\. GraphRAG – Retrieval-Strategie im Detail {#9.-graphrag-–-retrieval-strategie-im-detail}
 
@@ -1681,8 +1632,6 @@ Diese optionale, aber mächtige Erweiterung erlaubt es, die Strukturinformatione
 ### 9.3.2 Einsatzgebiet: 
 
 Diese Methode ist ideal für Fragestellungen des Typs **„Patient mit ähnlichem Profil“** oder **„Zeige Behandlungsverläufe, die diesem stark ähneln“**. Das LLM kann so auf Basis der semantischen Ähnlichkeit (Vector Search) im hochdimensionalen Raum auf historisches Wissen zugreifen, das sonst nur durch sehr komplexe, langsame Cypher-Abfragen zu finden wäre. Es ermöglicht die Überführung des strukturierten Graphwissens in das Domänenwissen des LLM.
-
-# 
 
 # 10\. Verzahnung GraphRAG ↔ Dokumenten‑RAG (HYDMedia) – Eine integrierte Architektur zur Wissensgewinnung {#10.-verzahnung-graphrag-↔-dokumenten‑rag-(hydmedia)-–-eine-integrierte-architektur-zur-wissensgewinnung}
 
@@ -1757,8 +1706,6 @@ Das LLM aggregiert die Ergebnisse aller RAG-Abfragen und synthetisiert sie zu ei
 Die strikte Trennung und die strukturierte Ausweisung der Quellen sind nicht nur ein technologisches, sondern vor allem ein **klinisches Erfordernis**.
 
 Diese Methodik ist bewusst gewählt zur **klinischen Nachvollziehbarkeit und Haftungsreduktion**. Sie gewährleistet, dass jede Aussage des Chatbots auf einer identifizierbaren, **primären Datenquelle** beruht. Ein klinischer Anwender (Arzt/Pflegekraft) muss in der Lage sein, die Herkunft jeder Information (Patientenakte vs. Standardwissen) sofort zu erkennen und zu überprüfen. Dies ist essenziell für die Übernahme der Verantwortung im klinischen Entscheidungsprozess. Durch die klare Zitierung wird das Risiko einer "halluzinierten" oder falsch zugeordneten Information minimiert.
-
-## 
 
 # 12 Berechtigungsmanagement & Sicherheit (SAP-geführt) – Detaillierte Ausgestaltung {#12-berechtigungsmanagement-&-sicherheit-(sap-geführt)-–-detaillierte-ausgestaltung}
 
@@ -2039,8 +1986,6 @@ Durch diese Architektur wird nicht nur der unzulässige Datenzugriff *verhindert
 
 * **Ausschluss unzulässiger Datenreferenzen:** Es ist technisch unmöglich, dass das LLM auf Inhalte referenziert, die aus datenschutzrechtlichen Gründen nicht freigegeben wurden. Die gesamte Antwort des LLM basiert ausschließlich auf dem **Patient-Scoped Kontext**.
 
-# 
-
 # 13\. Compliance {#13.-compliance}
 
 Die Entwicklung und der Betrieb des UKLGPT-Systems als spezialisiertes KI-Assistenzsystem im klinischen Umfeld unterliegt strengen regulatorischen Anforderungen, die über die reine DSGVO-Konformität hinausgehen.
@@ -2093,7 +2038,7 @@ Ein revisionssicheres Logging-System ist implementiert, um die Nachvollziehbarke
 
 ### 13.1.5 Ableitung für die Datenschutz-Folgenabschätzung (DSFA)
 
-Die Architektur und die technischen Schutzmechanismen wurden entwickelt, um die in der DSFA zentral identifizierten Risiken proaktiv und explizit zu adressieren und das datenschutzrechtliche Restrisiko signifikant zu reduzieren:Die Architektur und die technischen Schutzmechanismen wurden entwickelt, um die in der DSFA zentral identifizierten Risiken proaktiv und explizit zu adressieren und das datenschutzrechtliche Restrisiko signifikant zu reduzieren:
+Die Architektur und die technischen Schutzmechanismen wurden entwickelt, um die in der DSFA zentral identifizierten Risiken proaktiv und explizit zu adressieren und das datenschutzrechtliche Restrisiko signifikant zu reduzieren:
 
 **Zweck**: Diese Vorprüfung bewertet, ob eine formale Datenschutz-Folgenabschätzung erforderlich ist. Sie analysiert Art, Umfang und Risiko der Datenverarbeitung. Dadurch werden regulatorische Anforderungen frühzeitig erkannt. Die Vorprüfung reduziert rechtliche Unsicherheiten. Sie unterstützt eine rechtssichere Projektplanung.
 
@@ -2112,8 +2057,6 @@ Die Architektur und die technischen Schutzmechanismen wurden entwickelt, um die 
 | **Sekundärdatenhaltung** (Art. 5 Abs. 1 lit. c) | Löschkonzept | **TTL und sofortige Löschung:** Temporär erstellte Subgraphen und Indexstrukturen werden unmittelbar nach Abschluss der Abfrage gelöscht (Datenminimierung). |
 | **Fehlinformationen / Halluzination** (Art. 5 Abs. 1 lit. d) | Qualitätssicherung der Ausgabe | **Mehrstufige Prompt-Pipeline mit Validierung:** Die generierte Antwort wird technisch auf Plausibilität und Konsistenz mit den Quelldokumenten geprüft. |
 | **Mangelnde Nachvollziehbarkeit** (Art. 5 Abs. 1 lit. a/f) | Auditierbarkeit | **Revisionssicheres KI-Audit-Log:** Lückenlose Protokollierung von *Wer, Wann, Auf Wen, Mit Welcher Anfrage*, um Integrität und Rechenschaftspflicht zu gewährleisten. |
-
-## 
 
 ## 13.2 EU-Verordnung über Medizinprodukte (EU MDR – Verordnung (EU) 2017/745) {#13.2-eu-verordnung-über-medizinprodukte-(eu-mdr-–-verordnung-(eu)-2017/745)}
 
@@ -2233,8 +2176,8 @@ Obwohl die Architektur robust ist, gibt es Bereiche, deren Detaillierung das Kon
 | **Lösung "Externe Befunde"** | Das Problem der **zeitversetzten und unklaren Zuordnung** externer Befunde in HYDMedia (3.2.3) wird zwar präzise beschrieben, die spezifische Lösung des UKLGPT-Systems zur **Behebung dieser Lücke** ist jedoch unkonkret ("zentrale, intelligente..."). | Detaillierung des technischen Prozesses: Wie genau wird UKLGPT/RAG die Dokumente beim **Eingang** semantisch taggen und den korrekten Patientenepisoden zuordnen, bevor eine Suche initiiert wird? |
 | **Management von Leitlinien** | Die Domäne **"Globales Wissen (Evidence-Base)"** (2.3) umfasst klinische Leitlinien und wissenschaftliche Literatur. Es fehlt die Spezifizierung, **wie deren Aktualität, Vollständigkeit und Einbindung in den RAG-Prozess technisch sichergestellt wird.** | Klarer Prozess für: **(1)** **Data Ingestion** (Schnittstelle zu AWMF, PubMed, etc.), **(2)** **Versionierung** (welche Leitlinienversion ist gerade gültig?) und **(3)** **Plausibilitätsprüfung** (Verzahnung mit der Prompt-Pipeline). |
 | **"Zweckbindung" RAG-System** | Das Prinzip des **"Episodischen Patienten-RAG mit Zweckbindung"** (1.3.3) ist strategisch wichtig für die Datensicherheit, aber die **technische Logik zur Definition und Durchsetzung der Zweckbindung** (z.B. ein Regelwerk) ist nicht beschrieben. | Detaillierung der **ABAC (Attribute-Based Access Control) Policies** (2.5), die die Zweckbindung im Retrieval-Prozess steuern. Wie wird der klinische Anwendungsfall ("Medikationsprüfung") technisch in ein Retrieval-Limit übersetzt? |
-| **Quantifizierung und ROI** | Der hohe Suchaufwand (3.2.4) ist quantifiziert, es fehlen jedoch die **Prognosen und Messgrößen für den Erfolg (ROI)** der Lösung. | Ergänzung um **Erfolgsmetriken** (Key Performance Indicators, KPIs), z.B.: **(1)** Reduktion der durchschnittlichen Suchdauer (Zielwert), **(2)** Reduktion redundanter Patientenbefragungen (Zielwert), **(3)** Steigerung der Fallbesprechungseffizienz (Zielwert). |
-| **Organisation und Adoption** | Das Konzept fokussiert auf Architektur und Technik. Es fehlt ein Abschnitt zur **strategischen Umsetzung** und den notwendigen organisatorischen Schritten zur Einführung. | Ergänzung um einen Abschnitt zu **Change Management/Adoption:** **(1)** Wie wird das klinische Personal geschult? **(2)** Wie wird die Akzeptanz (insbesondere der Haftungsausschluss) gesichert? **(3)** Phasenplan für Pilotierung und Rollout. |
+| **Quantifizierung und ROI** | Der hohe Suchaufwand (3.2.4) ist quantifiziert, es fehlen jedoch die **Prognosen und Messgrößen für den Erfolg (ROI)** der Lösung. | ~~Ergänzung um Erfolgsmetriken~~ **TEILWEISE BEHOBEN (v1.4):** SLA-Zielwerte in Kap. 18.1, Change-Management-KPIs in Kap. 21.5 (Nutzungsrate, Zufriedenheit, Recherchezeit-Reduktion). Detaillierte ROI-Berechnung erfordert befülltes Kostengerüst (Kap. 20). |
+| ~~**Organisation und Adoption**~~ | ~~Fehlt ein Abschnitt zur strategischen Umsetzung und den notwendigen organisatorischen Schritten.~~ | **BEHOBEN (v1.4):** Change-Management-Konzept in Kap. 21 mit 3-Phasen-Pilotierung, Champions-Netzwerk, Schulungskonzept (6 Formate), Feedback-Prozess, Erfolgsmessung. |
 
 Das Dokument „Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)“ ist inhaltlich sehr detailliert und bietet eine klare Begründung für die Strategie. Die Konzentration auf die Nutzung von FHIR-Metadaten und GraphRAG zur Steuerung der Recherche in Altdaten ist ein architektonischer Schlüssel.
 
@@ -2250,7 +2193,7 @@ II. Inhaltliche Verbesserungsmöglichkeiten
 | Bereich | Herausforderung / Verbesserungsmöglichkeit | Detaillierung für den Inhalt |
 | ----- | ----- | ----- |
 | **Strategische Abwägung (PDF/A vs. FHIR-Nativ)** | Es besteht eine starke inhaltliche Spannung zwischen der gewählten Strategie (Archivierung als PDF/A aus regulatorischen Gründen) und der als "suboptimal" beschriebenen Nachteile dieser Wahl (Abschnitt 2.1). | Fügen Sie in Abschnitt **1.2.1/Fazit** eine präzisere Rechtfertigung ein. Begründen Sie, warum der regulatorische Zwang (Revisionssicherheit nach IDW PS 880, etc.) die in Kauf genommene *Semantik-Einbuße* und den *OCR-Aufwand* überwiegt. Verdeutlichen Sie: **PDF/A ist die regulatorische Basis, GraphRAG die semantische Ergänzung.** |
-| **Auswahl des Archivsystems** | Es werden zwei spezifische Archivsysteme genannt ("entweder **HYDmedia G6** oder **DMI AVP Infinity**" in 1.2.1), was auf eine noch **ausstehende technische Entscheidung** hindeutet. | Präzisieren Sie die Auswahlkriterien (z.B. Kosten, API-Performance, Skalierbarkeit für den Export) oder verschieben Sie die Nennung beider Namen in einen **"To-Do- oder Entscheidungs"-Abschnitt** (z.B. 99\) mit einem klaren Meilenstein. |
+| **Auswahl des Archivsystems** | Es werden zwei spezifische Archivsysteme genannt ("entweder **HYDMedia G6** oder **DMI AVP Infinity**" in 1.2.1), was auf eine noch **ausstehende technische Entscheidung** hindeutet. | Präzisieren Sie die Auswahlkriterien (z.B. Kosten, API-Performance, Skalierbarkeit für den Export) oder verschieben Sie die Nennung beider Namen in einen **"To-Do- oder Entscheidungs"-Abschnitt** (z.B. 99\) mit einem klaren Meilenstein. |
 | **Gatekeeper-Performance** | Das *Gatekeeper-Prinzip* (1.3.3) zur Prüfung der aktiven Behandlungsbeziehung ist kritisch für die klinische Akzeptanz. Die Verifizierung vor **jeder** Abfrage impliziert eine extrem niedrige Latenz. | **Erläutern Sie in 1.3.3 oder 12.7** kurz die **Performance-Anforderung** an die Gatekeeper-Schnittstelle (z.B. "Ziel-Latenz unter 50 ms") und welche technische Lösung (z.B. direkter Datenbank-Lookup statt API-Aufruf) diese Anforderung gewährleisten soll. |
 | **GraphRAG-Steuerung des Retrievals** | Die Funktion des GraphRAG als "Schlüssel zur Effizienz" (1.3.2) durch die Beschränkung des Vektor-Retrievals ist klar, aber der *technische Ablauf* könnte detaillierter sein. | Beschreiben Sie explizit, **wie die Metadaten des Graphen die Vektor-Datenbank filtern/steuern** (z.B. "Der Graph liefert eine präzise Liste von *Chunk-IDs* oder *Document-Hashes*, die das Vektor-Retrieval gezielt einschränken (Pre-Filter-Strategie)."). |
 | **Datenzufluss ETL-Logik (Kapitel 8\)** | Der Abschnitt **8.2 Integrationsmuster und ETL-Logik** ist ein kritischer Punkt für die Datenqualität und Konsistenz des Graphen, aber der Inhalt ist im vorliegenden Ausschnitt nicht vorhanden. | Fügen Sie einen **detaillierten Sub-Abschnitt** ein, der die **Transformations- und Validierungsregeln** beim Übergang vom DWH zur Graphen-DB beschreibt (z.B. Mapping von SAP-Codes auf SNOMED CT/FHIR, Umgang mit inkonsistenten oder fehlenden Daten). |
