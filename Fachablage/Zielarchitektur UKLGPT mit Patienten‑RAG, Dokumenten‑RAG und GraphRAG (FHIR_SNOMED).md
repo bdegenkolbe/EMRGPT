@@ -954,6 +954,12 @@ Alle Patientendokumente, die in das UKLGPT-System gelangen (aus HYDMedia, DMI od
 * **Stichproben-Audit:** 1 % der automatisch getaggten Dokumente werden monatlich durch klinisches Fachpersonal validiert.
 * **Feedback-Loop:** Korrekturen fließen als Trainingsdaten zurück in das NER-Modell (kontinuierliche Verbesserung).
 
+**Referenzimplementierungen (siehe `Codebeispiele/`):**
+* `snomed-fhir-api/snomed_fhir_examples.py` – $lookup, $expand (ECL), $translate, NER-Normalisierung
+* `snomed-fhir-api/snomed_to_europepmc_bridge.py` – Integrierter Workflow: SNOMED → Europe PMC
+* `europe-pmc-api/europe_pmc_examples.py` – Evidence-Matching, Leitliniensuche, Text-Mining
+* `snomed-snowstorm-api/` – Original IHTSDO-Beispiele in Python, JavaScript, Go, Ruby, PHP, curl
+
 ## 14.3 Trennung der Wissensdomänen und Datenhaltungsschichten {#14.3-trennung-der-wissensdomänen-und-datenhaltungsschichten}
 
 * **Modulare Architektur**: Die Datenhaltung wird in logisch getrennte Domänen unterteilt, um Skalierbarkeit, gezielte Aktualisierung und spezifische Sicherheitsanforderungen zu gewährleisten:
@@ -1619,6 +1625,8 @@ Das **Evidence-Matching** ist der Kernmechanismus, der bei jedem Patientenkontak
 | **Externe Evidenz** | Top-5 Europe-PMC-Treffer pro Hauptdiagnose (Titel, Journal, Jahr, Zitationen) | Tägliches Refresh, bei Diagnoseänderung sofort |
 
 **Datenschutz-Konformität:** Es werden keine Patientendaten an Europe PMC übermittelt. Die Suchanfragen enthalten ausschließlich medizinische Fachbegriffe (SNOMED-Terme), keine personenbezogenen Daten.
+
+**Referenzimplementierung:** `Codebeispiele/europe-pmc-api/europe_pmc_examples.py` (Suche, Leitlinien, Text-Mining, Evidence-Matching) und `Codebeispiele/snomed-fhir-api/snomed_to_europepmc_bridge.py` (End-to-End: SNOMED→Terme→Europe PMC).
 
 ### 7.2.2 Patienten-Dokumenten-RAG
 
