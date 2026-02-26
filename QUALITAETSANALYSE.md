@@ -691,4 +691,32 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ---
 
-*Ende der Qualitätsanalyse – Version 1.3, erstellt am 2026-02-26*
+## Aktualisierter Ampel-Score (v1.4)
+
+*Erstellt am 2026-02-26 nach Ergänzung von: Betriebskonzept-Gerüst (Kap. 18), Incident-Response-Plan (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management-Konzept (Kap. 21).*
+
+| Dimension | Score v1.3 | Score v1.4 | Ampel | Begründung Änderung |
+|-----------|-----------|-----------|-------|---------------------|
+| A) Vollständigkeit & Lebenszyklus | 2 | **3** | **GRÜN** | Betriebskonzept-Gerüst (Kap. 18) mit SLA, Monitoring, Support, Backup/DR, Release-Mgmt. ergänzt. Change-Management (Kap. 21) mit Pilotierung, Schulung, Champions. Decommissioning-Hinweis im Fahrplan. |
+| B) Struktur & Logik | 3 | **3** | **GRÜN** | Unverändert – weiterhin eindeutige Nummerierung. |
+| C) Konsistenz & Traceability | 2,5 | **2,5** | GELB | Unverändert – formale Abnahme Fachbereich steht aus. |
+| D) Umsetzbarkeit & Realismus | 2,5 | **3** | **GRÜN** | Betriebskonzept mit konkreten SLA-Werten, Kapazitätsplanung, Rollback. Change-Management mit messbaren Erfolgskriterien. |
+| E) Governance, Compliance, Security | 3 | **3** | **GRÜN** | Incident-Response-Plan (Kap. 19) schließt letzte Governance-Lücke: Vorfallkategorien, Eskalationsmatrix, DSGVO Art.33-Prozess, KI-spezifische Response, Post-Incident-Review. |
+| F) Evidenz & Quantifizierung | 1,5 | **2** | **GELB** | Kostengerüst-Template (Kap. 20) mit CAPEX/OPEX-Struktur und TCO-Vergleich vorhanden. Konkrete Werte weiterhin durch IT/Controlling zu befüllen. |
+| G) Präsentationsreife (Board) | 2,5 | **2,5** | GELB | Alle strukturellen Elemente vorhanden. Für GRÜN fehlen weiterhin: befüllte Kostenanalyse + Averbis-Angebotsbewertung. |
+
+**Gesamturteil v1.4: Conditional Go → an der Schwelle zu Go**
+
+Fortschritt: **4× GRÜN, 3× GELB, 0× ROT**. Alle Dimensionen, die durch Dokumentenarbeit adressierbar sind, stehen auf GRÜN oder stabilem GELB. Die verbleibenden GELB-Bewertungen (C, F, G) erfordern externe Inputs (Fachbereich-Abnahme, IT-Sizing, Averbis-Angebot), die nicht durch Dokumentenarbeit allein lösbar sind.
+
+**Verbleibende Showstopper für Board-Vorlage:**
+1. ~~Zeitplan~~ → BEHOBEN (Kap. 17)
+2. ~~Betriebskonzept~~ → BEHOBEN (Kap. 18 – Gerüst, Werte durch IT-Betrieb zu befüllen)
+3. **Kostenseite Business Case** → OFFEN (Kostengerüst-Template vorhanden, Kap. 20 – Werte durch IT/Controlling zu befüllen, Averbis-Angebot abwarten)
+4. **Projektleiter installieren** → OFFEN (Person + Mandat – organisatorische Entscheidung)
+
+**Hinweis:** Die Board-Vorlage ist strukturell vollständig. Für die finale Freigabe sind nur noch zwei externe Inputs erforderlich: (1) konkrete Kostenzahlen und (2) die PL-Besetzung. Beide liegen außerhalb der Reichweite der Dokumentenarbeit.
+
+---
+
+*Ende der Qualitätsanalyse – Version 1.4, erstellt am 2026-02-26*

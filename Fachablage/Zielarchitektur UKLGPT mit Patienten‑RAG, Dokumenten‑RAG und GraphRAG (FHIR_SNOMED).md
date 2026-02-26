@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.3 – Kapitelnummerierung korrigiert, Umsetzungsfahrplan, RACI-Matrix, Kommunikationsplan, Anforderungsliste (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste
+v1.4 – Betriebskonzept, Incident-Response, Kostengerüst, Change-Management (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21)
 
 ---
 
@@ -56,12 +56,12 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | 1.2 | Projektorganisation | Kap. 0.3, **Kap. 0.9 (RACI)** | ERGÄNZT (inkl. RACI-Matrix) | Projektmanager |
 | 1.3 | Stakeholderanalyse | Kap. 0.4 | ERGÄNZT | Projektmanager |
 | 1.4 | Kommunikationsplan | Kap. 0.8 | ERGÄNZT (Template) | Projektmanager |
-| 1.5 | Vorläufiger Business Case | Kap. 0.5 | ERGÄNZT (Nutzen quantifiziert, Kosten offen) | Auftraggeber |
+| 1.5 | Vorläufiger Business Case | Kap. 0.5, **Kap. 20 (Kostengerüst)** | ERGÄNZT (Nutzen quantifiziert, Kostengerüst-Template vorhanden – Werte offen) | Auftraggeber |
 | 1.6 | Risiko- und Chancenliste | Kap. 1.4 + QUALITAETSANALYSE.md Risiko-Register | Teilweise | Projektmanager |
 | **2. Fachlich** | | | | |
 | 2.1 | Zielbild EMRgpt | Kap. 1, 2, 3.1 | Abgedeckt | PM, Carina, Gert, Robert W. |
 | 2.2 | Use-Case-Beschreibung LLM-Anbindung | Kap. 3.3 + EMR GPT Use Case Beschreibung 02.docx | Abgedeckt | Fachbereich |
-| 2.2.1 | Kostenanalyse | Kap. 0.5 (Nutzen) | Teilweise – Kostenseite offen | PMO / Controlling |
+| 2.2.1 | Kostenanalyse | Kap. 0.5 (Nutzen), **Kap. 20 (Kostengerüst)** | ERGÄNZT (Gerüst-Template – Werte durch IT/Controlling zu befüllen) | PMO / Controlling |
 | 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3, **Kap. 0.10** | ERGÄNZT (Entwurf – FA/NFA extrahiert, Abstimmung mit Fachbereich erforderlich) | Fachbereich |
 | 2.3.1 | Daten aus UKLytics | Kap. 8 (Datenzufluss DWH→GraphRAG) | Abgedeckt | IT |
 | **3. Technisch** | | | | |
@@ -79,7 +79,7 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | **4. Rechtebewertung und Sicherheit** | | | | |
 | 4.1 | Datenschutzkonzept | Kap. 13.1 | Abgedeckt | DSB (Hr. Sünkel) |
 | 4.2 | DSFA (Vorprüfung) | Kap. 13.1 | Teilweise | DSB (Hr. Sünkel) |
-| 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4 | Teilweise | ISB (S. Krause) |
+| 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4, **Kap. 19 (Incident-Response)** | ERGÄNZT (inkl. Incident-Response-Plan, DSGVO-Meldepflicht, KI-spezifische Response) | ISB (S. Krause) |
 | 4.4 | Berechtigungskonzept | Kap. 12, **Kap. 12.1.1** | ERGÄNZT – SAP-Modell detailliert gemappt (BA-Typen, SBG, OE-Schutz PSY/KJP) | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
 | 4.5 | SAP-Berechtigungsanalyse | Kap. 12.1, **Kap. 12.1.1, Kap. 0.6 (HYDMedia-Lücke)** | ERGÄNZT – Migration M-KIS + HYDMedia Need-to-Know-Lücke dokumentiert | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
 | 4.6 | Logging-/Nachvollziehbarkeitskonzept | Kap. 12.6 | Abgedeckt | IT-Sicherheit, PM |
@@ -91,6 +91,11 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | 6.1 | Empfehlung für Hauptprojekt | Kap. 0, 16.4 | ERGÄNZT | PM |
 | 6.2 | Grober Umsetzungsfahrplan | **Kap. 17** | ERGÄNZT (Grobentwurf – Detailplanung durch PL) | PM |
 | 6.3 | Abnahmedokument Vorprojekt | – | Am Ende des Vorprojekts | Auftraggeber |
+| **Ergänzende Produkte (v1.4)** | | | | |
+| – | Betriebskonzept (Gerüst) | **Kap. 18** | ERGÄNZT (SLA, Monitoring, Support, Backup/DR, Release-Mgmt.) | IT-Betrieb |
+| – | Incident-Response-Plan | **Kap. 19** | ERGÄNZT (Vorfallkategorien, Eskalation, DSGVO-Meldepflicht, KI-Response) | ISB / DSB |
+| – | Kostengerüst-Template | **Kap. 20** | ERGÄNZT (CAPEX/OPEX-Struktur, TCO-Vergleich – Werte durch IT/Controlling zu befüllen) | PMO / Controlling |
+| – | Change-Management-Konzept | **Kap. 21** | ERGÄNZT (Pilotierung, Champions, Schulung, Feedback, Erfolgsmessung) | Fachbereich / PMO |
 
 **Legende:** ERGÄNZT = in dieser Version neu hinzugefügt | OFFEN = noch zu erstellen | ~~Durchgestrichen~~ = entfällt
 
@@ -2442,4 +2447,295 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 | OCR-Qualität unzureichend | Beschränkung auf computergenerierte Dokumente, Handschrift nachgelagert | M1.3 zeigt < 90% |
 
 **Hinweis:** Dieser Fahrplan ist ein Grobentwurf auf Basis der aktuellen Informationslage. Die detaillierte Planung erfolgt durch den installierten Projektleiter im Rahmen des Hauptprojekts.
+
+---
+
+# 18\. Betriebskonzept – Gerüst (PSP-Ergänzung) {#18.-betriebskonzept}
+
+*Dieses Kapitel beschreibt die Mindestanforderungen für den Produktivbetrieb von UKLGPT. Es dient als Gerüst, das durch IT-Betrieb und Infrastruktur-Team mit konkreten Werten befüllt werden muss.*
+
+## 18.1 Service-Level-Agreements (SLA)
+
+| SLA-Parameter | Zielwert (Vorschlag) | Messverfahren | Verantwortlich |
+|---------------|---------------------|---------------|----------------|
+| **Verfügbarkeit** | ≥ 99,5% (Mo–Fr 7:00–20:00 Uhr) | Uptime-Monitoring (z.B. Prometheus/Grafana) | IT-Betrieb |
+| **Geplante Wartungsfenster** | Sa 22:00–So 06:00 Uhr | Vorabkommunikation 5 Werktage | IT-Betrieb |
+| **Antwortzeit** | ≤ 30 Sek. (P95) für Standard-Rechercheanfragen | APM-Monitoring (End-to-End) | IT-Betrieb |
+| **Wiederherstellungszeit (RTO)** | ≤ 4 Stunden (Prio 1), ≤ 24 Stunden (Prio 2) | Incident-Ticket-System | IT-Betrieb |
+| **Datenverlust-Toleranz (RPO)** | ≤ 1 Stunde (Graph-DB), 0 (Audit-Log) | Backup-Monitoring | IT-Betrieb |
+| **Max. gleichzeitige Nutzer** | ≥ 500 | Load-Testing (vor Go-Live) | IT-Infrastruktur |
+
+## 18.2 Monitoring-Architektur
+
+### 18.2.1 Infrastruktur-Monitoring
+
+| Komponente | Metriken | Schwellwert (Alarm) | Tool (Vorschlag) |
+|------------|----------|---------------------|-------------------|
+| GPU-Server (LLM-Inferenz) | GPU-Auslastung, VRAM, Temperatur | > 90% / > 85°C | Prometheus + DCGM Exporter |
+| Vektor-Datenbank | Abfrage-Latenz, Index-Größe, Speicher | Latenz > 5 Sek. | Prometheus |
+| Graph-Datenbank (Neo4j) | Heap-Nutzung, Query-Latenz, Transaktionen/Sek. | Heap > 85%, Latenz > 3 Sek. | Neo4j Ops Manager |
+| LLM-Instanz | Inferenz-Latenz, Token/Sek., Queue-Tiefe | Queue > 50, Latenz > 20 Sek. | Custom Exporter |
+| Netzwerk/Speicher (ISILON) | I/O-Durchsatz, Latenz, Kapazität | Kapazität > 90% | Grafana |
+
+### 18.2.2 Applikations-Monitoring
+
+| Metrik | Beschreibung | Alarm-Schwellwert |
+|--------|-------------|-------------------|
+| Anfragen/Minute | Gesamtlast auf UKLGPT-API | > 1000/Min. (Kapazitätswarnung) |
+| Fehlerrate (5xx) | Anteil fehlgeschlagener Anfragen | > 1% |
+| Berechtigungsprüfungen/Ablehnungen | Anzahl abgelehnter Zugriffe | Spike > 3σ (Anomalieerkennung) |
+| RAG-Retrieval-Qualität | Anteil leerer Suchergebnisse | > 20% (Hinweis auf Indexierungsproblem) |
+| Audit-Log-Integrität | Hash-Ketten-Validierung | Jede Inkonsistenz = Prio 1 |
+
+### 18.2.3 Klinisches Qualitäts-Monitoring
+
+| Metrik | Beschreibung | Erhebung |
+|--------|-------------|----------|
+| Nutzerzufriedenheit | Thumbs-Up/Down pro Antwort | In-App-Feedback |
+| Eskalationsrate | Anteil Anfragen, die an manuellen Support eskaliert werden | Ticket-System |
+| Halluzinations-Meldungen | Vom Nutzer gemeldete faktische Fehler | In-App-Meldefunktion |
+
+## 18.3 Support-Modell
+
+| Support-Level | Beschreibung | Reaktionszeit | Verantwortlich |
+|---------------|-------------|---------------|----------------|
+| **Level 1** | Anwender-Support: Bedienungsfragen, Passwort-Resets, Zugriffsprobleme | ≤ 4 Stunden (Kernzeit) | IT-Service-Desk (UKL) |
+| **Level 2** | Technischer Support: Applikationsfehler, Performance-Probleme, Datenqualität | ≤ 8 Stunden | UKLGPT-Betriebsteam (2–3 FTE) |
+| **Level 3** | Architektur/Entwicklung: Infrastruktur-Ausfälle, Sicherheitsvorfälle, LLM-Anpassungen | ≤ 24 Stunden | IT-Architektur + ggf. externer Partner |
+
+**Bereitschaft:** Kernzeit Mo–Fr 7:00–20:00. Außerhalb: Rufbereitschaft für Prio-1-Vorfälle (Ausfall, Sicherheitsvorfall).
+
+## 18.4 Backup und Disaster Recovery
+
+| Komponente | Backup-Strategie | Frequenz | Aufbewahrung | Wiederherstellungstest |
+|------------|-----------------|----------|--------------|----------------------|
+| **Graph-Datenbank (Neo4j)** | Inkrementelles Backup + wöchentliches Full-Backup | Täglich / wöchentlich | 30 Tage | Quartalsweise |
+| **Vektor-Datenbank** | Snapshot + Re-Indexierung aus Quelldaten möglich | Wöchentlich | 14 Tage | Bei Re-Indexierung implizit |
+| **Audit-Log** | Append-Only, replikat auf separatem Storage | Echtzeit-Replikation | ≥ 10 Jahre (Aufbewahrungspflicht) | Halbjährlich |
+| **Konfiguration/Code** | Git-Repository + Infrastructure-as-Code | Bei jeder Änderung | Unbegrenzt | Bei jedem Deployment |
+| **LLM-Modell-Artefakte** | Versioniertes Model-Registry | Bei jeder Modelländerung | Alle Versionen | Bei Rollback |
+
+**Disaster-Recovery-Szenario:**
+1. Totalausfall GPU-Server → Failover auf Backup-Instanz (Ziel: < 4h RTO)
+2. Datenbankkorruption → Restore aus letztem konsistentem Backup + Re-Indexierung
+3. Sicherheitsvorfall → Isolierung, Forensik, Restore aus Clean-Backup (→ siehe Kap. 19)
+
+## 18.5 Kapazitätsplanung
+
+| Ressource | MVP (Okt 2026) | Vollausbau (2027) | Skalierungstrigger |
+|-----------|---------------|-------------------|-------------------|
+| GPU (LLM-Inferenz) | 1× NVIDIA A100 80GB (o.ä.) | 2–4× A100 (Load-Balancing) | Queue-Tiefe > 30 sustained |
+| RAM (Graph-DB) | 128 GB | 256–512 GB | Heap > 80% |
+| Storage (Vektor-DB + Embeddings) | ~5 TB | ~20 TB | Kapazität > 75% |
+| Storage (Audit-Log) | 500 GB | 2 TB/Jahr (wachsend) | Kapazität > 80% |
+
+*Anmerkung: Konkrete Sizing-Werte müssen durch IT-Infrastruktur auf Basis von Lasttests validiert werden.*
+
+## 18.6 Release- und Änderungsmanagement
+
+| Prozess | Beschreibung | Frequenz |
+|---------|-------------|----------|
+| **Minor Releases** (Bugfixes, Prompt-Tuning) | Staging → Test → Produktion, kein Wartungsfenster nötig | Nach Bedarf (Rolling Update) |
+| **Major Releases** (Modellwechsel, Architekturänderung) | Staging → Abnahmetest → Wartungsfenster → Produktion + Rollback-Plan | Quartalsweise |
+| **Notfall-Patches** (Sicherheit) | Sofort-Deployment nach 4-Augen-Prinzip | Bei Bedarf |
+| **Modell-Updates** (LLM-Versionswechsel) | Parallelbetrieb Alt/Neu → A/B-Vergleich → Cutover | Nach Evaluierung |
+
+---
+
+# 19\. Incident-Response-Plan (PSP 4.3 Ergänzung) {#19.-incident-response-plan}
+
+*Dieser Plan definiert die Reaktion auf Sicherheitsvorfälle, KI-Fehlfunktionen und Datenschutzverletzungen im UKLGPT-Betrieb.*
+
+## 19.1 Vorfallkategorien
+
+| Kategorie | Beschreibung | Schweregrad | Beispiele |
+|-----------|-------------|-------------|-----------|
+| **SEC-1** | Datenschutzverstoß / Unbefugter Zugriff auf Patientendaten | **Kritisch** | Berechtigungsfehler → Patient A sieht Daten von Patient B; Audit-Log-Manipulation |
+| **SEC-2** | Sicherheitslücke in Infrastruktur | **Hoch** | Unautorisierer Netzwerkzugriff auf GPU-Server; kompromittierte API-Keys |
+| **AI-1** | Systematische KI-Fehlfunktion (Halluzination mit klinischer Relevanz) | **Hoch** | LLM erfindet Medikation, die nicht in Akte steht; falsche Laborwerte zitiert |
+| **AI-2** | Qualitätsverschlechterung der KI-Antworten | **Mittel** | Zunehmend leere Ergebnisse; sinkende Nutzerzufriedenheit; Index-Drift |
+| **OPS-1** | Systemausfall (UKLGPT nicht erreichbar) | **Hoch** | GPU-Server-Ausfall; Datenbank-Crash; Netzwerkproblem |
+| **OPS-2** | Performance-Degradation | **Mittel** | Antwortzeiten > 60 Sek.; Queue-Überlauf |
+
+## 19.2 Eskalationsmatrix
+
+| Schweregrad | Reaktionszeit | Eskalationsstufe | Sofortmaßnahme |
+|-------------|--------------|-------------------|----------------|
+| **Kritisch (SEC-1)** | ≤ 30 Min. | ISB + DSB + IT-Leitung + Vorstand | System isolieren, Zugriff sperren, Forensik starten |
+| **Hoch (SEC-2, AI-1, OPS-1)** | ≤ 2 Stunden | ISB + IT-Betriebsteam + Projektleiter | Betroffene Komponente isolieren / deaktivieren |
+| **Mittel (AI-2, OPS-2)** | ≤ 8 Stunden | IT-Betriebsteam + IT-Architektur | Monitoring intensivieren, Workaround kommunizieren |
+
+## 19.3 DSGVO-Meldepflicht (Art. 33/34)
+
+| Schritt | Frist | Verantwortlich | Aktion |
+|---------|-------|----------------|--------|
+| 1. Erkennung | Sofort | Monitoring / Nutzer-Meldung | Vorfall im Incident-Ticket dokumentieren |
+| 2. Erstbewertung | ≤ 4 Stunden | DSB + ISB | Personenbezogene Daten betroffen? Risiko für Betroffene? |
+| 3. Meldung an Aufsichtsbehörde | **≤ 72 Stunden** nach Erkennung | DSB | Falls Risiko für Rechte/Freiheiten → Meldung an Sächsischen DSB |
+| 4. Benachrichtigung Betroffener | Unverzüglich | DSB + Klinikumsleitung | Falls hohes Risiko → individuelle Benachrichtigung |
+| 5. Forensische Analyse | ≤ 5 Werktage | ISB + IT-Sicherheit | Root-Cause-Analyse, Audit-Log-Auswertung |
+| 6. Maßnahmen + Abschlussbericht | ≤ 10 Werktage | Projektleiter + ISB + DSB | Technische Korrektur, Prozessanpassung, Dokumentation |
+
+## 19.4 KI-spezifische Incident-Response
+
+### Bei Halluzination mit klinischer Relevanz (AI-1):
+
+1. **Sofort:** Betroffene Anfrage + Antwort im Audit-Log identifizieren
+2. **≤ 2h:** Reproduzierbarkeit prüfen (gleiche Eingabe → gleicher Fehler?)
+3. **≤ 4h:** Falls systematisch → Betroffenen Dokumentenbereich/RAG-Index isolieren
+4. **≤ 24h:** Root-Cause-Analyse (Indexierungsfehler? Prompt-Drift? Modellfehler?)
+5. **≤ 48h:** Korrektur deployen, betroffene Nutzer informieren
+6. **Danach:** Testfall in automatisierte Qualitätsprüfung aufnehmen
+
+### Bei Berechtigungsfehler (SEC-1):
+
+1. **Sofort:** UKLGPT-Zugriff für betroffenen Nutzerkreis sperren
+2. **≤ 30 Min.:** Audit-Log auswerten: Wer hat was gesehen?
+3. **≤ 4h:** Scope des Verstoßes bewerten (Anzahl betroffener Patienten/Datensätze)
+4. **≤ 72h:** DSGVO-Meldung (falls erforderlich, siehe 19.3)
+5. **≤ 5 Tage:** Technische Ursache beheben, Berechtigungslogik patchen
+6. **Danach:** Penetrationstest auf Berechtigungsebene wiederholen
+
+## 19.5 Post-Incident-Review
+
+Jeder Vorfall ab Schweregrad "Hoch" wird innerhalb von 10 Werktagen in einem **Post-Incident-Review** aufgearbeitet:
+
+| Element | Beschreibung |
+|---------|-------------|
+| Timeline | Wann wurde der Vorfall erkannt, eskaliert, behoben? |
+| Root Cause | Was war die technische/organisatorische Ursache? |
+| Impact | Welche Daten/Patienten/Nutzer waren betroffen? |
+| Lessons Learned | Was muss sich ändern (Prozess, Technik, Monitoring)? |
+| Action Items | Konkrete Maßnahmen mit Verantwortlichen und Fristen |
+
+---
+
+# 20\. Kostengerüst-Template (PSP 2.2.1 / 1.5 Ergänzung) {#20.-kostengerüst-template}
+
+*Dieses Template strukturiert alle relevanten Kostenblöcke. Die konkreten Werte müssen durch IT-Infrastruktur, Controlling und ggf. externe Anbieter befüllt werden.*
+
+## 20.1 Einmalige Investitionskosten (CAPEX)
+
+| Kostenblock | Beschreibung | Schätzung | Quelle/Verantwortlich | Status |
+|-------------|-------------|-----------|----------------------|--------|
+| **GPU-Hardware** | NVIDIA A100/H100 oder vergleichbar (1–4 Karten) | [ ] € | IT-Infrastruktur | OFFEN |
+| **Server-Hardware** | Rack-Server für LLM-Inferenz, Graph-DB, Vektor-DB | [ ] € | IT-Infrastruktur | OFFEN |
+| **Storage-Erweiterung** | Zusätzlicher ISILON-/SAN-Speicher für Embeddings + Audit | [ ] € | IT-Infrastruktur | OFFEN |
+| **Netzwerk** | Ggf. 10/25 GbE Anbindung GPU-Cluster | [ ] € | IT-Infrastruktur | OFFEN |
+| **Softwarelizenzen (einmalig)** | Neo4j Enterprise, ggf. OCR-Lizenzen | [ ] € | IT + Einkauf | OFFEN |
+| **Externe Beratung / Implementierung** | KI-Architektur, Implementierungsunterstützung | [ ] € | PMO + Einkauf | OFFEN |
+| **Implementierung hAIppokrates (Alternative)** | 8.000 € zzgl. MwSt. (lt. Pitchdeck) | 9.520 € brutto | Kap. 0.7 | Referenzwert vorhanden |
+| **Schulung / Change-Management** | Trainer, Materialien, Pilotbegleitung | [ ] € | PMO | OFFEN |
+| **SUMME CAPEX** | | **[ ] €** | | |
+
+## 20.2 Laufende Betriebskosten (OPEX, p.a.)
+
+| Kostenblock | Beschreibung | Schätzung p.a. | Quelle/Verantwortlich | Status |
+|-------------|-------------|---------------|----------------------|--------|
+| **Personal: Betriebsteam** | 2–3 FTE (DevOps/ML-Ops, Applikationsbetreuung) | [ ] € | PMO/Controlling | OFFEN |
+| **Personal: Fachliche Betreuung** | 0,5 FTE (Prompt-Pflege, QA, Fachbereichskoordination) | [ ] € | PMO/Controlling | OFFEN |
+| **Stromkosten GPU** | Ca. 300–700W pro GPU × 24/7 | [ ] € | IT-Infrastruktur | OFFEN |
+| **Softwarelizenzen (laufend)** | Neo4j, ggf. LLM-API-Kosten (bei Cloud-Modell) | [ ] € | IT + Einkauf | OFFEN |
+| **Wartung/Support Hardware** | Herstellerwartung Server + GPU | [ ] € | IT-Infrastruktur | OFFEN |
+| **OCR-Verarbeitung** | Laufende OCR für neue Dokumente | [ ] € | IT | OFFEN |
+| **Averbis/Meierhofer-Lizenz (Alternative)** | 1.000–2.500 €/Monat (lt. Pitchdeck analog) | 12.000–30.000 € | Meierhofer-Angebot abwarten | Referenzwert |
+| **Externer Support / Beratung** | Optional: Architektur-Reviews, Security-Audits | [ ] € | PMO | OFFEN |
+| **SUMME OPEX p.a.** | | **[ ] €** | | |
+
+## 20.3 Vergleichsübersicht Eigenlösung vs. Averbis/Meierhofer
+
+| Kostenart | Eigenlösung UKLGPT | Averbis/Meierhofer | Anmerkung |
+|-----------|--------------------|--------------------|-----------|
+| CAPEX (einmalig) | [ ] € (Hardware + Implementierung) | ~9.520 € (Implementierung) | Eigenlösung: höhere Anfangsinvestition |
+| OPEX p.a. (Betrieb) | [ ] € (Personal + Infra + Lizenzen) | 12.000–30.000 € (Lizenz) + geringer Personalaufwand | Averbis: geringere laufende Kosten, aber Vendor Lock-in |
+| **TCO 5 Jahre** | **[ ] €** | **[ ] €** | Entscheidungsrelevant |
+| Personalaufbau | 2,5–3,5 FTE (Kompetenzaufbau) | 0,5–1 FTE (Administration) | Eigenlösung: Know-how bleibt im Haus |
+| Strategischer Wert | Hoch (Datenhoheit, Erweiterbarkeit) | Niedrig (Abhängigkeit von Anbieter-Roadmap) | Nicht in € bezifferbar |
+
+**Handlungsbedarf:**
+1. IT-Infrastruktur: GPU-Sizing und Hardware-Kosten ermitteln
+2. Controlling: FTE-Kosten kalkulieren (Entgeltgruppen TV-L)
+3. Einkauf: Averbis-Angebot von Meierhofer anfordern (Samira Grass)
+4. PMO: TCO-Vergleich erstellen, sobald Werte vorliegen
+
+---
+
+# 21\. Change-Management-Konzept (Klinische Einführung) {#21.-change-management-konzept}
+
+*Dieses Konzept adressiert das Akzeptanz-Risiko (R-05 im Risiko-Register) und beschreibt die schrittweise Einführung von UKLGPT im klinischen Alltag.*
+
+## 21.1 Pilotierungsstrategie
+
+### Phase A: Pilotstation (Okt–Nov 2026, parallel zu MVP)
+
+| Aspekt | Beschreibung |
+|--------|-------------|
+| **Pilotstation** | 1 Station mit hoher Motivation und breitem Dokumentenbedarf (Vorschlag: Innere Medizin oder Chirurgie, Abstimmung mit Fachbereich) |
+| **Pilotgruppe** | 10–15 Ärzte + 5 Pflegekräfte (freiwillige Teilnahme) |
+| **Dauer** | 4–6 Wochen |
+| **Begleitung** | 1 Fach-Champion + 1 IT-Ansprechpartner vor Ort |
+| **Feedback-Erhebung** | Wöchentliches kurzes Online-Feedback (5 Min.), Exit-Interview am Ende |
+| **Erfolgskriterien** | ≥ 70% der Pilotnutzer bewerten System als "hilfreich" oder "sehr hilfreich"; keine SEC-1-Vorfälle |
+
+### Phase B: Erweiterter Pilot (Dez 2026–Feb 2027)
+
+| Aspekt | Beschreibung |
+|--------|-------------|
+| **Erweiterung** | 3–4 weitere Stationen (inkl. 1 chirurgische, 1 interdisziplinäre) |
+| **Anpassungen** | Basierend auf Phase-A-Feedback: Prompt-Optimierung, UI-Verbesserungen, Schulungsmaterial |
+| **Erfolgskriterien** | Nutzung ≥ 3×/Tag/Arzt im Durchschnitt; Fehlerrate AI-1 < 1% |
+
+### Phase C: Klinikweiter Rollout (ab Q2/2027)
+
+| Aspekt | Beschreibung |
+|--------|-------------|
+| **Rollout-Wellen** | Je 5–10 Stationen pro Monat |
+| **Voraussetzung** | Phase-B-Erfolgskriterien erreicht; Betriebskonzept (Kap. 18) vollständig umgesetzt |
+| **Begleitung** | Champions-Netzwerk (siehe 21.2) |
+
+## 21.2 Champions-Netzwerk
+
+| Rolle | Anzahl | Aufgabe | Profil |
+|-------|--------|---------|--------|
+| **Ärztliche Champions** | 1 pro Klinik/Abteilung (Ziel: 15–20) | Multiplikator, Erstansprechpartner, Feedback-Kanal | Technologieaffine Ärzte mit klinischer Autorität |
+| **Pflege-Champions** | 1 pro großer Station (Ziel: 10–15) | Pflegespezifische Anwendungsfälle, Schulungsunterstützung | Erfahrene Pflegekräfte mit Digitalisierungsinteresse |
+| **IT-Liaison** | 1–2 gesamt | Technische Fragen vor Ort, First-Level-Triage | IT-Betriebsteam-Mitglied |
+
+**Anreize:** Fortbildungspunkte (CME), Namentliche Nennung im Projekt, ggf. Freistellung für Champion-Aktivitäten.
+
+## 21.3 Schulungskonzept
+
+| Schulungsformat | Zielgruppe | Dauer | Inhalt | Zeitpunkt |
+|-----------------|-----------|-------|--------|-----------|
+| **Kickoff-Präsentation** | Alle Mitarbeiter der Pilotstation | 30 Min. | Was ist UKLGPT? Was kann es? Was nicht? Datenschutz. | Vor Pilotstart |
+| **Hands-on-Workshop** | Pilotnutzer (Ärzte + Pflege) | 60 Min. | Live-Demo, eigene Anfragen stellen, Feedback geben | Pilotstart-Woche |
+| **Quick-Reference-Card** | Alle Nutzer | – | 1-Seiter: Zugang, Beispielanfragen, Dos/Don'ts, Support-Kontakt | Bei Freischaltung |
+| **E-Learning-Modul** | Alle klinischen Mitarbeiter (Rollout) | 20 Min. | Selbstlernkurs mit Praxisbeispielen, Quiz | Ab Rollout-Phase |
+| **Champions-Training** | Champions | 90 Min. | Vertiefung: Prompt-Strategien, Troubleshooting, Feedback-Prozess | Vor Pilotstart |
+| **Auffrischung** | Alle Nutzer | 15 Min. | Updates, neue Features, Erfahrungsberichte | Quartalsweise |
+
+## 21.4 Feedback- und Verbesserungsprozess
+
+```
+Nutzer-Feedback (In-App)
+        │
+        ▼
+Wöchentliche Auswertung (IT-Betrieb + Fach-Champion)
+        │
+        ├──► Technisch → Backlog → Sprint-Planung
+        │
+        ├──► Fachlich → Fachbereich-Abstimmung (K-04)
+        │
+        └──► Kritisch (AI-1/SEC-1) → Sofort-Eskalation (Kap. 19)
+```
+
+## 21.5 Erfolgsmessung Change-Management
+
+| KPI | Zielwert | Messzeitpunkt |
+|-----|----------|---------------|
+| Nutzungsrate (Anfragen/Tag/Arzt) | ≥ 3 | Ab Pilotstart, monatlich |
+| Nutzerzufriedenheit (Skala 1–5) | ≥ 3,5 | Monatliche Kurzumfrage |
+| Anteil geschulter Nutzer | ≥ 90% (vor Freischaltung) | Pro Rollout-Welle |
+| Champion-Abdeckung | ≥ 80% der Abteilungen | Ab Rollout-Phase |
+| Reduktion Recherchezeit (validiert) | ≥ 50% ggü. Baseline | 3 Monate nach Rollout |
 
