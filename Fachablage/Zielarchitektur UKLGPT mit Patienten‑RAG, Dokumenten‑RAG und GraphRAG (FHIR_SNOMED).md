@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.4.2 – Dokumentbereinigung (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie (HYDMedia, UKLGPT), Struktur (Kap. 0.4/0.5 Reihenfolge, 2.4.3/4, 2.8 Heading, leere Headings), Duplikat 13.1.5, Redundanz 3.2.4, Kap. 99 Updates
+v1.5 – Europe PMC, SNOMED-Autotagging, Evidence-Matching (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie, Struktur, Redundanzen | v1.5: Europe PMC-Anbindung (Kap. 7.2.1.1), automatisches Evidence-Matching (Kap. 7.2.1.2), SNOMED-Autotagging-Pipeline (Kap. 14.2.2), Snowstorm FHIR-API (Kap. 14.2.1), Use Case 4 (Kap. 3.3.4), FA-13 bis FA-16, UI Evidence-Panel (Kap. 4.2)
 
 ---
 
@@ -353,6 +353,10 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 | FA-10 | Dokumenten-RAG: Volltextsuche über OCR-verarbeitete PDFs | MUSS | 3.1, 3.3 | Kap. 7.2.2, 10.1 |
 | FA-11 | Tumorboard-/Konsilunterstützung (Fallzusammenstellung) | KANN | 2.2 | Kap. 2.7.1 |
 | FA-12 | OCR-Verarbeitung der Dokumentenbasis (mind. computergenerierte Dokumente) | MUSS | 3.1 | Kap. 1.3.1, 0.6 |
+| FA-13 | Automatisches SNOMED-CT-Tagging aller eingehenden Patientendokumente (NER-Pipeline) | SOLL | 2.3.1, 3.1 | Kap. 14.2.2 |
+| FA-14 | Proaktives Evidence-Matching: Anzeige relevanter interner + externer Dokumente beim Fallaufruf | SOLL | 2.2 | Kap. 3.3.4, 7.2.1.2 |
+| FA-15 | Europe PMC-Anbindung: Automatischer Abruf aktueller Publikationen zu Patientendiagnosen | SOLL | 2.2 | Kap. 7.2.1.1 |
+| FA-16 | Facettierte Dokumentensuche über SNOMED-Tags (Diagnose, Prozedur, Substanz) | SOLL | 2.2 | Kap. 3.3.4, 14.2.2 |
 
 ### Nicht-funktionale Anforderungen
 
@@ -866,11 +870,95 @@ Die folgenden Leitprinzipien definieren den Rahmen für die Architektur, die sem
 
   * **LOINC (Logical Observation Identifiers Names and Codes)**: Für die standardisierte Kodierung von Laborergebnissen und klinischen Messungen.
 
+### 14.2.1 SNOMED CT Terminologie-Server (Snowstorm / FHIR-API)
+
+Für die technische Anbindung an SNOMED CT wird ein **FHIR-konformer Terminologie-Server** eingesetzt. Die Referenzimplementierung ist **Snowstorm** (SNOMED International, Open Source), die sowohl als öffentlicher Service als auch On-Premise betrieben werden kann.
+
+**FHIR-Operationen für UKLGPT:**
+
+| Operation | Endpunkt | Einsatz |
+|-----------|----------|---------|
+| `$lookup` | `CodeSystem/$lookup?system=http://snomed.info/sct&code={SCTID}` | Abruf von Bezeichnungen, Definitionen und Eigenschaften eines Konzepts (z. B. für Anzeige im UI oder Prompt-Anreicherung) |
+| `$expand` (ECL) | `ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=ecl/{ECL}&filter={text}` | Hierarchische Suche mit Expression Constraint Language (z. B. `< 84114007` = alle Untertypen von Herzinsuffizienz) |
+| `$translate` | `ConceptMap/$translate` | Mapping zwischen SNOMED CT und ICD-10/LOINC |
+| `$subsumes` | `CodeSystem/$subsumes` | Prüfung hierarchischer Beziehungen (z. B. „Ist Diagnose X ein Untertyp von Y?") |
+
+**Betriebsmodell:**
+
+* **Phase 1 (Pilotierung):** Nutzung des öffentlichen IHTSDO-Servers (`https://snowstorm.ihtsdotools.org/fhir`) mit Fallback auf lokalen Cache.
+* **Phase 2 (Produktion):** On-Premise Snowstorm-Instanz im UKL-Rechenzentrum (Elasticsearch-Backend, Docker-basiert), um Latenzanforderungen (< 50 ms pro Lookup) und Datenschutzanforderungen zu erfüllen.
+* **Referenzimplementierung:** IHTSDO/SNOMED-in-5-minutes (GitHub) – stellt Beispielcode in Python, Java, JavaScript u. a. bereit.
+
+### 14.2.2 SNOMED-Autotagging-Pipeline für Patientendokumente
+
+Alle Patientendokumente, die in das UKLGPT-System gelangen (aus HYDMedia, DMI oder direkt aus Quellsystemen), werden automatisch mit **SNOMED-CT-Codes** annotiert. Dieses Autotagging ist ein zentrales Element, das drei Ziele verfolgt:
+
+1. **Semantische Durchsuchbarkeit:** Dokumente werden nicht nur per Volltextsuche, sondern über standardisierte medizinische Konzepte auffindbar.
+2. **Evidence-Matching:** Die SNOMED-Tags eines Dokuments ermöglichen das automatische Verknüpfen mit externer Evidenz (Europe PMC, vgl. Kap. 7.2.1.1).
+3. **GraphRAG-Anbindung:** Die extrahierten SNOMED-Konzepte werden als Kanten im Wissensgraphen mit dem jeweiligen `DocumentReference`-Knoten verknüpft.
+
+**Pipeline-Architektur (5 Stufen):**
+
+```
+┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌───────────────┐    ┌─────────────┐
+│ 1. Dokument │───→│ 2. Text-     │───→│ 3. NER /       │───→│ 4. SNOMED-    │───→│ 5. Speiche-  │
+│    Eingang   │    │    Extraktion │    │    Konzept-    │    │    Normali-   │    │    rung      │
+│ (HYDMedia/  │    │ (OCR für     │    │    Erkennung   │    │    sierung    │    │ (Graph +    │
+│  DMI/FHIR)  │    │  Scans, PDF- │    │ (cTAKES/       │    │ (Snowstorm   │    │  Vektor-DB  │
+│              │    │  Parser)     │    │  MedCAT/       │    │  $lookup +   │    │  + Metadaten)│
+│              │    │              │    │  SciSpacy)     │    │  ECL-Mapping) │    │              │
+└─────────────┘    └──────────────┘    └────────────────┘    └───────────────┘    └─────────────┘
+```
+
+**Stufe 1 – Dokumenteingang:**
+* Trigger: Neues Dokument in HYDMedia (via FHIR DocumentReference-Event) oder DMI-Klassifizierungsinstanz.
+* Metadaten (Patient, Fall, Dokumenttyp, Zeitstempel) werden aus der FHIR-Nachricht extrahiert.
+
+**Stufe 2 – Textextraktion:**
+* **PDF-Dokumente:** OCR-Verarbeitung (HYDMedia OCR-Modul, ab 02/2026 verfügbar) oder Apache Tika.
+* **Strukturierte Nachrichten (HL7/FHIR):** Direkter Textauszug aus den relevanten Feldern.
+* **Scans:** OCR mit medizinisch trainiertem Modell (höhere Genauigkeit bei Fachbegriffen).
+
+**Stufe 3 – Named Entity Recognition (NER) / Konzepterkennung:**
+* Einsatz eines medizinischen NER-Modells (Optionen: **MedCAT**, **cTAKES**, **SciSpacy** mit `en_ner_bc5cdr_md`-Modell).
+* Erkannte Entitätstypen:
+
+| Entitätstyp | Beispiel | SNOMED-Hierarchie |
+|-------------|----------|-------------------|
+| Diagnosen / Befunde | „Herzinsuffizienz", „Barrett-Ösophagus" | `< 404684003` (Clinical Finding) |
+| Prozeduren | „Gastroskopie", „CT Abdomen" | `< 71388002` (Procedure) |
+| Substanzen / Medikamente | „Metoprolol", „Ramipril" | `< 105590001` (Substance) |
+| Körperstrukturen | „linker Ventrikel", „Leber" | `< 123037004` (Body Structure) |
+| Organismen | „Helicobacter pylori" | `< 410607006` (Organism) |
+
+**Stufe 4 – SNOMED-Normalisierung:**
+* Jede erkannte Entität wird über die Snowstorm FHIR-API normalisiert:
+  * `$expand` mit ECL-Filter zur Auflösung in den korrekten SNOMED-CT-Code.
+  * `$lookup` zur Abruf der kanonischen Bezeichnung und des Definitionsstatus.
+  * Konfidenz-Score der NER-Erkennung wird mitgeführt (Schwellwert: ≥ 0.85 für automatische Übernahme, < 0.85 → Review-Queue).
+* **ICD-10-Crosswalk:** Über `$translate` (ConceptMap) werden ergänzend ICD-10-Codes abgeleitet, sofern ein valides Mapping existiert.
+
+**Stufe 5 – Speicherung:**
+* Die extrahierten SNOMED-Tags werden als `Coding`-Elemente in der FHIR `DocumentReference.content.attachment`-Metadaten gespeichert.
+* Im **GraphRAG** wird für jedes getaggte Konzept eine Kante `DocumentReference → hasSnomedTag → Concept` angelegt.
+* Im **Vektor-DB**-Index werden die SNOMED-Codes als zusätzliche Filterattribute (Facetten) gespeichert, um hybride Suche (Semantik + Facette) zu ermöglichen.
+
+**Durchsatz und Skalierung:**
+
+| Szenario | Geschätzter Durchsatz | Anmerkung |
+|----------|----------------------|-----------|
+| Neudokumente (laufender Betrieb) | ~500–1.000 Dokumente/Tag | Echtzeit-Verarbeitung (< 5 Sek./Dokument) |
+| Altdaten-Migration (21 Mio. PDFs) | Batch-Verarbeitung über 6–12 Monate | Priorisierung nach Aktualität (jüngste Fälle zuerst) |
+
+**Qualitätssicherung:**
+* **Stichproben-Audit:** 1 % der automatisch getaggten Dokumente werden monatlich durch klinisches Fachpersonal validiert.
+* **Feedback-Loop:** Korrekturen fließen als Trainingsdaten zurück in das NER-Modell (kontinuierliche Verbesserung).
+
 ## 14.3 Trennung der Wissensdomänen und Datenhaltungsschichten {#14.3-trennung-der-wissensdomänen-und-datenhaltungsschichten}
 
 * **Modulare Architektur**: Die Datenhaltung wird in logisch getrennte Domänen unterteilt, um Skalierbarkeit, gezielte Aktualisierung und spezifische Sicherheitsanforderungen zu gewährleisten:
 
-  * **Globales Wissen (Evidence-Base)**: Umfasst externe, allgemein gültige Informationsquellen wie klinische Leitlinien, wissenschaftliche Literatur (z.B. PubMed-Referenzen) und Ontologien. Diese Domäne dient als Grundlage für Entscheidungsunterstützungssysteme (Clinical Decision Support, CDS).
+  * **Globales Wissen (Evidence-Base)**: Umfasst externe, allgemein gültige Informationsquellen wie klinische Leitlinien, wissenschaftliche Literatur (primär über **Europe PMC** REST-API, vgl. Kap. 7.2.1.1) und Ontologien. Diese Domäne dient als Grundlage für Entscheidungsunterstützungssysteme (Clinical Decision Support, CDS). Die Verknüpfung mit Patientendaten erfolgt über **SNOMED-CT-basiertes Evidence-Matching** (Kap. 7.2.1.2).
 
   * **Patientenbezogene Dokumente (HYDMedia)**: Unstrukturierte oder semi-strukturierte Dokumente wie Arztbriefe, Befunde, Aufklärungsbögen und Bilder, die im Rahmen der Versorgung entstehen. Diese werden in einem hochsicheren Dokumentenarchiv verwaltet.
 
@@ -1081,6 +1169,9 @@ Die aktuelle Formulierung ist ein **Klargang in eine kritische Abhängigkeit und
 | **UKLGPT API-Anbindung** | Prüfung, wie über die **FHIR Connectoren** eine *DocumentReference* zur Originaldokument-Datei (Binary) aufgelöst werden kann. Ziel ist es, die Originaldokumente aus dem DMS in den RAG-Prozess zu integrieren. Ggf. Anbindung einer weiteren HYDMedia API (z.B. REST-API für die OCR-Datenbank). |
 | **Archiv-Strategie (DMI/AVP)** | Es ist zu prüfen, ob zur vollen KI-Readiness eine erweiterte AVP-Version (**AVP Infinity**) notwendig ist. Dies würde einen Release-Wechsel der DMI-Klassifizierungsinstanz bedeuten und potenziell HYDMedia als Dokumentenarchiv ablösen, was jedoch ein eigenes, komplexes Projekt (inkl. Infrastruktur und Migration) nach sich ziehen würde. **Prüfung der WebAPI von DMI (x-tention).** |
 | **RAG-Strategie** | Umsetzung konkreter, fallbezogener Abfragen über RAG (ggf. auch Long Context RAG), um die Inhalte der Dokumente semantisch zu erschließen und bereitzustellen. |
+| **SNOMED-Autotagging** | Aufbau der NER-Pipeline (MedCAT/cTAKES/SciSpacy) zur automatischen SNOMED-CT-Annotation aller Patientendokumente (vgl. Kap. 14.2.2). |
+| **Europe PMC-Anbindung** | Integration der Europe PMC REST-API für automatisches Evidence-Matching basierend auf SNOMED-Diagnose-Codes (vgl. Kap. 7.2.1.1). |
+| **Snowstorm Terminologie-Server** | Evaluierung On-Premise-Snowstorm (Phase 2) vs. öffentlicher IHTSDO-Endpunkt (Phase 1) für SNOMED-CT $lookup/$expand (vgl. Kap. 14.2.1). |
 
 ## 3.3 Use Cases von UKLGPT {#3.3-use-cases-von-uklgpt}
 
@@ -1170,6 +1261,45 @@ Das System kann Dokumente (z.B. OP-Berichte, Anamnesebögen) automatisch scannen
 
 * **Vorbereitung auf Audits:** Das System unterstützt bei der Einhaltung von Dokumentationsrichtlinien und der Vorbereitung auf interne und externe Audits.
 
+### 3.3.4 Use Case 4: Automatisches Evidence-Matching und SNOMED-Tagging
+
+#### 3.3.4.1 Problemstellung und Herausforderung:
+
+Kliniker stehen vor zwei fundamentalen Herausforderungen:
+
+* **Fehlende Evidenz-Anbindung:** Aktuelle wissenschaftliche Erkenntnisse (Leitlinien, Studien) sind vom klinischen Arbeitsplatz aus schwer zugänglich. Die manuelle Recherche in PubMed/Europe PMC dauert pro Fragestellung 10–30 Minuten und findet daher im Alltag kaum statt.
+* **Fehlende semantische Erschließung:** Patientendokumente (Arztbriefe, Befunde, OP-Berichte) sind als unstrukturierter Freitext gespeichert und weder standardisiert kodiert noch mit internationalen Terminologien verknüpft. Eine gezielte Suche nach „allen Patienten mit Herzinsuffizienz" erfordert derzeit manuelles Durchlesen statt einer Facetten-Suche.
+
+#### 3.3.4.2 Innovative Lösung durch UKLGPT:
+
+**A) Proaktives Evidence-Matching:**
+
+Beim Öffnen eines Patientenfalls analysiert UKLGPT automatisch die vorliegenden Diagnosen, Medikationen und Prozeduren und zeigt dem Kliniker drei Informationsebenen an:
+
+1. **Relevanteste interne Dokumente** – die 5 wichtigsten Patientendokumente, gerankt nach semantischer Ähnlichkeit und Aktualität.
+2. **Passende interne Leitlinien/SOPs** – hauseigene Behandlungspfade und Protokolle, die zu den aktiven Diagnosen passen.
+3. **Aktuelle externe Evidenz (Europe PMC)** – die neuesten und meistzitierten Publikationen zu den Hauptdiagnosen des Patienten, abgerufen über die Europe PMC REST-API (vgl. Kap. 7.2.1.1).
+
+Beispiel-Szenario: Ein Patient mit der Diagnose „Herzinsuffizienz (NYHA III)" wird aufgerufen. UKLGPT zeigt automatisch:
+* Interne Dokumente: letzter Echokardiographie-Befund, Entlassungsbrief Kardiologie, Medikamentenplan
+* Interne Leitlinie: UKL-SOP „Management der Herzinsuffizienz"
+* Externe Evidenz: 3 aktuelle Studien zu HFrEF-Therapie aus Europe PMC (mit DOI-Link, Journal, Zitationen)
+
+**B) Automatisches SNOMED-Tagging:**
+
+Jedes in das System eingehende Patientendokument wird automatisch durch eine NER-Pipeline (Named Entity Recognition) analysiert und mit SNOMED-CT-Codes annotiert (vgl. Kap. 14.2.2). Der Kliniker profitiert davon durch:
+
+* **Facettierte Suche:** „Zeige mir alle Dokumente dieses Patienten, die sich auf `Diabetes mellitus Typ 2` beziehen" – unabhängig von der im Freitext verwendeten Formulierung.
+* **Automatische Diagnose-Verlinkung:** Dokumente werden im GraphRAG mit den entsprechenden SNOMED-Konzepten verknüpft und erscheinen als Kontext bei verwandten Abfragen.
+* **Cross-Patient-Analyse (anonymisiert, Forschungsmodus):** Identifikation ähnlicher Fälle über SNOMED-basierte Kohortenbildung.
+
+#### 3.3.4.3 Erzielter Nutzen und Mehrwert:
+
+* **Evidenzbasierte Entscheidungen ohne Zusatzaufwand:** Der Kliniker erhält aktuelle Evidenz proaktiv, ohne selbst recherchieren zu müssen.
+* **Zeitersparnis Evidenzrecherche:** Von Ø 15 Min. manueller PubMed-Suche auf 0 Min. (automatische Bereitstellung).
+* **Verbesserte Dokumentenqualität:** Durch SNOMED-Tagging werden alle Dokumente maschinenlesbar und international standardisiert kodiert.
+* **Grundlage für klinische Forschung:** Die SNOMED-annotierten Dokumente bilden eine strukturierte Datenbasis für retrospektive Studien und Qualitätssicherung.
+
 ## 3.4 Wichtiger Hinweis, Abgrenzung und Haftungsausschluss zur Nutzung des UKLGPT-Systems (UKLGPT) {#3.4-wichtiger-hinweis,-abgrenzung-und-haftungsausschluss-zur-nutzung-des-uklgpt-systems-(uklgpt)}
 
 Das **UKLGPT-System** (im Folgenden auch als **UKLGPT** bezeichnet) ist ein hochentwickeltes KI-gestütztes Tool, das **ausschließlich zur Unterstützung** des medizinischen Fachpersonals in der täglichen klinischen Praxis konzipiert wurde. Seine Funktion ist strikt auf die **Bereitstellung von Informationen und assistierenden Textvorschlägen** begrenzt.
@@ -1246,6 +1376,12 @@ Die Gesamtarchitektur ist in klar definierte, voneinander getrennte Ebenen (Laye
 
 * Diese Schicht ist essenziell für die Echtzeit-Kontextualisierung mit patientenspezifischen Daten.
 
+* **Externe Evidenz-Schnittstellen:**
+
+  * **Europe PMC REST-API** (https://europepmc.org/RestfulWebService): Abruf wissenschaftlicher Literatur über strukturierte Suchanfragen (DISEASE, CHEM, GENE_PROTEIN). Kein personenbezogener Datenfluss nach extern. (Kap. 7.2.1.1)
+
+  * **Snowstorm FHIR-API** (SNOMED CT Terminologie-Server): FHIR R4-konforme Operationen ($lookup, $expand, $translate, $subsumes) für SNOMED-CT-Normalisierung und hierarchische Abfragen. Phase 1 extern, Phase 2 On-Premise. (Kap. 14.2.1)
+
 ## 15.6 Berechtigungs- und Sicherheitskonzept (Querschnittsfunktion): {#15.6-berechtigungs--und-sicherheitskonzept-(querschnittsfunktion):}
 
 * Eine übergreifende, nicht-funktionale Anforderung, die alle Schichten durchdringt.
@@ -1283,6 +1419,14 @@ Die UI muss essenzielle Funktionen bereitstellen, die für einen nahtlosen und s
   * **Dokumentenausschnitte und Quellennachweis:** Direkte Einbettung der spezifischen **Textausschnitte** aus den Patientenakten oder sonstigen Quelldokumenten, auf denen die Antwort basiert, inklusive **klarer Kennzeichnung der Quelle** (z.B. Name des Dokuments, Datum).
 
   * **Leitlinien und Evidenz:** Explizite Nennung und Verlinkung der zugrundeliegenden medizinischen **Leitlinien, Fachliteratur oder Evidenz-Quellen**, die zur Generierung der Empfehlung herangezogen wurden.
+
+* **Proaktives Evidence-Panel (Kap. 7.2.1.2):** Beim Öffnen eines Patientenfalls wird automatisch ein **Evidence-Panel** angezeigt, das drei Bereiche umfasst:
+
+  * **Interne Dokumente:** Top-5 relevanteste Patientendokumente (semantisch gerankt).
+  * **Interne Leitlinien:** Passende SOPs und Hausprotokolle.
+  * **Externe Evidenz (Europe PMC):** Top-5 aktuelle Publikationen pro Hauptdiagnose (Titel, Journal, Jahr, Zitationen, DOI-Link). Die Evidenz-Karten sind klickbar und öffnen den Volltext bei Open-Access-Artikeln.
+
+* **SNOMED-Tag-Anzeige:** Patientendokumente zeigen ihre automatisch vergebenen **SNOMED-CT-Tags** als klickbare Badges an, die eine facettierte Navigation ermöglichen (z. B. „Zeige alle Dokumente mit Tag *Herzinsuffizienz*").
 
 ## 4.3 Essenzielle Sicherheits- und Transparenzelemente {#4.3-essenzielle-sicherheits--und-transparenzelemente}
 
@@ -1406,7 +1550,7 @@ Die Trennung in Domänen ermöglicht es, für jede Art von Information die optim
 | ----- | ----- | ----- | ----- |
 | **Strukturierte Fakten (Struktur-RAG)** | GraphRAG | DWH-Daten, FHIR/SNOMED-Klassifikationen | Bereitstellung eines präzisen, klinischen Kontextes und Steuerung der Abfragepfade (Faktenbasiert). |
 | **Unstrukturierte Dokumente (Patienten-Dokumenten-RAG)** | Vektor-DB (episodisch, zeitbasiert) | HYDMedia G6 Dokumente, klinische Berichte, Arztbriefe | Erfassung des Patientenverlaufs, detaillierte Befunde, individuelle Historie (Kontext). |
-| **Globales Wissen (Globaler Wissens-RAG)** | Vektor-DB | Leitlinien, PubMed-Artikel, Medizinische Klassifikationen | Bereitstellung evidenzbasierter Informationen, medizinischer Evidenz und fachlicher Einordnung (Leitlinien). |
+| **Globales Wissen (Globaler Wissens-RAG)** | Vektor-DB + Europe PMC API | Leitlinien, Europe PMC / PubMed-Artikel, Medizinische Klassifikationen | Bereitstellung evidenzbasierter Informationen, medizinischer Evidenz und fachlicher Einordnung (Leitlinien). Automatisches Evidence-Matching via SNOMED → Europe PMC (Kap. 7.2.1.1). |
 
 ## 7.2 Detaillierte RAG-Architekturkomponenten {#7.2-detaillierte-rag-architekturkomponenten}
 
@@ -1419,6 +1563,62 @@ Die Umsetzung dieser Domänen erfolgt über spezialisierte RAG-Komponenten:
 * **Datenquellen:** Aktuelle medizinische Leitlinien (national und international), relevante Artikel aus der wissenschaftlichen Datenbank PubMed, Standard-Klassifikationssysteme (z. B. ICD-10, OPS).
 
 * **Funktion:** Dieser RAG dient als Quelle für allgemeines, medizinisches Expertenwissen. Er liefert die *Evidenz* und die *Einordnung* klinischer Sachverhalte in den breiteren medizinischen Kontext. Er gewährleistet, dass die generierten Empfehlungen auf dem aktuellen Stand der Forschung und den gültigen Standards basieren.
+
+#### 7.2.1.1 Europe PMC als primäre externe Evidenzquelle
+
+Für die Anbindung externer wissenschaftlicher Literatur wird **Europe PMC** (https://europepmc.org/) als primäre Datenquelle eingesetzt. Europe PMC bietet Zugang zu über **43 Millionen Publikationen** (PubMed, PMC, Preprints, Patents) und stellt eine offene, DSGVO-konforme REST-API bereit, die ohne Authentifizierung nutzbar ist.
+
+**API-Endpunkte und Nutzung:**
+
+| Endpunkt | Funktion | Einsatz in UKLGPT |
+|----------|----------|-------------------|
+| `/search` | Volltextsuche mit strukturierten Feldern (TITLE, ABSTRACT, DISEASE, CHEM, GENE_PROTEIN, PUB_YEAR) | Abruf relevanter Publikationen zu aktuellen Patientendiagnosen |
+| `/{source}/{id}/citations` | Zitationsnetzwerk eines Artikels | Identifikation der einflussreichsten Arbeiten zu einem Thema |
+| `/{source}/{id}/references` | Referenzliste eines Artikels | Rückverfolgung der Evidenzkette |
+| `/{source}/{id}/textMinedTerms` | Text-Mining-Annotationen (Genes, Chemicals, Diseases) | Automatische Anreicherung mit strukturierten Entitäten |
+| `/{id}/fullTextXML` | Volltextzugriff (Open Access) | Tiefere Analyse bei relevanten Treffern |
+
+**Suchstrategie – SNOMED-zu-Europe-PMC-Mapping:**
+
+Die Verknüpfung zwischen Patientendaten und externer Evidenz erfolgt über die SNOMED-CT-Kodierung der Patientendiagnosen. Der Ablauf:
+
+1. **SNOMED-Extraktion:** Die SNOMED-CT-Codes der aktuellen Patientendiagnosen werden aus dem GraphRAG extrahiert (z. B. `84114007` = Herzinsuffizienz).
+2. **Term-Expansion:** Über die Snowstorm FHIR-API (`$lookup`) werden die bevorzugten Bezeichnungen und Synonyme des SNOMED-Konzepts abgerufen.
+3. **Europe PMC Query:** Die Terme werden als strukturierte Suchanfrage übersetzt: `DISEASE:"heart failure" AND PUB_YEAR:[2024 TO 2026] AND (LANG:"eng" OR LANG:"ger") AND IN_EPMC:y`
+4. **Ranking:** Ergebnisse werden nach `sort_cited:y` (Zitationshäufigkeit) und `sort_date:y` (Aktualität) sortiert; die Top-N werden in den Wissens-RAG-Index aufgenommen.
+5. **Caching:** Bereits abgerufene Artikel werden im lokalen Wissens-RAG-Index zwischengespeichert (TTL: 30 Tage), um API-Last zu minimieren.
+
+**Antwortformate:** JSON (primär) oder XML; Metadaten umfassen `pmid`, `doi`, `title`, `authorString`, `journalTitle`, `pubYear`, `citedByCount`, `isOpenAccess`.
+
+#### 7.2.1.2 Automatisches Evidence-Matching (Internes + Externes Wissen)
+
+Das **Evidence-Matching** ist der Kernmechanismus, der bei jedem Patientenkontakt automatisch die relevantesten internen und externen Dokumente identifiziert und dem Kliniker proaktiv anzeigt. Der Prozess läuft in drei Schichten:
+
+**Schicht 1 – Patientenkontext aus GraphRAG:**
+* Beim Öffnen eines Patientenfalls werden die aktiven Diagnosen (SNOMED-kodiert), aktuelle Medikation (ATC/SNOMED), laufende Prozeduren und das Alter/Geschlecht aus dem GraphRAG extrahiert.
+* Diese Kontextinformationen bilden das **Patienten-Profil** (klinischer Fingerabdruck).
+
+**Schicht 2 – Internes Dokumenten-Matching (Patienten-Dokumenten-RAG + Wissens-RAG):**
+* Das Patienten-Profil wird als Embedding-Query gegen den **Patienten-Dokumenten-RAG** ausgeführt → relevanteste eigene Dokumente (Arztbriefe, Befunde, OP-Berichte) nach semantischer Ähnlichkeit.
+* Parallel dazu wird das Patienten-Profil gegen den **internen Wissens-RAG** (vorgehaltene Leitlinien, SOPs, Hausprotokolle) gematcht → relevanteste interne Leitlinien und Protokolle.
+
+**Schicht 3 – Externes Evidence-Matching (Europe PMC):**
+* Die Top-3-Diagnosen des Patienten werden über das SNOMED-zu-Europe-PMC-Mapping (s. 7.2.1.1) in Suchanfragen übersetzt.
+* Besondere Berücksichtigung erfahren:
+  * **Aktualität:** Publikationen der letzten 2 Jahre werden priorisiert.
+  * **Relevanz:** Klinische Leitlinien (`SRC:MED`) und systematische Reviews werden höher gewichtet.
+  * **Zitationshäufigkeit:** Hochzitierte Arbeiten erhalten Priorität.
+* Die Ergebnisse werden als kompakte Evidenz-Karten im UI angezeigt (Titel, Journal, Jahr, Zitationen, Abstract-Snippet, DOI-Link).
+
+**Ergebnis-Darstellung im Frontend (Kap. 4):**
+
+| Bereich | Inhalt | Aktualisierung |
+|---------|--------|----------------|
+| **Interne Dokumente** | Top-5 relevanteste Patientendokumente (nach Ähnlichkeit + Aktualität) | Bei jedem Fallaufruf |
+| **Interne Leitlinien** | Passende SOPs, Hausprotokolle, klinikspezifische Pfade | Bei jedem Fallaufruf |
+| **Externe Evidenz** | Top-5 Europe-PMC-Treffer pro Hauptdiagnose (Titel, Journal, Jahr, Zitationen) | Tägliches Refresh, bei Diagnoseänderung sofort |
+
+**Datenschutz-Konformität:** Es werden keine Patientendaten an Europe PMC übermittelt. Die Suchanfragen enthalten ausschließlich medizinische Fachbegriffe (SNOMED-Terme), keine personenbezogenen Daten.
 
 ### 7.2.2 Patienten-Dokumenten-RAG
 
@@ -2354,9 +2554,12 @@ Feb   Mär   Apr   Mai   Jun   Jul   Aug   Sep   Okt   Nov   Dez   Q1    Q2
 |------------|-----------|-------------|--------------|----------|
 | M3.1 | Jan 2027 | GraphRAG-Integration (strukturierte Fakten aus UKLytics/DWH) | DWH-Anbindung | – |
 | M3.2 | Feb 2027 | Leitlinien-RAG (Globales Wissen) integriert | – | – |
+| M3.2a | Feb 2027 | **Europe PMC-Anbindung** produktiv (Evidence-Matching, Kap. 7.2.1.1) | M3.2 | – |
 | M3.3 | Mär 2027 | Vollständige OCR-Verarbeitung des Dokumentenbestands abgeschlossen | Rechenkapazität | – |
+| M3.3a | Mär 2027 | **SNOMED-Autotagging-Pipeline** produktiv (NER + Snowstorm, Kap. 14.2.2) | M3.3, OCR | – |
+| M3.3b | Mär 2027 | **Snowstorm On-Premise** bereitgestellt und validiert (Kap. 14.2.1) | Infrastruktur | – |
 | M3.4 | Apr 2027 | Labor-FHIR-Connector (UKLytics) produktiv | DWH-Team | – |
-| M3.5 | Mai 2027 | **Klinikweiter Rollout UKLGPT** | M3.1–M3.4 | **Go/No-Go** |
+| M3.5 | Mai 2027 | **Klinikweiter Rollout UKLGPT** (inkl. Evidence-Panel, SNOMED-Tags) | M3.1–M3.4 | **Go/No-Go** |
 | M3.6 | Jun 2027 | Projektabschluss, Übergabe an Linienbetrieb | Betriebskonzept | – |
 
 ## 17.3 Kritischer Pfad
@@ -2588,6 +2791,8 @@ Jeder Vorfall ab Schweregrad "Hoch" wird innerhalb von 10 Werktagen in einem **P
 | **DWH/ETL-Pipeline** | CDC/Micro-Batch Pipeline DWH→GraphRAG (Kap. 8) | [ ] € | IT-Architektur | OFFEN |
 | **M-KIS-Integration** | API-Anbindung Berechtigungsprüfung (Kap. 12.7.2) | [ ] € | Meierhofer + IT | OFFEN |
 | **Schulung / Change-Management** | Trainer, Materialien, Pilotbegleitung (Kap. 21) | [ ] € | PMO | OFFEN |
+| **Snowstorm On-Premise** | Elasticsearch-Backend für SNOMED CT Terminologie-Server (Kap. 14.2.1) | [ ] € | IT-Infrastruktur | OFFEN |
+| **NER-Pipeline (SNOMED-Autotagging)** | Setup MedCAT/cTAKES, Training auf UKL-Dokumenten (Kap. 14.2.2) | [ ] € | IT + KI-Team | OFFEN |
 | **SUMME CAPEX** | | **[ ] €** | | |
 
 ## 20.2 Laufende Betriebskosten (OPEX, p.a.)
