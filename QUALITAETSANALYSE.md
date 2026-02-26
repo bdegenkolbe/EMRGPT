@@ -203,7 +203,7 @@ Nur logische Widersprüche, unrealistische Annahmen, Bewertungsinkonsistenzen.
 
 ---
 
-## 4) Risiko-Register (Top 10)
+## 4) Risiko-Register (Top 13)
 
 - Risiko  
 - Ursache  
@@ -293,6 +293,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** KPIs definieren: z.B. „Reduktion der durchschnittlichen Recherchezeit von 10 Min. auf < 30 Sek.", „Verfügbarkeits-SLA > 99,5%", „OCR-Erkennungsrate > 98%".
 - **Priorität:** P1
 - **Owner:** PMO / Fachbereich
+- **Status:** TEILWEISE BEHOBEN – SLA-Definitionen in Kap. 18.1, Change-Management-KPIs in Kap. 21.5, Antwortzeit-Zielwerte in Kap. 0.5/0.10. Projektübergreifende KPI-Governance noch durch PL zu formalisieren.
 
 ### A-02: Fehlende Stakeholder-Analyse
 - **Befund:** Keine Stakeholder-Identifikation, keine Einfluss-/Interessenmatrix.
@@ -310,6 +311,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Betriebskonzept als separates Produkt im PSP ergänzen. Mindestinhalte: SLA-Definition, Support-Level, Monitoring-Architektur, Backup/DR.
 - **Priorität:** P1
 - **Owner:** IT-Betrieb
+- **Status:** TEILWEISE BEHOBEN – Betriebskonzept-Gerüst in Kap. 18 ergänzt (SLA, Monitoring, Support, Backup/DR, Kapazitätsplanung, Release-Mgmt.). Konkrete Werte durch IT-Betrieb zu befüllen.
 
 ### A-04: Fehlendes Decommissioning-Konzept
 - **Befund:** Keine Strategie für die schrittweise Ablösung von SAP i.s.h.med und die Übergangsphase beschrieben.
@@ -318,6 +320,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Migrationsfahrplan mit Phasen, Go/No-Go-Kriterien und Rollback-Szenarien erstellen.
 - **Priorität:** P1
 - **Owner:** IT / PMO
+- **Status:** TEILWEISE BEHOBEN – Umsetzungsfahrplan (Kap. 17) adressiert SAP-Abschaltung als Meilenstein-Constraint, Rollback-Strategie (Kap. 17.4) definiert. Ein explizites Decommissioning-Konzept (Stilllegungsplan SAP i.s.h.med) fehlt aber weiterhin und liegt außerhalb des UKLGPT-Scopes (SAP-Migrationsprojekt).
 
 ---
 
@@ -334,7 +337,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ### B-02: Redundante Abgrenzungsaussagen
 - **Befund:** Die Abgrenzung „UKLGPT ist keine Diagnose-/Therapie-System" wird in Kap. 2.5.4, Kap. 2.6.2, Kap. 3.4 und Kap. 6.4 jeweils nahezu identisch formuliert.
-- **Belegstelle:** Kap. 2.5.4, 2.6.2, 3.4, 6.4.
+- **Belegstelle:** Kap. 2.6.4, 2.7.2, 3.4, 6.4 (Nummerierung seit v1.3 korrigiert).
 - **Auswirkung:** Redundanz schwächt die Argumentationskraft und erschwert Pflege.
 - **Empfehlung:** Konsolidierung an einer Stelle (empfohlen: Kap. 3.4 als dediziertes Abgrenzungskapitel), in anderen Kapiteln Querverweis.
 - **Priorität:** P3
@@ -389,6 +392,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Grobzeitplan mit Phasen erstellen: (1) Vorprojekt bis Q2/2026, (2) Archiv-Migration bis Q3/2026, (3) UKLGPT MVP bis Q4/2026, (4) Vollausbau 2027.
 - **Priorität:** P1
 - **Owner:** PMO
+- **Status:** BEHOBEN – Umsetzungsfahrplan mit 4 Phasen, Meilensteinen, Go/No-Go-Kriterien und Rollback-Strategie in Kap. 17 ergänzt.
 
 ### D-02: Keine Ressourcenplanung
 - **Befund:** Weder FTE-Bedarf noch Budgetrahmen noch Infrastrukturanforderungen quantifiziert.
@@ -397,6 +401,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Mindestens Grobschätzung: Team-Größe, Infrastrukturkosten (GPU, Speicher, Lizenzen), externe Dienstleister.
 - **Priorität:** P1
 - **Owner:** PMO / IT
+- **Status:** TEILWEISE BEHOBEN – FTE-Bedarf in Kap. 18.3 (2–3 FTE Betrieb + 0,5 FTE Fachbetreuung), Infrastruktur-Sizing in Kap. 18.5, Kostengerüst-Template in Kap. 20. Konkrete Werte durch IT/Controlling zu befüllen.
 
 ### D-03: OCR für 21 Mio. PDFs ohne Aufwandsschätzung
 - **Befund:** OCR-Verarbeitung der gesamten Dokumentenbasis wird als Voraussetzung beschrieben. Kein Aufwand (Zeit, Kosten, Infrastruktur) geschätzt.
@@ -425,6 +430,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** RACI-Matrix für alle PSP-Produkte und Betriebsprozesse erstellen.
 - **Priorität:** P2
 - **Owner:** PMO
+- **Status:** BEHOBEN – RACI-Matrix für alle PSP-Produkte in Kap. 0.9 ergänzt.
 
 ### E-02: Fehlendes Incident-Handling-Konzept
 - **Befund:** Kein Konzept für den Umgang mit Sicherheitsvorfällen, KI-Fehlfunktionen oder Datenschutzverletzungen.
@@ -433,6 +439,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** Incident-Response-Plan erstellen, inkl. Eskalationswege, Meldepflichten, Forensik-Prozess.
 - **Priorität:** P2
 - **Owner:** ISB / DSB
+- **Status:** BEHOBEN – Incident-Response-Plan in Kap. 19 ergänzt (Vorfallkategorien, Eskalationsmatrix, DSGVO Art. 33/34 + BSI-KRITIS Meldepflicht, KI-spezifische Response, Post-Incident-Review).
 
 ### E-03: Berechtigungs-Migrationsplan fehlt (→ verknüpft mit C-01)
 - **Befund:** Berechtigungskonzept ist durchdacht, aber basiert auf abzulösendem System.
@@ -502,6 +509,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 - **Empfehlung:** (1) Glossar ergänzen, (2) Management Summary in allgemeinverständlicher Sprache voranstellen, (3) technische Details in Anhang auslagern.
 - **Priorität:** P2
 - **Owner:** Dokumentverantwortlicher
+- **Status:** TEILWEISE BEHOBEN – Glossar in Kap. 0.1 ergänzt, Management Summary allgemeinverständlich formuliert. Technische Details weiterhin im Hauptteil.
 
 ---
 
@@ -513,20 +521,20 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 | U-02 | **OCR für 17.02.2026 geplant, 21 Mio. PDFs nicht geschätzt** – OCR-Installation geplant für einen bestimmten Tag, aber die Verarbeitung der gesamten Dokumentenbasis hat keinen Zeitrahmen. | Kap. 3.2.6.4 |
 | U-03 | **Echtzeit-Anspruch vs. FHIR-Export-Ansatz** – Die Zielarchitektur fordert Echtzeit-Suche, aber der von Dedalus akzeptierte Weg ist ein asynchroner Export. | Kap. 3.2.6.2 |
 | U-04 | **„Keine eigene Berechtigungslogik" vs. komplexes Berechtigungs-Framework** – Kap. 12 beschreibt ein hochkomplexes, eigenständiges Berechtigungs-Framework (3-Ebenen-Modell, Break-the-Glass), behauptet aber gleichzeitig, keine eigene Logik zu implementieren. [Annahme: Gemeint ist, dass die *Definition* der Rechte extern bleibt, die *Durchsetzung* aber im System liegt.] | Kap. 12.1, 12.3 |
-| U-05 | **Kapitel 2.5 existiert doppelt** – Kap. 2.5 „Hybride Strategie" und Kap. 2.5 „Nutzen der Einbindung" sind zwei unterschiedliche Kapitel mit identischer Nummer. | Kap. 2.5 |
+| U-05 | ~~**Kapitel 2.5 existiert doppelt**~~ – BEHOBEN: Nummerierung in v1.3 korrigiert. Kap. 2.5 existiert nur noch einmal. | ~~Kap. 2.5~~ |
 
 ---
 
-# 4) Risiko-Register (Top 10)
+# 4) Risiko-Register (Top 13)
 
 | Nr | Risiko | Ursache | Auswirkung | Eintritt | Schaden | Maßnahmen | Owner | Rest-Risiko |
 |----|--------|---------|------------|----------|---------|-----------|-------|-------------|
 | R-01 | **SAP-Abschaltung ohne fertiges Berechtigungskonzept für M-KIS** | Migration der Berechtigungshoheit nicht geplant | Kein Zugriff auf Patientendaten oder unkontrollierter Zugriff | H | H | M-KIS-Berechtigungskonzept parallel entwickeln; Übergangsregelung mit Meierhofer vereinbaren | IT-Sicherheit, KIS-Team | M |
 | R-02 | **Dedalus liefert FHIR-Schnittstelle nicht rechtzeitig/performant** | Externe Abhängigkeit, unklarer Scope | UKLGPT kann nicht auf Dokumente zugreifen | H | H | Schriftliche Zusage + SLA von Dedalus; Fallback über ISILON-Direktzugriff prüfen | IT, Einkauf | M |
 | R-03 | **OCR-Qualität unzureichend** | Alte/gescannte Dokumente, Handschrift | Semantische Suche liefert keine/falsche Ergebnisse | M | H | Pilottest mit representativem Sample; Qualitätsmetriken definieren | IT, DMS-Team | M |
-| R-04 | **Kein Projektleiter installiert** | Keine PM-Ressource für Umsetzungsprojekt | Projekt steuert sich selbst; Meilensteine werden verfehlt | M | H | PL-Rolle im Vorprojekt definieren und besetzen; PM-Exzellenz als Ziel verankern | Auftraggeber, PMO | L |
-| R-05 | **Fehlende Akzeptanz durch klinisches Personal** | Kein Change-Management, kein Pilotbetrieb geplant | System wird nicht genutzt, Investition wirkungslos | M | H | Pilotierung auf Referenzstation; Einbindung ärztlicher Champions; Schulungskonzept | Fachbereich, PMO | M |
-| R-06 | **Budget-Überschreitung mangels Kostenplanung** | Kein Business Case, keine Kostenprognose | Projektabbruch oder Nachfinanzierung | H | M | Vorläufigen Business Case erstellen; Budgetrahmen mit Controlling abstimmen | PMO, Controlling | M |
+| R-04 | **Kein Projektleiter installiert** | Keine PM-Ressource für Umsetzungsprojekt | Projekt steuert sich selbst; Meilensteine werden verfehlt | M | H | PL-Rolle im Vorprojekt definieren und besetzen; PM-Exzellenz als Ziel verankern. *Update v1.4: M0.5 (Kap. 17) plant PL-Installation bis Mai 2026.* | Auftraggeber, PMO | L |
+| R-05 | **Fehlende Akzeptanz durch klinisches Personal** | ~~Kein Change-Management, kein Pilotbetrieb geplant~~ *Update v1.4: Change-Management-Konzept in Kap. 21 ergänzt* | System wird nicht genutzt, Investition wirkungslos | M | H | ~~Pilotierung auf Referenzstation; Einbindung ärztlicher Champions; Schulungskonzept~~ *BEHOBEN: Kap. 21 mit 3-Phasen-Pilotierung, Champions-Netzwerk, Schulungskonzept, Erfolgsmessung* | Fachbereich, PMO | **L** |
+| R-06 | **Budget-Überschreitung mangels Kostenplanung** | ~~Kein Business Case, keine Kostenprognose~~ *Update v1.4: Business Case (Kap. 0.5), Kostengerüst-Template (Kap. 20)* | Projektabbruch oder Nachfinanzierung | H | M | Business Case + Kostengerüst vorhanden (Kap. 0.5, 20); konkrete Werte durch IT/Controlling zu befüllen; Budgetrahmen abstimmen | PMO, Controlling | **L** |
 | R-07 | **EU AI Act Hochrisiko-Einstufung** | System beeinflusst klinische Entscheidungen | Erheblicher Compliance-Aufwand (Risikomanagement, Transparenz, Aufsicht) | H | M | Frühzeitige Rechtsberatung; AI-Governance-Framework aufsetzen; ggf. Scope bewusst begrenzen | Compliance, Rechtsabteilung | M |
 | R-08 | **Vendor Lock-in bei Eigenlösung** | Proprietäre Komponenten (Neo4j, spezifisches LLM) | Abhängigkeit von einzelnen Technologien/Anbietern | M | M | Offene Standards bevorzugen; Austauschbarkeit von Komponenten sicherstellen | IT-Architektur | L |
 | R-09 | **Datenverlust bei SAP-Migration** | Unvollständiger Export klinisch relevanter Dokumente | Klinisch essenzielle Informationen nicht verfügbar | M | H | Vollständigkeitsprüfung des Exports; Stichprobenvalidierung; Rollback-Option | IT, Fachbereich | M |
@@ -541,7 +549,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ## P1 (sofort klären):
 
-1. **Wer übernimmt die Berechtigungshoheit nach SAP-Abschaltung?** M-KIS? DWH? Eigener Identity-Service? → Abstimmung mit Meierhofer erforderlich.
+1. **Wer übernimmt die Berechtigungshoheit nach SAP-Abschaltung?** → *Im Dokument beantwortet: M-KIS (Meierhofer) als Nachfolger definiert (Kap. 12.1). Technische Abstimmung mit Meierhofer weiterhin erforderlich.*
 2. **Gibt es eine schriftliche Zusage von Dedalus zur FHIR-Exportschnittstelle?** Wenn ja: Umfang, Performance, Zeitplan? Wenn nein: Was ist der Fallback?
 3. **Wie ist der aktuelle Stand der OCR-Integration (geplant 17.02.2026)?** Wurde die Installation durchgeführt? Erste Ergebnisse zur Erkennungsrate?
 4. **Ist ein Projektleiter für das Umsetzungsprojekt identifiziert?** Budget und Mandat geklärt?
@@ -569,18 +577,18 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ## Strukturverbesserungen (2-4 Wochen):
 
-5. **Business Case erstellen:** Investitionskosten, laufende Kosten, Nutzenquantifizierung gemäß PSP 1.5.
-6. **Variantenvergleich finalisieren:** Eigenlösung vs. Averbis/Meierhofer mit gewichteter Kriterienmatrix gemäß PSP 3.5.
-7. **Zeitplan erstellen:** Meilensteinplan mit Phasen relativ zum SAP-Abschalttermin.
-8. **Stakeholder-Analyse durchführen:** Einfluss-/Interessenmatrix gemäß PSP 1.3.
-9. **Anforderungsliste erstellen:** Funktionale/nicht-funktionale Anforderungen, priorisiert, mit Traceability zu PSP-Produkten.
+5. **Business Case erstellen:** Investitionskosten, laufende Kosten, Nutzenquantifizierung gemäß PSP 1.5. → *TEILWEISE: Nutzenseite in Kap. 0.5, Kostengerüst in Kap. 20. Werte offen.*
+6. ~~**Variantenvergleich finalisieren:**~~ Eigenlösung vs. Averbis/Meierhofer → *BEHOBEN: Kap. 16.*
+7. ~~**Zeitplan erstellen:**~~ Meilensteinplan mit Phasen → *BEHOBEN: Kap. 17.*
+8. ~~**Stakeholder-Analyse durchführen:**~~ → *BEHOBEN: Kap. 0.4.*
+9. ~~**Anforderungsliste erstellen:**~~ → *BEHOBEN: Kap. 0.10.*
 
 ## Governance-Ergänzungen (4-8 Wochen):
 
-10. **RACI-Matrix erstellen** für alle PSP-Produkte und Betriebsprozesse.
-11. **Incident-Response-Plan** für KI-Fehlfunktionen und Datenschutzvorfälle.
-12. **Betriebskonzept** (SLA, Monitoring, Support) als eigenes Dokument.
-13. **Change-Management-Konzept** für klinische Einführung (Pilotierung, Schulung, Feedback-Schleifen).
+10. ~~**RACI-Matrix erstellen**~~ → *BEHOBEN: Kap. 0.9.*
+11. ~~**Incident-Response-Plan**~~ → *BEHOBEN: Kap. 19.*
+12. ~~**Betriebskonzept**~~ → *TEILWEISE BEHOBEN: Kap. 18 (Gerüst, Werte durch IT zu befüllen).*
+13. ~~**Change-Management-Konzept**~~ → *BEHOBEN: Kap. 21.*
 
 ---
 
@@ -697,7 +705,7 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 | Dimension | Score v1.3 | Score v1.4 | Ampel | Begründung Änderung |
 |-----------|-----------|-----------|-------|---------------------|
-| A) Vollständigkeit & Lebenszyklus | 2 | **3** | **GRÜN** | Betriebskonzept-Gerüst (Kap. 18) mit SLA, Monitoring, Support, Backup/DR, Release-Mgmt. ergänzt. Change-Management (Kap. 21) mit Pilotierung, Schulung, Champions. Decommissioning-Hinweis im Fahrplan. |
+| A) Vollständigkeit & Lebenszyklus | 2 | **2,5** | **GELB** | Betriebskonzept-Gerüst (Kap. 18) mit SLA, Monitoring, Support, Backup/DR, Release-Mgmt. ergänzt. Change-Management (Kap. 21) mit Pilotierung, Schulung, Champions. Decommissioning-Konzept (Stilllegung SAP i.s.h.med) weiterhin außerhalb UKLGPT-Scope. |
 | B) Struktur & Logik | 3 | **3** | **GRÜN** | Unverändert – weiterhin eindeutige Nummerierung. |
 | C) Konsistenz & Traceability | 2,5 | **2,5** | GELB | Unverändert – formale Abnahme Fachbereich steht aus. |
 | D) Umsetzbarkeit & Realismus | 2,5 | **3** | **GRÜN** | Betriebskonzept mit konkreten SLA-Werten, Kapazitätsplanung, Rollback. Change-Management mit messbaren Erfolgskriterien. |
@@ -705,17 +713,17 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 | F) Evidenz & Quantifizierung | 1,5 | **2** | **GELB** | Kostengerüst-Template (Kap. 20) mit CAPEX/OPEX-Struktur und TCO-Vergleich vorhanden. Konkrete Werte weiterhin durch IT/Controlling zu befüllen. |
 | G) Präsentationsreife (Board) | 2,5 | **2,5** | GELB | Alle strukturellen Elemente vorhanden. Für GRÜN fehlen weiterhin: befüllte Kostenanalyse + Averbis-Angebotsbewertung. |
 
-**Gesamturteil v1.4: Conditional Go → an der Schwelle zu Go**
+**Gesamturteil v1.4: Conditional Go**
 
-Fortschritt: **4× GRÜN, 3× GELB, 0× ROT**. Alle Dimensionen, die durch Dokumentenarbeit adressierbar sind, stehen auf GRÜN oder stabilem GELB. Die verbleibenden GELB-Bewertungen (C, F, G) erfordern externe Inputs (Fachbereich-Abnahme, IT-Sizing, Averbis-Angebot), die nicht durch Dokumentenarbeit allein lösbar sind.
+Fortschritt: **3× GRÜN, 4× GELB, 0× ROT**. Alle Dimensionen, die durch Dokumentenarbeit adressierbar sind, stehen auf GRÜN oder stabilem GELB. Die verbleibenden GELB-Bewertungen (A, C, F, G) erfordern teilweise externe Inputs (Fachbereich-Abnahme, IT-Sizing, Averbis-Angebot, Decommissioning außerhalb Scope), die nicht durch Dokumentenarbeit allein lösbar sind.
 
 **Verbleibende Showstopper für Board-Vorlage:**
 1. ~~Zeitplan~~ → BEHOBEN (Kap. 17)
-2. ~~Betriebskonzept~~ → BEHOBEN (Kap. 18 – Gerüst, Werte durch IT-Betrieb zu befüllen)
+2. ~~Betriebskonzept~~ → TEILWEISE BEHOBEN (Kap. 18 – Gerüst vorhanden, Werte durch IT-Betrieb zu befüllen)
 3. **Kostenseite Business Case** → OFFEN (Kostengerüst-Template vorhanden, Kap. 20 – Werte durch IT/Controlling zu befüllen, Averbis-Angebot abwarten)
 4. **Projektleiter installieren** → OFFEN (Person + Mandat – organisatorische Entscheidung)
 
-**Hinweis:** Die Board-Vorlage ist strukturell vollständig. Für die finale Freigabe sind nur noch zwei externe Inputs erforderlich: (1) konkrete Kostenzahlen und (2) die PL-Besetzung. Beide liegen außerhalb der Reichweite der Dokumentenarbeit.
+**Hinweis:** Die Board-Vorlage ist strukturell vollständig. Für die finale Freigabe sind noch zwei externe Inputs erforderlich: (1) konkrete Kostenzahlen und (2) die PL-Besetzung. Beide liegen außerhalb der Reichweite der Dokumentenarbeit.
 
 ---
 

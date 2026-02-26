@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.4 – Betriebskonzept, Incident-Response, Kostengerüst, Change-Management (Stand: 2026-02-26)
-Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21)
+v1.4.1 – QA-Korrekturrunde (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen (Querverweis 9.3→12.3.3, EU AI Act aktualisiert, Cobra→Copra, Pinecone→On-Premise, BSI-KRITIS in Kap. 19.3, RACI 4.4/4.5 R/A, Kostengerüst +FHIR/DWH/M-KIS, Support L3 klargestellt)
 
 ---
 
@@ -321,8 +321,8 @@ Subsysteme               KomServer           DMI Klassifizierung      HYDMedia  
 | 4.1 Datenschutzkonzept | C | C | I | **A/R** | C | I | I | I |
 | 4.2 DSFA (Vorprüfung) | C | C | I | **A/R** | C | I | I | I |
 | 4.3 InfoSec-Bewertung | C | C | I | C | **A/R** | I | I | I |
-| 4.4 Berechtigungskonzept | C | C | I | C | C | C | I | I |
-| 4.5 SAP-Berechtigungsanalyse | C | I | I | C | C | C | I | I |
+| 4.4 Berechtigungskonzept | C | C | I | C | **A** | **R** | I | I |
+| 4.5 SAP-Berechtigungsanalyse | C | I | I | C | **A** | **R** | I | I |
 | 4.6 Logging-Konzept | C | R | I | C | **A** | I | I | I |
 | **5. Management Summary** | | | | | | | | |
 | 5.3 Entscheidungsvorlage | **A/R** | C | C | C | C | C | I | C |
@@ -1457,7 +1457,7 @@ Die Umsetzung dieser Domänen erfolgt über spezialisierte RAG-Komponenten:
 
 ### 7.2.1 Globaler Wissens-RAG
 
-* **Technologie:** Vektor-Datenbank (z. B. Pinecone, Weaviate)
+* **Technologie:** Vektor-Datenbank (z. B. Weaviate, Qdrant – On-Premise-fähig, vgl. NFA-06)
 
 * **Datenquellen:** Aktuelle medizinische Leitlinien (national und international), relevante Artikel aus der wissenschaftlichen Datenbank PubMed, Standard-Klassifikationssysteme (z. B. ICD-10, OPS).
 
@@ -1588,7 +1588,7 @@ Die Datenbasis für das Graph-Modell wird primär aus den harmonisierten und int
 | ----- | ----- |
 | **SAP ISH / ISHmed** | Das zentrale Krankenhausinformationssystem (KIS) für administrative und medizinische Prozesse. Liefert Falldaten, Patientenstammdaten, Leistungsdokumentation und Abrechnungsinformationen, die essenziell für die Abbildung des Patientenpfads sind. |
 | **KIS Meierhofer** | Das neue  Krankenhausinformationssystem, das zukünftig als zentrales KIS genutzt wird.  |
-| **PDMS Cobra** | Das Patientendaten-Managementsystem, typischerweise eingesetzt auf Intensivstationen (ITS) und in der Anästhesie. Liefert hochfrequente, kritische Vitalparameter, Medikation und Verlaufsdaten. |
+| **PDMS Copra** | Das Patientendaten-Managementsystem, typischerweise eingesetzt auf Intensivstationen (ITS) und in der Anästhesie. Liefert hochfrequente, kritische Vitalparameter, Medikation und Verlaufsdaten. |
 | **Polypoint** | Ein System zur Personal- und Einsatzplanung. Liefert Informationen über die Verfügbarkeit, Qualifikation und Schichtpläne des medizinischen und pflegerischen Personals. Relevant für die Verknüpfung von Behandlungen mit den verantwortlichen Ärzten/Pflegeteams. |
 | **SAP HR, MARA, FICO** | **SAP HR (Human Resources)** liefert strukturierte Daten zu Mitarbeitern (Rollen, Organisationseinheiten). **MARA (Material Management)** liefert Daten zu Medikamenten und medizinischem Material. **FICO (Finance and Controlling)** liefert Kosten- und Leistungsdaten. Diese Systeme ergänzen die klinischen Daten um administrative und logistische Kontextinformationen. |
 
@@ -1676,7 +1676,7 @@ Diese optionale, aber mächtige Erweiterung erlaubt es, die Strukturinformatione
 
 2. **Embedding:** Dieser Text wird anschließend in einen hochdimensionalen Vektor (Embedding) umgewandelt.
 
-3. **Speicherung und Retrieval:** Diese Embeddings werden in einem **Vektorindex** abgelegt. Dies kann ein separater Vektorindex (z. B. Pinecone, Weaviate) oder der integrierte Vector Index der Graphen-DB sein.
+3. **Speicherung und Retrieval:** Diese Embeddings werden in einem **Vektorindex** abgelegt. Dies kann ein separater Vektorindex (z. B. Weaviate, Qdrant – On-Premise) oder der integrierte Vector Index der Graphen-DB sein.
 
 ### 9.3.2 Einsatzgebiet: 
 
@@ -1835,7 +1835,7 @@ UKLGPT agiert als **Patient-Scoped RAG-System**. Dies bedeutet, dass die gesamte
 
 * **Ergebnis A (Negativ):** ❌ **Nein** → Die KI-Anwendung verweigert den Zugriff. Es findet **kein RAG-Aufbau** statt, **keine Daten** werden geladen, und es kann **keine Antwort** generiert werden. Die Sitzung wird protokolliert (versuchter Zugriff).
 
-* **Ergebnis B (Positiv):** ✅ **Ja** → Der **RAG-Wissensraum** (Indexierung der relevanten Dokumente und Daten) wird aufgebaut. Dieser kann gegebenenfalls durch eine nachgelagerte **Sub-Filterung sensibler Inhalte** (siehe 9.3, Ebene 3\) weiter eingeschränkt werden, um das „Need-to-Know"-Prinzip maximal durchzusetzen.
+* **Ergebnis B (Positiv):** ✅ **Ja** → Der **RAG-Wissensraum** (Indexierung der relevanten Dokumente und Daten) wird aufgebaut. Dieser kann gegebenenfalls durch eine nachgelagerte **Sub-Filterung sensibler Inhalte** (siehe 12.3.3, Ebene 3) weiter eingeschränkt werden, um das „Need-to-Know"-Prinzip maximal durchzusetzen.
 
 ## 12.3 Die Drei Ebenen der gestaffelten Zugriffskontrolle {#12.3-die-drei-ebenen-der-gestaffelten-zugriffskontrolle}
 
@@ -2135,7 +2135,7 @@ Die **Regel- und Guardrail-Engine** (siehe 5.2) muss aktiv verhindern, dass das 
 
 ## 13.3 EU AI Act (Verordnung zur Festlegung harmonisierter Vorschriften für künstliche Intelligenz) {#13.3-eu-ai-act-(verordnung-zur-festlegung-harmonisierter-vorschriften-für-künstliche-intelligenz)}
 
-Der in Verhandlung befindliche EU AI Act wird den Einsatz von UKLGPT voraussichtlich direkt betreffen.
+Der EU AI Act (Verordnung (EU) 2024/1689), der am 1. August 2024 in Kraft getreten ist, betrifft den Einsatz von UKLGPT direkt.
 
 * **Einstufung als Hochrisiko-KI-System:** KI-Systeme, die im Gesundheitswesen eingesetzt werden und Entscheidungen *beeinflussen* oder zur *Patiententriage* beitragen, werden im Regelfall als **Hochrisiko-KI** eingestuft (Annex III).
 
@@ -2501,7 +2501,9 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 |---------------|-------------|---------------|----------------|
 | **Level 1** | Anwender-Support: Bedienungsfragen, Passwort-Resets, Zugriffsprobleme | ≤ 4 Stunden (Kernzeit) | IT-Service-Desk (UKL) |
 | **Level 2** | Technischer Support: Applikationsfehler, Performance-Probleme, Datenqualität | ≤ 8 Stunden | UKLGPT-Betriebsteam (2–3 FTE) |
-| **Level 3** | Architektur/Entwicklung: Infrastruktur-Ausfälle, Sicherheitsvorfälle, LLM-Anpassungen | ≤ 24 Stunden | IT-Architektur + ggf. externer Partner |
+| **Level 3** | Architektur/Entwicklung: Infrastruktur-Ausfälle, LLM-Anpassungen, komplexe Fehleranalysen | ≤ 24 Stunden | IT-Architektur + ggf. externer Partner |
+
+*Hinweis: Sicherheitsvorfälle (SEC-1/SEC-2) unterliegen den kürzeren Reaktionszeiten des Incident-Response-Plans (Kap. 19.2: ≤ 30 Min. bei Kritisch) und werden nicht über den regulären Support-Prozess gesteuert.*
 
 **Bereitschaft:** Kernzeit Mo–Fr 7:00–20:00. Außerhalb: Rufbereitschaft für Prio-1-Vorfälle (Ausfall, Sicherheitsvorfall).
 
@@ -2565,7 +2567,9 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 | **Hoch (SEC-2, AI-1, OPS-1)** | ≤ 2 Stunden | ISB + IT-Betriebsteam + Projektleiter | Betroffene Komponente isolieren / deaktivieren |
 | **Mittel (AI-2, OPS-2)** | ≤ 8 Stunden | IT-Betriebsteam + IT-Architektur | Monitoring intensivieren, Workaround kommunizieren |
 
-## 19.3 DSGVO-Meldepflicht (Art. 33/34)
+## 19.3 Meldepflichten (DSGVO Art. 33/34 + BSI-KRITIS)
+
+### DSGVO-Meldepflicht (Art. 33/34)
 
 | Schritt | Frist | Verantwortlich | Aktion |
 |---------|-------|----------------|--------|
@@ -2575,6 +2579,18 @@ M-KIS-Berechtigungen (Aug 2026) ────► MVP Go-Live (Okt 2026) ◄──
 | 4. Benachrichtigung Betroffener | Unverzüglich | DSB + Klinikumsleitung | Falls hohes Risiko → individuelle Benachrichtigung |
 | 5. Forensische Analyse | ≤ 5 Werktage | ISB + IT-Sicherheit | Root-Cause-Analyse, Audit-Log-Auswertung |
 | 6. Maßnahmen + Abschlussbericht | ≤ 10 Werktage | Projektleiter + ISB + DSB | Technische Korrektur, Prozessanpassung, Dokumentation |
+
+### BSI-KRITIS-Meldepflicht (§ 8b BSI-Gesetz, vgl. Kap. 13.4)
+
+Das UKL unterliegt als Krankenhaus der kritischen Infrastruktur (KRITIS-Sektor Gesundheit) einer eigenständigen Meldepflicht gegenüber dem BSI:
+
+| Schritt | Frist | Verantwortlich | Aktion |
+|---------|-------|----------------|--------|
+| 1. Feststellung KRITIS-Relevanz | ≤ 4 Stunden | ISB | Ist die Verfügbarkeit/Integrität einer kritischen Dienstleistung (Patientenversorgung) betroffen? |
+| 2. BSI-Meldung (Erstmeldung) | **Unverzüglich** nach Erkennung | ISB | Meldung über BSI-Meldeportal (Kontaktstelle nach § 8b Abs. 3) |
+| 3. BSI-Folgemeldung | Nach Analyse | ISB | Ursache, Auswirkungen, ergriffene Maßnahmen |
+
+*Hinweis: Die DSGVO- und BSI-Meldepflichten bestehen parallel und unabhängig voneinander. Bei SEC-1-Vorfällen sind in der Regel beide Meldewege auszulösen.*
 
 ## 19.4 KI-spezifische Incident-Response
 
@@ -2625,7 +2641,10 @@ Jeder Vorfall ab Schweregrad "Hoch" wird innerhalb von 10 Werktagen in einem **P
 | **Softwarelizenzen (einmalig)** | Neo4j Enterprise, ggf. OCR-Lizenzen | [ ] € | IT + Einkauf | OFFEN |
 | **Externe Beratung / Implementierung** | KI-Architektur, Implementierungsunterstützung | [ ] € | PMO + Einkauf | OFFEN |
 | **Implementierung hAIppokrates (Alternative)** | 8.000 € zzgl. MwSt. (lt. Pitchdeck) | 9.520 € brutto | Kap. 0.7 | Referenzwert vorhanden |
-| **Schulung / Change-Management** | Trainer, Materialien, Pilotbegleitung | [ ] € | PMO | OFFEN |
+| **Dedalus FHIR-Schnittstelle** | Konfiguration/Entwicklung FHIR-Fassade (Kap. 0.6) | [ ] € | Dedalus + IT | OFFEN |
+| **DWH/ETL-Pipeline** | CDC/Micro-Batch Pipeline DWH→GraphRAG (Kap. 8) | [ ] € | IT-Architektur | OFFEN |
+| **M-KIS-Integration** | API-Anbindung Berechtigungsprüfung (Kap. 12.7.2) | [ ] € | Meierhofer + IT | OFFEN |
+| **Schulung / Change-Management** | Trainer, Materialien, Pilotbegleitung (Kap. 21) | [ ] € | PMO | OFFEN |
 | **SUMME CAPEX** | | **[ ] €** | | |
 
 ## 20.2 Laufende Betriebskosten (OPEX, p.a.)
