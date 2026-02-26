@@ -531,6 +531,9 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 | R-08 | **Vendor Lock-in bei Eigenlösung** | Proprietäre Komponenten (Neo4j, spezifisches LLM) | Abhängigkeit von einzelnen Technologien/Anbietern | M | M | Offene Standards bevorzugen; Austauschbarkeit von Komponenten sicherstellen | IT-Architektur | L |
 | R-09 | **Datenverlust bei SAP-Migration** | Unvollständiger Export klinisch relevanter Dokumente | Klinisch essenzielle Informationen nicht verfügbar | M | H | Vollständigkeitsprüfung des Exports; Stichprobenvalidierung; Rollback-Option | IT, Fachbereich | M |
 | R-10 | **Parallelbetrieb SAP/M-KIS erzeugt Dateninkonsistenz** | Beide Systeme aktiv während Übergangsphase | Widersprüchliche Datenquellen, Fehlentscheidungen | M | M | Klare Cutover-Strategie; Leading-System pro Datenkategorie definieren | IT, KIS-Team | L |
+| R-11 | **HYDMedia-Berechtigungskonzept DSGVO-widrig** | Need-to-Know nicht implementiert, AD-Gruppen nicht wirksam | Unkontrollierter Zugriff auf alle Patientenakten über Citrix | H | H | UKLGPT darf nur KIS-Berechtigungen nutzen; HYDMedia-Lücke melden; ggf. AD-Gruppen aktivieren lassen | IT-Sicherheit, DSB | M |
+| R-12 | **Dokumenten-Duplikate verfälschen RAG-Ergebnisse** | 3-5× Duplikate durch multiple Importwege | Übergewichtung redundanter Inhalte, Qualitätsverlust der KI-Antworten | M | M | Dedup-Logik bei Indexierung; Hash-basierte Erkennung; Registry-Status prüfen | IT-Architektur | L |
+| R-13 | **Labordaten-Lücke in HYDMedia** | Labor-LIMS nicht an HYDMedia angebunden | Klinisch relevante Laborwerte fehlen im RAG-Kontext | H | M | Separater FHIR-Connector zu UKLytics planen; Phase 2 MVP | IT, DWH-Team | M |
 
 ---
 
@@ -549,6 +552,9 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 6. **Wie wurde die Recherchezeit (15-50 Min./Tag) erhoben?** Methodik? Kann dies validiert werden?
 7. **Welche LLM-Modelle kommen in Frage?** On-Premise vs. Cloud? Welche Anbieter? Lizenzkosten?
 8. **Wie ist die Datenlage bzgl. 21 Mio. PDFs?** Aufschlüsselung nach Dokumenttyp, Alter, Qualität? Wie viele sind bereits OCR-fähig?
+9. **Wie ist der Status der SAP-DOK-Migration (geplant KW7/2026)?** Wurde gestartet? Dauer der Migration? Vollständigkeit prüfbar? *(Neue Frage aus Quellenanalyse v1.2)*
+10. **Wer verantwortet die Aktivierung der AD-Gruppen in HYDMedia?** Ist kurzfristige Behebung der Berechtigungslücke möglich? *(Neue Frage aus Quellenanalyse v1.2)*
+11. **Gibt es eine REST-API in M-KIS, die Berechtigungsinformationen liefert?** Und wie ist die MKIS-Anbindung an HYDMedia technisch geplant? *(Quelle: Produkt Berechtigungskonzept.docx)*
 
 ---
 
@@ -578,4 +584,87 @@ Das Dokument weist eine **hervorragende technische Tiefe** auf und beschreibt ei
 
 ---
 
-*Ende der Qualitätsanalyse – Version 1.0, erstellt am 2026-02-26*
+---
+
+# 7) Ergänzende Analyse: Fachliche Quellenauswertung (v1.2)
+
+*Durchgeführt am 2026-02-26 als Ergänzung zur initialen QA. Basis: Auswertung aller bisher nicht integrierten Fachablage-Dokumente.*
+
+## Geprüfte Quellen
+
+| Dokument | Relevanz | Neu integriert in |
+|----------|----------|-------------------|
+| Projektdokumentation Berechtigungen SAP klinische Module.docx | HOCH | Kap. 12.1.1 (SAP-Berechtigungsmodell Detail) |
+| Produkt Berechtigungskonzept.docx | HOCH | Kap. 0.6 (HYDMedia-Berechtigungslücke) |
+| technische Konzeption_HydMedia und DMI Schnittstelle.docx | HOCH | Kap. 0.6 (Dokumentenpipeline, Datenqualität) |
+| HYDMedia_G6_6.10_-_FHIR_Conformance_Statement.docx | HOCH | Kap. 0.6 (FHIR-Ressourcen, ISiK Stufe 3) |
+| Dokumentklassifizierung.pdf | MITTEL | Kap. 0.6 (Pipeline-Diagramm) |
+| hAippokrates_Pitchdeck – 27.01.26.pdf | MITTEL | Kap. 0.7 (Preisreferenz, Portfolioübersicht) |
+| Leistungsverzeichnis AVP Infinity.pdf | MITTEL | Kap. 0.6 (AVP Infinity als Alternative zu HYDMedia) |
+| Konzept_ Modulare KI-Anamnese-Plattform (2).pdf | NIEDRIG | Nicht integriert (separate Produktvision, nicht UKL-spezifisch) |
+| Sichere Architektur für hAIppokrates.png | MITTEL | Kap. 0.6 (Referenz-Architekturdiagramm) |
+
+## Neue Befunde aus Quellenanalyse
+
+### QA-N01: HYDMedia Need-to-Know nicht implementiert (NEU)
+- **Befund:** Das aktuelle HYDMedia-Berechtigungskonzept setzt Need-to-Know/Need-to-Do NICHT um. Über Citrix-Zugang kann jeder Nutzer auf ALLE Patientenakten zugreifen. AD-Gruppen existieren, sind aber in HYDMedia nicht für Zugriffssteuerung konfiguriert.
+- **Belegstelle:** Produkt Berechtigungskonzept.docx, Zeile 5-6
+- **Auswirkung:** DSGVO-Verstoß im Ist-Zustand. UKLGPT darf HYDMedia-Berechtigung NICHT als Basis nutzen.
+- **Empfehlung:** UKLGPT muss Berechtigungshoheit ausschließlich aus KIS (SAP/M-KIS) ableiten. HYDMedia-FHIR-Abfragen erst nach KIS-Berechtigungsprüfung zulassen.
+- **Priorität:** P1 (Compliance, Security)
+- **Owner:** IT-Sicherheit, DSB
+- **Status:** DOKUMENTIERT in Kap. 0.6 der Zielarchitektur
+
+### QA-N02: Labordaten fehlen in HYDMedia (NEU)
+- **Befund:** Das Laborsystem ist NICHT an HYDMedia angebunden. Labordaten sind nur über UKLytics verfügbar.
+- **Belegstelle:** technische Konzeption_HydMedia und DMI Schnittstelle.docx, Zeile 30
+- **Auswirkung:** UKLGPT kann ohne separaten FHIR-Connector zu UKLytics/Labor-LIMS keine Laborbefunde in den RAG-Kontext einbeziehen. Klinischer Nutzen signifikant eingeschränkt.
+- **Empfehlung:** Separaten Datenfluss UKLytics → UKLGPT über FHIR Observation-Ressource planen. In Phase 2 des MVP einplanen.
+- **Priorität:** P2 (Funktionalität)
+- **Owner:** IT, DWH-Team
+- **Status:** DOKUMENTIERT in Kap. 0.6 der Zielarchitektur
+
+### QA-N03: Dokumenten-Duplikate (3-5×) in HYDMedia (NEU)
+- **Befund:** Dokumente gelangen über bis zu 4 verschiedene Wege ins HYDMedia (Druck→Scan→Akte→Scan, Verbucher, MDM aus Subsystem, SAP-DOK). Es findet keine Deduplizierung statt.
+- **Belegstelle:** technische Konzeption_HydMedia und DMI Schnittstelle.docx, Zeile 7, 37
+- **Auswirkung:** RAG-Embedding enthält redundante Informationen. Antwortqualität leidet durch Übergewichtung duplizierter Passagen.
+- **Empfehlung:** Dedup-Logik bei Indexierung implementieren (Hash-Vergleich auf Binary-Ebene, semantischer Ähnlichkeits-Check, Timestamp-Priorisierung).
+- **Priorität:** P2 (Datenqualität)
+- **Owner:** IT-Architektur
+- **Status:** DOKUMENTIERT in Kap. 0.6 der Zielarchitektur
+
+### QA-N04: SAP-DOK-Migration als Abhängigkeit (NEU)
+- **Befund:** Die Migration der SAP-Dokumente (20 Jahre Bestand) über DMI nach HYDMedia ist für KW7/2026 terminiert. Erst danach wäre der Großteil der medizinischen Dokumentation in HYDMedia verfügbar.
+- **Belegstelle:** technische Konzeption_HydMedia und DMI Schnittstelle.docx, Zeile 28
+- **Auswirkung:** UKLGPT-Vollbetrieb hängt von der Fertigstellung der SAP-DOK-Migration ab. Verzögerung = unvollständiger Datenbestand.
+- **Empfehlung:** SAP-DOK-Migration als kritischen Pfad im Umsetzungsfahrplan tracken. Parallelisierung mit UKLGPT-Entwicklung sicherstellen.
+- **Priorität:** P2 (Abhängigkeit)
+- **Owner:** IT, DMS-Team
+- **Status:** DOKUMENTIERT in Kap. 0.6 der Zielarchitektur
+
+### QA-N05: OCR-Einschränkungen konkretisiert (NEU)
+- **Befund:** OCR bei Dedalus und DMI erkennt nur computergenerierte Dokumente ohne Bilder. Handschriftliches und Bildmaterial wird NICHT erkannt.
+- **Belegstelle:** technische Konzeption_HydMedia und DMI Schnittstelle.docx, Zeile 59
+- **Auswirkung:** Ergänzt Befund D-03. Erheblicher Anteil gescannter Dokumente (handschriftliche Pflegedokumentation, Konsil-Anforderungen) bleibt unsuchbar.
+- **Empfehlung:** (1) Anteil handschriftlicher Dokumente schätzen, (2) Alternative OCR mit Handschrifterkennung evaluieren (z.B. Azure Document Intelligence), (3) In MVP-Scope dokumentieren.
+- **Priorität:** P2 (Funktionalität)
+- **Owner:** IT, DMS-Team
+- **Status:** DOKUMENTIERT in Kap. 0.6 der Zielarchitektur
+
+## Aktualisierter Ampel-Score (v1.2)
+
+| Dimension | Score v1.0 | Score v1.2 | Ampel | Begründung Änderung |
+|-----------|-----------|-----------|-------|---------------------|
+| A) Vollständigkeit & Lebenszyklus | 1 | 1 | ROT | Betriebskonzept, Decommissioning weiterhin offen |
+| B) Struktur & Logik | 2 | 2 | GELB | Doppelte Nummerierung im Body-Text weiterhin nicht korrigiert |
+| C) Konsistenz & Traceability | 1 | **2** | **GELB** | PSP-Zuordnung führend, SAP-Berechtigungsmodell konkret gemappt |
+| D) Umsetzbarkeit & Realismus | 1 | **1,5** | ROT | Datenqualitäts-Risiken nun transparent, aber Zeitplan weiterhin fehlt |
+| E) Governance, Compliance, Security | 2 | **2,5** | **GELB** | Berechtigungsmodell detailliert, HYDMedia-Lücke dokumentiert, Dokumentenschutz PSY/KJP integriert |
+| F) Evidenz & Quantifizierung | 0 | **1,5** | ROT→GELB | Business Case Nutzenseite belegt, Preisreferenz hAIppokrates, FHIR Conformance dokumentiert. Kostenseite weiterhin offen. |
+| G) Präsentationsreife (Board) | 1 | **2** | **GELB** | Management Summary, Variantenvergleich, Glossar, Stakeholder vorhanden. Zeitplan + Kosten fehlen für GRÜN. |
+
+**Gesamturteil v1.2: Conditional Go** (unverändert, aber Fortschritte sichtbar: 4 von 7 Dimensionen verbessert)
+
+---
+
+*Ende der Qualitätsanalyse – Version 1.2, erstellt am 2026-02-26*

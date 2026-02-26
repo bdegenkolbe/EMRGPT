@@ -1,7 +1,7 @@
 # Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
 
-v1.1 – Qualitätssicherung und PSP-Integration (Stand: 2026-02-26)
-Basis: v1 Björn | Ergänzungen: QA-Review, PSP-Zuordnung, Variantenvergleich
+v1.2 – Fachliche Quellenintegration (Stand: 2026-02-26)
+Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz
 
 ---
 
@@ -65,11 +65,11 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | 2.3 | Fachliche Anforderungen | Kap. 3.2, 3.3 | Teilweise – Formale Anforderungsliste fehlt | Fachbereich |
 | 2.3.1 | Daten aus UKLytics | Kap. 8 (Datenzufluss DWH→GraphRAG) | Abgedeckt | IT |
 | **3. Technisch** | | | | |
-| 3.1 | Technische Zielarchitektur | Kap. 4-12 | Umfassend | IT-Architektur |
-| 3.1.1 | Infrastruktur | Kap. 7, 8 | Teilweise – Sizing/Kosten offen | IT-Infrastruktur |
+| 3.1 | Technische Zielarchitektur | Kap. 4-12, **Kap. 0.6** | Umfassend – Dokumentenpipeline + Datenqualität ergänzt | IT-Architektur |
+| 3.1.1 | Infrastruktur | Kap. 7, 8, **Kap. 0.7** | Teilweise – Sizing/Kosten offen, Preisreferenz hAIppokrates ergänzt | IT-Infrastruktur |
 | 3.2 | Marktanalyse | Kap. 16 (Variantenvergleich) | ERGÄNZT | PM, 4K |
 | 3.3 | Analyse HYDMedia | Kap. 2.4, 3.2.6 | Abgedeckt | Valentin |
-| 3.3.1 | Schnittstellenbeschreibung FHIR | Kap. 3.2.6.2 | Abgedeckt | Schnittstellenverantwortlicher |
+| 3.3.1 | Schnittstellenbeschreibung FHIR | Kap. 3.2.6.2, **Kap. 0.6 (Conformance Statement)** | ERGÄNZT – FHIR-Ressourcen + ISiK Stufe 3 dokumentiert | Schnittstellenverantwortlicher |
 | 3.4 | Analyse DMI Lösung | Kap. 2.1 | Teilweise | Valentin, Carina |
 | ~~3.5~~ | ~~Vergleich HYDMedia vs. DMI~~ | – | ENTFÄLLT (durch PSP-Abstimmung ersetzt durch Variantenvergleich Kap. 16) | – |
 | 3.6 | Schnittstellenübersicht | Kap. 8, 10 | Abgedeckt | IT-Architektur, Valentin |
@@ -80,8 +80,8 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | 4.1 | Datenschutzkonzept | Kap. 13.1 | Abgedeckt | DSB (Hr. Sünkel) |
 | 4.2 | DSFA (Vorprüfung) | Kap. 13.1 | Teilweise | DSB (Hr. Sünkel) |
 | 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4 | Teilweise | ISB (S. Krause) |
-| 4.4 | Berechtigungskonzept | Kap. 12 | Umfassend | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
-| 4.5 | SAP-Berechtigungsanalyse | Kap. 12.1 | Teilweise – Migration auf M-KIS ergänzt | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
+| 4.4 | Berechtigungskonzept | Kap. 12, **Kap. 12.1.1** | ERGÄNZT – SAP-Modell detailliert gemappt (BA-Typen, SBG, OE-Schutz PSY/KJP) | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
+| 4.5 | SAP-Berechtigungsanalyse | Kap. 12.1, **Kap. 12.1.1, Kap. 0.6 (HYDMedia-Lücke)** | ERGÄNZT – Migration M-KIS + HYDMedia Need-to-Know-Lücke dokumentiert | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
 | 4.6 | Logging-/Nachvollziehbarkeitskonzept | Kap. 12.6 | Abgedeckt | IT-Sicherheit, PM |
 | **5. Management Summary** | | | | |
 | 5.1 | Entscheidungsgrundlage Datenhaltung | Kap. 2 | Teilweise | PM, Carina |
@@ -168,9 +168,105 @@ Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit d
 | Meierhofer AG | KIS-Anbieter, Averbis-Partnerschaft | Mittel | Vertragsgestaltung, Schnittstellenabstimmung |
 | Dedalus (HYDMedia) | DMS-Anbieter, FHIR-Schnittstelle | Mittel | Vertragliche Zusage FHIR-Export |
 | Klinisches Personal (Ärzte, Pflege) | Alltagstauglichkeit, Zeitersparnis | Hoch | Pilotierung, Feedback-Schleifen, Champions |
+| DMI GmbH & Co. KG | Dokumentenarchiv-Anbieter (AVP Infinity), Klassifizierungsinstanz | Mittel | Evaluierung als potenzielle HYDMedia-Alternative |
+| GreenBay Healthcare (hAIppokrates) | KI-Implementierungspartner, Sovereign-Cloud-Angebot | Mittel | Vertragliche Abstimmung Preismodell und Betrieb |
 
 ---
 
+## 0.6 Dokumentenpipeline und Datenqualität-Analyse (PSP 3.1 / 3.3)
+
+*Quellen: „Dokumentklassifizierung.pdf", „technische Konzeption_HydMedia und DMI Schnittstelle.docx", „HYDMedia_G6_6.10_-_FHIR_Conformance_Statement.docx"*
+
+### Dokumentenpipeline im Ist-Zustand
+
+```
+Subsysteme               KomServer           DMI Klassifizierung      HYDMedia           Konsumierende Systeme
+┌─────────────────┐     ┌──────────┐        ┌───────────────────┐    ┌──────────────┐    ┌──────────────────┐
+│ Copra 5/6       │────▶│          │───────▶│ Klassifizierungs- │───▶│ Dokumenten-  │───▶│ LE-Portal        │
+│ Medavis         │     │Cloverleaf│        │ server (AVP8)     │    │ repository   │    │ EIDMS-Plattform  │
+│ SAP (PMDs)      │     │          │        │                   │    │ 21 Mio. PDFs │    │ M-KIS (zukünftig)│
+│ IDScorer        │     │ HL7 MDM  │        │ IHE-konforme +    │    │ auf ISILON   │    │ UKLGPT           │
+│ Ivoris (ab 02/26)│   │Normalis. │        │ KDL-Klassifiz.    │    │              │    │                  │
+│ Viewpoint       │     └──────────┘        └───────────────────┘    └──────────────┘    └──────────────────┘
+│ Scanstrecke     │                                                         ▲
+│ Verbucher       │─────────────────────────────────────────────────────────┘ (direkt, ohne DMI)
+└─────────────────┘
+```
+
+### Datenströme ins HYDMedia (Vollständigkeit)
+
+| Datenquelle | Weg ins HYDMedia | IHE/KDL-konform | Status |
+|-------------|-----------------|-----------------|--------|
+| SAP (PMDs → PDFs via x-tention/MCI) | über DMI | Ja | Aktiv (aktuell 50%, nach DOK-Migration 100%) |
+| Medavis (Radiologie) | MDM → DMI | Ja | Aktiv, inkl. Altdaten |
+| Copra 5/6 (Intensivdoku) | Fileshare → DMI abholt | Ja | Aktiv, 900-Seiten-PDFs nach Abschluss |
+| Viewpoint | MDM → DMI | Ja | Aktiv |
+| IDScorer (PsyDoku) | MDM → DMI | Ja | Aktiv |
+| Ivoris (Zahnmedizin) | MDM → DMI | Ja | Ab Ende Februar 2026 |
+| Scanstrecke (Druckdokumente) | DMI klassifiziert | Ja | Aktiv |
+| Verbucher (diverse Systeme) | Direkt ins HYDMedia | **Nein** | Aktiv – **nicht IHE-konform** |
+| **SAP DOK-Migration** | über DMI | Ja | **Geplant KW7/2026** – 20 Jahre SAP-Dokumente |
+| **Laborsystem** | **Nicht angebunden!** | – | **LÜCKE** – Labordaten fehlen in HYDMedia, nur über UKLytics verfügbar |
+
+### Datenqualitätsprobleme (Kritisch für UKLGPT)
+
+| Problem | Auswirkung auf UKLGPT | Lösungsansatz |
+|---------|----------------------|---------------|
+| **Duplikate (3–5×)** | Arztbriefe können durch Druck→Scan→Akte→Scan + Verbucherstrecke + MDM + SAP mehrfach im System landen | Dedup-Logik bei Indexierung, Hash-Vergleich, Timestamp-Gewichtung |
+| **Verbucher-Dokumente nicht IHE-konform** | Ohne KDL-Klassifizierung schwer durchsuchbar, keine Registry-Registrierung | Nachträgliche Klassifizierung oder Ausschluss beim RAG-Embedding |
+| **OCR nur für computergenerierte Dokumente** | Handschriftliche Dokumente und Bilder werden nicht erkannt | OCR-Installation geplant 17.02.26; Einschränkung dokumentieren |
+| **Fehlende Labordaten** | Laborbefunde nicht über HYDMedia abrufbar | Separater FHIR-Connector zu UKLytics/Labor-LIMS erforderlich |
+| **SAP-DOK noch nicht migriert** | Erst nach KW7/2026 werden 20 Jahre SAP-Dokumente in HYDMedia verfügbar sein | Abhängigkeit für UKLGPT-Vollbetrieb einplanen |
+
+### HYDMedia FHIR-Schnittstelle (Conformance Statement G6 v6.10)
+
+*Quelle: Dedalus Healthcare, Conformance Statement HYDMedia G6*
+
+**Unterstützte FHIR-Ressourcen:**
+
+| FHIR-Ressource | HYDMedia-Objekt | Operationen |
+|----------------|----------------|-------------|
+| **Patient** | Patient | SEARCH, RECEIVE |
+| **Encounter** | Case/Certificate | SEARCH, RECEIVE |
+| **DocumentReference** | konfigurierbare DocumentClass | SEARCH, RECEIVE, PUSH |
+| **Binary** | Content (PDF/Dokument) | SEARCH, RECEIVE, PUSH |
+| Account, Composition, Condition, Coverage | n/a | SEARCH, RECEIVE |
+
+**Unterstützte Operationen:** SEARCH (Abfrage), PUSH (Versand an Empfänger), RECEIVE (Empfang von Dokumenten), CONSUME/PULL (Abruf externer Dokumente).
+
+**Unterstützte Profile:** ISiK-Dokumentenaustausch Stufe 3 + ISiK-Basisstufe 3 (gematik).
+
+**Implikation für UKLGPT:** Der FHIR-Connector muss primär `DocumentReference` (Metadaten) + `Binary` (Originaldokument) nutzen. Die Auflösung `DocumentReference → Binary` ist der zentrale technische Pfad für den Dokumentenzugriff. `Patient` und `Encounter` dienen der Kontext-Filterung.
+
+### HYDMedia-Berechtigungslücke (KRITISCH)
+
+> **BEFUND:** Das aktuelle HYDMedia-Berechtigungskonzept setzt das **Need-to-Know/Need-to-Do-Prinzip NICHT um**.
+> - Standardzugriff erfolgt aus SAP (Weiterleitung zu HYDMedia über Standardnutzer) – nur für aktive Akten.
+> - Erweiterter Zugriff über Citrix (Windows-Anmeldung) ermöglicht Zugriff auf **alle Akten aller Patienten** – obwohl AD-Gruppen existieren, sind diese in HYDMedia nicht für Zugriffssteuerung hinterlegt.
+> - **Konsequenz für UKLGPT:** Das System darf NICHT das HYDMedia-Berechtigungskonzept übernehmen, sondern MUSS die Berechtigungshoheit aus M-KIS (bzw. aktuell SAP) ableiten. Die FHIR-Abfrage an HYDMedia darf nur nach erfolgter M-KIS-Berechtigungsprüfung erfolgen.
+
+---
+
+## 0.7 Preisreferenz hAIppokrates / GreenBay Healthcare (PSP 3.2)
+
+*Quelle: „hAippokrates_Pitchdeck – 27.01.26.pdf"*
+
+| Modell | Monatliche Kosten | Lizenzen | Implementierung (einmalig) |
+|--------|-------------------|----------|---------------------------|
+| S | 1.000 € | 50 inkl. | 8.000 € zzgl. MwSt. |
+| M | 1.200 € | 100 inkl. | 8.000 € zzgl. MwSt. |
+| L | 1.400 € | 200 inkl. | 8.000 € zzgl. MwSt. |
+| XL | 2.500 € | Unbegrenzt | 8.000 € zzgl. MwSt. |
+
+*Preise bei 12 Monaten Mindestlaufzeit, freibleibend, zzgl. MwSt.*
+
+**Portfolio-Übersicht GreenBay Healthcare:** hAIppokrates (Dokumentensuche + Chat), DALLAS (KI-Anamnese-Avatar), KI-Strategie (Beratung), KI-Infrastruktur (Server-Setup), Server-Betreuung, Individuelle KI-Tools.
+
+**Betriebsmodelle:** On-Premise (eigene Infrastruktur) oder Sovereign Cloud (Anbieter-betrieben, DSGVO-konform).
+
+**Ansprechpartner:** Dr. med. David Baur (CAO), Elias Kohnen (Products & AI Solutions, Leipzig: +49 341 991985-53).
+
+---
 
 [**1\. Zielbeschreibung: Technische Strategie zur Migration und Nutzung medizinischer Altdaten mittels UKLGPT**](#1.-zielbeschreibung:-technische-strategie-zur-migration-und-nutzung-medizinischer-altdaten-mittels-uklgpt)
 
@@ -1584,6 +1680,43 @@ Das Berechtigungs- und Sicherheitskonzept von UKLGPT / hAIppokrates basiert auf 
 >
 > Im weiteren Text wird „SAP IS-H" als aktueller Master beschrieben. Nach Migration gilt identische Logik für M-KIS.
 
+### 12.1.1 SAP-Berechtigungsmodell im Detail (Ist-Stand am UKL)
+
+*Quelle: „Projektdokumentation Berechtigungen SAP klinische Module.docx", „Produkt Berechtigungskonzept.docx"*
+
+Das produktive SAP-Berechtigungsmodell am UKL operiert auf **zwei Steuerungsebenen**, die beide in UKLGPT abgebildet werden müssen:
+
+**Ebene 1 – Behandlungsauftrag (Datenraum):**
+Der Behandlungsauftrag steuert, **wann** ein Nutzer auf Patientendaten zugreifen darf. Er definiert den zugänglichen Datenraum auf Basis der OE-Zuordnung von Benutzer und Patient.
+
+| Behandlungsauftrag-Typ | Auslöser | Geltungsdauer | UKLGPT-Mapping |
+|-------------------------|----------|---------------|----------------|
+| **Dynamisch** (automatisch) | Termine, KLAU, Bewegungen im SAP erzeugen sofort BA | Ambulant: 200 Tage, Stationär: 14 Tage nach Entlassung | `ACCESS_GRANTED` bei aktiver BA-Relation im Graph |
+| **Temporär** (Selbstbedienung) | Benutzer beantragt Zugriff manuell | Bis 24:00 Uhr des Beantragungstages | Zeitlich befristetes Token mit Logging |
+| **Notfallnutzer** | Medizinischer Notfall (Patientensicherheit) | Zeitlich begrenzt, vollständig geloggt | Break-the-Glass gemäß Kap. 12.4 |
+
+**Ebene 2 – Funktionale Berechtigungen (Sammelberechtigungsgruppen):**
+Die SAP-Berechtigungen steuern, **was** ein Nutzer tun darf. Aufbau: Transaktionen → Berechtigungsgruppen (BG) → Sammelberechtigungsgruppen (SBG) → Benutzergruppen.
+
+| Benutzergruppe | SBG-Typ | Besonderheit |
+|----------------|---------|--------------|
+| Ärzte | Standard-SBG + OE-spezifische SBG | Vollzugriff auf Patientendaten der eigenen OE |
+| Pflege | Standard-SBG + OE-spezifische SBG | Lesend + dokumentierend |
+| Verwaltung | Standard-SBG (eingeschränkt) | Abrechnungsbezogener Zugriff |
+| Forschung | Über Antragsverfahren (DIZ) | Separater Genehmigungsworkflow |
+
+**OE-spezifischer Dokumentenschutz (PSY/KJP/PST):**
+
+> Besonders schützenswerte Dokumente der Psychiatrie, Psychosomatik und Kinder-/Jugendpsychiatrie unterliegen einem **zusätzlichen dokumentenspezifischen Zugriffsschutz**. Fachfremde Einrichtungen dürfen auf diese Dokumente NICHT zugreifen, selbst wenn ein Behandlungsauftrag vorliegt.
+>
+> Betroffene Dokumenttypen: `PSY_VER_01`, `ÄRZ_VERL_P`, `PST_VER_01`, `PST_BEF_01` (OEs: PST-1, PST-T, PSTA1, PSTA2, E03-1, E03-2, J00-3, KJPA1, KJPA2)
+>
+> **UKLGPT-Implikation:** Diese Dokumenttypen müssen bei der FHIR-Abfrage über `DocumentReference`-Metadaten gefiltert werden, bevor sie in den RAG-Prozess eingespeist werden (vgl. Kap. 12.3.3 Ebene 3: Dokumentenschutz).
+
+**IGA-System-Integration (Zielzustand):**
+Die automatische Berechtigungsverwaltung erfolgt künftig über das **IGA (Identity Governance and Administration)**-System, das HR-Daten (Planstelle, Stelle, Dienstart, Teilbereich „10" = Patientenversorgung) automatisch in SAP-Rollen überführt. UKLGPT muss diese Automatik berücksichtigen und bei Personalwechseln die Berechtigungen in Echtzeit reflektieren.
+
+**VIP-Behandlung:** Keine gesonderte Einschränkung vorgesehen. **Inaktive Patienten:** Eigene BG erforderlich – standardmäßig KEIN automatischer Zugriff.
 
 ## 12.2 Gatekeeper-Prinzip: Der Patient-Scoped RAG-Ansatz {#12.2-gatekeeper-prinzip:-der-patient-scoped-rag-ansatz}
 
