@@ -21,6 +21,12 @@ EMRGPT-P0-017;Abnahmedokument Vorprojekt erstellen;Phase 0;Task;Major;2026-05-25
 EMRGPT-P0-018;Formale Abnahme einholen;Phase 0;Task;Major;2026-06-15;2026-06-26;11;EMRGPT-P0-017;M0.6;Auftraggeber;0
 EMRGPT-P0-019;Fachliche Anforderungen abstimmen;Phase 0;Task;Critical;2026-02-23;2026-03-27;32;;M0.1;Fachbereich;0
 EMRGPT-P0-020;Formale Risikobewertung erstellen;Phase 0;Task;Major;2026-03-02;2026-03-27;25;;M0.1;PM;0
+EMRGPT-P0-021;Schnittstellenspezifikation HYDMedia (REST vs. FHIR) klären;Phase 0;Task;Critical;2026-03-02;2026-03-27;25;EMRGPT-P0-005;M0.2;IT-Arch;0
+EMRGPT-P0-022;Cloud-Datenschutzklärung Sachsen;Phase 0;Task;Blocker;2026-03-02;2026-03-27;25;;M0.2;DSB;0
+EMRGPT-P0-023;Datenqualitätsanalyse HYDMedia (OCR, KDL);Phase 0;Task;Critical;2026-03-02;2026-04-17;46;;M0.3;IT;0
+EMRGPT-P0-024;Architekturskizze Averbis für Datenschützer;Phase 0;Task;Major;2026-03-02;2026-03-06;4;EMRGPT-P0-005;M0.2;PM;0
+EMRGPT-P0-025;AVVs und Datenschutzunterlagen anfordern;Phase 0;Task;Critical;2026-03-02;2026-03-06;4;EMRGPT-P0-005;M0.2;PM;0
+EMRGPT-P0-026;Eskalation Zeitplan 1.10. an Lenkungsausschuss;Phase 0;Task;Blocker;2026-03-02;2026-03-20;18;;M0.4;PM;0
 ;;;;;;;;;;;
 EMRGPT-P1;Phase 1: Infrastruktur und Archiv-Migration;Phase 1;Epic;Blocker;2026-05-04;2026-09-25;144;;;IT;0
 EMRGPT-P1-001;GPU-Infrastruktur beschaffen;Phase 1;Story;Blocker;2026-05-04;2026-06-26;53;EMRGPT-P0-010;M1.1;IT-Infra;0

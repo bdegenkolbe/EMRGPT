@@ -1,7 +1,9 @@
 # Produktstrukturplan (PSP) EMRGPT – Vorprojekt
 
-**Version:** 2.0 | **Stand:** 2026-02-27 | **Methodik:** PRINCE2
-**Referenzdokument:** [Konzept_EMRGPT.md](Konzept_EMRGPT.md) (Zielarchitektur v2.0)
+**Version:** 2.1 | **Stand:** 2026-02-27 | **Methodik:** PRINCE2
+**Referenzdokument:** [Konzept_EMRGPT.md](Konzept_EMRGPT.md) (Zielarchitektur v2.1)
+
+**Änderungsvermerk v2.1:** Besprechungsergebnisse 27.02.2026 eingearbeitet – PSP 3.2 (Marktanalyse) auf ERGÄNZT gesetzt, PSP 4.1 (Datenschutzkonzept) um Cloud-Risiko Sachsen ergänzt, PSP 7.3 (Kostengerüst) konkretisiert, PSP 7.6 (Cloud-Datenschutzklärung) neu hinzugefügt.
 
 ---
 
@@ -34,7 +36,7 @@
 | 2.3.1 | Daten aus UKLytics | Kap. 8 (Datenzufluss DWH→GraphRAG) | Abgedeckt | IT |
 | 3.1 | Technische Zielarchitektur | Kap. 4–12, Kap. 0.6 | Umfassend | IT-Architektur |
 | 3.1.1 | Infrastruktur | Kap. 7, 8, Kap. 0.7 | Teilweise | IT-Infrastruktur |
-| 3.2 | Marktanalyse | Kap. 16 (Variantenvergleich) | ERGÄNZT | PM, 4K |
+| 3.2 | Marktanalyse | Kap. 16 (Variantenvergleich) | ERGÄNZT – Averbis-Architektur und Kosten konkretisiert (v2.1) | PM, 4K |
 | 3.3 | Analyse HYDMedia | Kap. 2.4, 3.2.6 | Abgedeckt | Valentin |
 | 3.3.1 | Schnittstellenbeschreibung FHIR | Kap. 3.2.6.2, Kap. 0.6 | ERGÄNZT | Schnittstellenverantwortlicher |
 | 3.4 | Analyse DMI Lösung | Kap. 2.1 | Teilweise | Valentin, Carina |
@@ -43,7 +45,7 @@
 | 3.7 | Technisches Vorgehensmodell | Kap. 5, 6, 9 | Abgedeckt | IT-Architektur, 4K |
 | 3.8 | Zugriff auf ISILON | Kap. 3.2.6.1 | Teilweise | IT-Infrastruktur |
 | 3.9 | KIS-Dokumentenzugriff (Meierhofer) | Kap. 16 | ERGÄNZT | Robert W., Carina, Valentin |
-| 4.1 | Datenschutzkonzept | Kap. 13.1 | Abgedeckt | DSB (Hr. Sünkel) |
+| 4.1 | Datenschutzkonzept | Kap. 13.1, Kap. 13.1.6 | Abgedeckt – Cloud-Restriktionen Sachsen ergänzt (v2.1) | DSB (Hr. Sünkel) |
 | 4.2 | DSFA (Vorprüfung) | Kap. 13.1 | Teilweise | DSB (Hr. Sünkel) |
 | 4.3 | Informationssicherheitsbewertung | Kap. 12, 13.4, Kap. 19 | ERGÄNZT | ISB (S. Krause) |
 | 4.4 | Berechtigungskonzept | Kap. 12, Kap. 12.1.1 | ERGÄNZT | M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich |
@@ -57,9 +59,10 @@
 | 6.3 | Abnahmedokument Vorprojekt | – | OFFEN | Auftraggeber |
 | 7.1 | Betriebskonzept (Gerüst) | Kap. 18 | ERGÄNZT | IT-Betrieb |
 | 7.2 | Incident-Response-Plan | Kap. 19 | ERGÄNZT | ISB / DSB |
-| 7.3 | Kostengerüst-Template | Kap. 20 | ERGÄNZT | PMO / Controlling |
+| 7.3 | Kostengerüst-Template | Kap. 20 | ERGÄNZT – Averbis-Kosten konkretisiert: 90 k€ Teststellung, ~200 k€/a Lizenz, TCO ≥ 1,09 Mio. €/5a (v2.1) | PMO / Controlling |
 | 7.4 | Change-Management-Konzept | Kap. 21 | ERGÄNZT | Fachbereich / PMO |
 | 7.5 | SAP IS-H/i.s.h.med KI-Konnektor | Kap. 22 | ERGÄNZT | IT-Architektur |
+| 7.6 | Cloud-Datenschutzklärung Sachsen | Kap. 13.1.6 | OFFEN – Termin Landesdatenschützer März 2026 | DSB / PM |
 
 **Legende:** ERGÄNZT = in Konzept-Dokument ausgearbeitet | OFFEN = noch zu erstellen | Teilweise = Grundlage vorhanden, Ergänzung nötig | ~~Durchgestrichen~~ = entfällt
 
@@ -527,7 +530,7 @@
 |----------|-------------|
 | **Verantwortlich** | PMO / Controlling |
 | **Konzept-Referenz** | Kap. 20 (CAPEX/OPEX-Struktur, TCO-Vergleich) |
-| **Status** | ERGÄNZT – Template mit Kostenblöcken, Werte durch IT und Controlling zu befüllen |
+| **Status** | ERGÄNZT – Averbis-Kosten konkretisiert (v2.1): Teststellung ~90.000 €, Lizenz ~200.000 €/a, TCO ≥ 1,09 Mio. €/5 Jahre. Eigenlösungs-Werte durch IT und Controlling noch zu befüllen. |
 
 ### 7.4 Change-Management-Konzept
 
@@ -545,6 +548,18 @@
 | **Konzept-Referenz** | Kap. 22 (Systemübersicht, Connectoren, KI-Integrationspfade, FHIR-Transformation, Berechtigungsmigration) |
 | **Status** | ERGÄNZT – BAPI, HL7, FHIR-Fähigkeiten, IHE-Profile und Empfehlungen für Connector-Strategie |
 
+### 7.6 Cloud-Datenschutzklärung Sachsen
+
+| Attribut | Beschreibung |
+|----------|-------------|
+| **Verantwortlich** | DSB (Hr. Sünkel) / PM |
+| **Konzept-Referenz** | Kap. 13.1.6 (Landesspezifische Cloud-Restriktionen Sachsen) |
+| **Zweck** | Klärung der rechtlichen Zulässigkeit von Cloud-LLM-Verarbeitung (Azure OpenAI) im Kontext sächsischer Datenschutzvorgaben. Relevant für die Bewertung der Averbis/Meierhofer-Variante. |
+| **Zusammensetzung** | AVVs, TOMs, Architekturskizze, Ergebnis Datenschützer-Termin, ggf. Gutachten |
+| **Qualitätskriterien** | Rechtsverbindliche Einschätzung, dokumentiert |
+| **Abnahmekriterien** | Schriftliche Stellungnahme des Landesdatenschützers oder Freigabe durch DSB |
+| **Status** | OFFEN – Termin mit Landesdatenschützer für März 2026 angesetzt. AVVs und Architekturskizze sind vorab bereitzustellen. |
+
 ---
 
 ## Offene Punkte und Handlungsbedarf
@@ -554,10 +569,14 @@
 | OP-01 | Projektauftrag formal erstellen und genehmigen | Auftraggeber | Mär 2026 | Hoch |
 | OP-02 | Projektleiter mit PM-Exzellenz installieren | Auftraggeber | Mai 2026 | Kritisch |
 | OP-03 | Kostengerüst mit konkreten Werten befüllen | IT / Controlling | Apr 2026 | Hoch |
-| OP-04 | Averbis/Meierhofer-Angebot einholen und bewerten | PM | Mär 2026 | Hoch |
+| OP-04 | ~~Averbis/Meierhofer-Angebot einholen und bewerten~~ **TEILWEISE ERLEDIGT (27.02.2026):** Kostenindikatoren liegen vor. Detailiertes Angebot mit Meierhofer-Anteil ausstehend. | PM | Mär 2026 | Hoch |
 | OP-05 | Formale Risikobewertung mit Eintrittswahrscheinlichkeiten erstellen | PM | Mär 2026 | Mittel |
 | OP-06 | ISILON-Performance- und Sicherheitsanalyse durchführen | IT-Infrastruktur | Apr 2026 | Mittel |
 | OP-07 | DSFA formell im Hauptprojekt durchführen | DSB | Q3/2026 | Hoch |
 | OP-08 | Abnahmedokument Vorprojekt erstellen | Auftraggeber | Jun 2026 | Mittel |
 | OP-09 | Fachliche Anforderungen mit Fachbereich abstimmen | Fachbereich | Mär 2026 | Hoch |
 | OP-10 | GPU-Infrastruktur-Sizing und Beschaffung einleiten | IT-Infrastruktur | Apr 2026 | Hoch |
+| OP-11 | **NEU:** Schnittstellenspezifikation HYDMedia (REST vs. FHIR) klären | IT-Architektur, Dedalus | Mär 2026 | Hoch |
+| OP-12 | **NEU:** Cloud-Datenschutzklärung Sachsen – Termin Landesdatenschützer | DSB / PM | Mär 2026 | Kritisch |
+| OP-13 | **NEU:** Datenqualitätsanalyse HYDMedia (OCR, KDL, Stichprobe) | IT | Apr 2026 | Hoch |
+| OP-14 | **NEU:** Eskalation Zeitplan/Übersichtsfunktion 1.10. an Lenkungsausschuss | PM / Dr. Vasipki | Mär 2026 | Kritisch |

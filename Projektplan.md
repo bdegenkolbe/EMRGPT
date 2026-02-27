@@ -1,6 +1,8 @@
 # Projektplan EMRGPT – YouTrack-Tickets
 
-**Version:** 1.0 | **Stand:** 2026-02-27
+**Version:** 1.1 | **Stand:** 2026-02-27
+
+**Änderungsvermerk v1.1:** Neue Tickets aus Besprechung 27.02.2026 (Averbis/Meierhofer/4K Analytics) eingearbeitet: EMRGPT-P0-021 bis P0-026. Status von P0-005 aktualisiert.
 **Projekt:** EMRGPT – KI-gestützter klinischer Informationsassistent
 **Methodik:** PRINCE2 / Agil (Hybrid)
 **Referenz:** [Konzept_EMRGPT.md](Konzept_EMRGPT.md) | [PSP_EMRGPT.md](PSP_EMRGPT.md)
@@ -29,7 +31,7 @@
 | EMRGPT-P0-002 | Task | Qualitätsanalyse aller Konzeptdokumente durchführen | Major | PM | KW09–KW10 | – | M0.1 |
 | EMRGPT-P0-003 | Task | PSP-Vollständigkeitsprüfung gegen Konzept_EMRGPT.md | Major | PM | KW10–KW11 | P0-002 | M0.1 |
 | EMRGPT-P0-004 | Story | Averbis/Meierhofer-Angebot einholen und bewerten | Critical | PM, 4K | KW09–KW13 | – | M0.2 |
-| EMRGPT-P0-005 | Task | Anfrage an Meierhofer für Averbis Health Discovery senden | Major | PM | KW09 | – | M0.2 |
+| EMRGPT-P0-005 | Task | ~~Anfrage an Meierhofer für Averbis Health Discovery senden~~ Technischer Klärungstermin mit Averbis/Meierhofer durchgeführt (27.02.2026) | Major | PM | KW09 | – | M0.2 |
 | EMRGPT-P0-006 | Task | Variantenvergleich mit Averbis-Angebot finalisieren | Critical | PM | KW12–KW13 | P0-005 | M0.2 |
 | EMRGPT-P0-007 | Story | Kostenseite Business Case fertigstellen | Critical | Controlling | KW10–KW16 | P0-004 | M0.3 |
 | EMRGPT-P0-008 | Task | IT-Infrastruktur-Sizing durchführen (GPU, Speicher, Netzwerk) | Major | IT-Infra | KW10–KW14 | – | M0.3 |
@@ -45,6 +47,12 @@
 | EMRGPT-P0-018 | Task | Formale Abnahme durch Auftraggeber einholen | Major | Auftraggeber | KW24–KW26 | P0-017 | M0.6 |
 | EMRGPT-P0-019 | Task | Fachliche Anforderungen mit Fachbereich abstimmen (FA/NFA-Liste) | Critical | Fachbereich | KW09–KW13 | – | M0.1 |
 | EMRGPT-P0-020 | Task | Formale Risikobewertung mit Eintrittswahrscheinlichkeiten erstellen | Major | PM | KW10–KW13 | – | M0.1 |
+| EMRGPT-P0-021 | Task | Schnittstellenspezifikation HYDMedia (REST vs. FHIR) klären und mit Dedalus abstimmen | Critical | IT-Arch | KW10–KW13 | P0-005 | M0.2 |
+| EMRGPT-P0-022 | Task | Cloud-Datenschutzklärung Sachsen – AVVs/Architekturskizze bereitstellen, Termin Landesdatenschützer durchführen | Blocker | DSB, PM | KW10–KW13 | – | M0.2 |
+| EMRGPT-P0-023 | Task | Datenqualitätsanalyse HYDMedia – OCR-Status, KDL-Label-Qualität, Stichprobe durchführen | Critical | IT | KW10–KW16 | – | M0.3 |
+| EMRGPT-P0-024 | Task | Architekturskizze Averbis-Integration für Datenschützer-Termin bereitstellen | Major | PM, 4K | KW10 | P0-005 | M0.2 |
+| EMRGPT-P0-025 | Task | AVVs und Datenschutzunterlagen (TOMs, Unterauftragnehmer) von Averbis/Meierhofer anfordern und weiterleiten | Critical | PM | KW10 | P0-005 | M0.2 |
+| EMRGPT-P0-026 | Task | Eskalation Zeitplan/Übersichtsfunktion 1.10. an Lenkungsausschuss – Abstimmung mit Dr. Vasipki | Blocker | PM | KW10–KW12 | – | M0.4 |
 
 ---
 
@@ -255,8 +263,8 @@
 
 | Phase | Epics | Tickets | Zeitraum | Kritische Meilensteine |
 |-------|-------|---------|----------|----------------------|
-| Phase 0 | 1 | 20 | Feb – Jun 2026 | M0.4 (LA-Entscheidung), M0.5 (PL installiert) |
+| Phase 0 | 1 | 26 | Feb – Jun 2026 | M0.4 (LA-Entscheidung), M0.5 (PL installiert) |
 | Phase 1 | 6 | 29 | Mai – Sep 2026 | M1.4 (FHIR Go/No-Go), M1.6 (Plattform ready) |
 | Phase 2 | 7 | 36 | Jul – Dez 2026 | M2.4 (MVP Go-Live Okt 2026 = SAP-Abschaltung) |
 | Phase 3 | 6 | 31 | Q1 – Q2/2027 | M3.5 (Klinikweiter Rollout), M3.6 (Projektabschluss) |
-| **Gesamt** | **20** | **116** | **Feb 2026 – Jun 2027** | **4 Go/No-Go-Entscheidungen** |
+| **Gesamt** | **20** | **122** | **Feb 2026 – Jun 2027** | **4 Go/No-Go-Entscheidungen** |

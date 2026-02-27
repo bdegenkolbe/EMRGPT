@@ -1,5 +1,7 @@
 # Konzept EMRGPT – Zielarchitektur mit Patienten-RAG, Dokumenten-RAG und GraphRAG (FHIR/SNOMED)
 
+v2.1 – Besprechungsergebnisse 27.02.2026 eingearbeitet: Averbis-Architektur detailliert (Medical Summary + M-KIS), ADT-basierte Archivstrategie, Kostenindikatoren (90 k€ Teststellung, ~200 k€/a Lizenz), Cloud-/Datenschutzrisiken Sachsen, OCR-/KDL-Qualitätsrisiken, Variantenvergleich Kap. 16 aktualisiert, Kostengerüst Kap. 20 konkretisiert (Stand: 2026-02-27)
+
 v2.0 – Umbenennung zu Konzept EMRGPT, Konsolidierung der Projektdokumentation (Stand: 2026-02-27)
 
 v1.6 – Kapitelreihenfolge korrigiert, Inhaltsverzeichnis vervollständigt, SAP IS-H/i.s.h.med KI-Konnektor (Stand: 2026-02-27)
@@ -2341,6 +2343,23 @@ Die Architektur und die technischen Schutzmechanismen wurden entwickelt, um die 
 | **Fehlinformationen / Halluzination** (Art. 5 Abs. 1 lit. d) | Qualitätssicherung der Ausgabe | **Mehrstufige Prompt-Pipeline mit Validierung:** Die generierte Antwort wird technisch auf Plausibilität und Konsistenz mit den Quelldokumenten geprüft. |
 | **Mangelnde Nachvollziehbarkeit** (Art. 5 Abs. 1 lit. a/f) | Auditierbarkeit | **Revisionssicheres KI-Audit-Log:** Lückenlose Protokollierung von *Wer, Wann, Auf Wen, Mit Welcher Anfrage*, um Integrität und Rechenschaftspflicht zu gewährleisten. |
 
+### 13.1.6 Landesspezifische Cloud-Restriktionen Sachsen (Besprechung 27.02.2026)
+
+Im Rahmen der Besprechung vom 27.02.2026 wurde ein bisher nicht dokumentiertes Compliance-Risiko identifiziert: In Sachsen bestehen landesweite Restriktionen zur Cloud-Nutzung bei Universitätskliniken. Die genaue Rechtsgrundlage (Landesverordnung vs. Vereinbarung mit dem Landesdatenschützer) ist noch zu klären.
+
+**Relevanz für EMRGPT:**
+- Die Eigenlösung EMRGPT ist davon **nicht betroffen** (vollständig On-Premise).
+- Die Averbis/Meierhofer-Variante nutzt **Azure OpenAI in Schweden** (EU Datazone) für die LLM-Verarbeitung und ist damit potenziell betroffen.
+- Falls Azure in Sachsen nicht genehmigt wird, wäre ein Wechsel auf deutsche Anbieter (Stackit, Arvato, Telekom) erforderlich, was **höhere Kosten** verursacht.
+- Ein **externes Datenschutzgutachten** (z. B. KPMG, ~100.000 €) könnte zusätzlich erforderlich werden.
+
+**Nächste Schritte:**
+1. Termin mit dem sächsischen Landesdatenschützer (März 2026) – AVVs und Architekturskizze vorab bereitstellen.
+2. Ergebnis dokumentieren und ggf. in Kostengerüst (Kap. 20) einpreisen.
+3. Referenzen aus anderen Bundesländern (z. B. Klinikum Rheine/Azure) als Vergleich heranziehen.
+
+**Quellen:** Besprechungsprotokoll 27.02.2026 (Fachablage), Datenschutz-AVVs (ausstehend).
+
 ## 13.2 EU-Verordnung über Medizinprodukte (EU MDR – Verordnung (EU) 2017/745) {#13.2-eu-verordnung-über-medizinprodukte-(eu-mdr-–-verordnung-(eu)-2017/745)}
 
 Das UKLGPT-System ist darauf ausgelegt, Informationen bereitzustellen und Vorschläge zu generieren (Informationsassistenz, siehe 3.4). Die Abgrenzung zur **medizinischen Zweckbestimmung** ist kritisch:
@@ -2674,20 +2693,81 @@ Die Averbis-Lösung umfasst zwei Kernmodule:
 - Medikamentenübernahme derzeit nicht automatisch (MDR-Zertifizierung erforderlich)
 - Angebot in Erstellung (Dienstleistungsaufwände von Averbis ausstehend)
 
+#### Technische Architektur (Besprechung 27.02.2026)
+
+Am 27.02.2026 fand ein technischer Klärungstermin mit Averbis, Meierhofer, 4K Analytics und dem UKL-Projektteam statt. Averbis präsentierte eine Architekturskizze (siehe Fachablage/Averbis_Integration Architekturbild.jpg) mit folgender Komponentenstruktur:
+
+**Komponenten im Krankenhaus-Netzwerk (On-Premise):**
+
+| Komponente | Funktion | Datenfluss |
+|------------|----------|------------|
+| **Medical Summary User Interface** | Webanwendung für Endanwender (Ärzte) | Zugang über Reverse Proxy (HTTPS) |
+| **Medical Summary Backend** | Zentrale Datenhaltung – alle Daten werden lokal persistiert | Empfängt Patientendaten (PID, Name, Geb.Datum), Falldaten (Diagnosen, Laborwerte, Medikation) von M-KIS via HL7 |
+| **Health Discovery (NLP)** | On-Premise-NLP-Engine von Averbis zur Informationsextraktion | Kommuniziert via HTTPS mit Azure OpenAI |
+| **Arztbriefschreibung** | Generiert Epikrisen auf Basis extrahierter Daten | Empfängt Epikrise-Daten vom Backend |
+| **Vektordatenbank** | Lokale Speicherung der Embeddings | Embeddings werden in der Cloud berechnet, aber lokal gespeichert |
+
+**Cloud-Komponente:**
+- **Azure OpenAI** (EU Datazone, Schweden): LLM wird ausschließlich temporär zur Verarbeitung genutzt. Keine persistente Datenhaltung in der Cloud. Alternative Hosting-Optionen: Stackit (DE), Arvato, Telekom – Wahl abhängig von Datenschutzvorgaben des jeweiligen Bundeslandes.
+
+**Anbindung Archiv/CMS (HYDMedia):**
+- **PULL:** Historische Daten werden bei Fallanlage (ADT-Ereignis) über REST-API oder FHIR-Schnittstelle aus HYDMedia abgerufen.
+- **PUSH:** Neue Dokumente, die nicht über M-KIS laufen, können via FHIR/HL7-Nachrichten direkt an das Medical Summary Backend gesendet werden.
+- **Schnittstellenwahl:** UKL bevorzugt REST-API (FHIR biete in diesem Kontext keinen Mehrwert); Averbis kann beide Varianten integrieren. Entscheidung steht aus.
+
+**ADT-basierte Archivstrategie (bestätigt):**
+- Kein initialer Massenimport aller 20+ Mio. Dokumente. Stattdessen ereignisgesteuerter Abruf: Beim Anlegen eines neuen Patientenfalls in M-KIS (ADT-Meldung) werden die historischen Dokumente dieses Patienten aus HYDMedia geladen und in die Medical Summary integriert.
+- Fokus auf aktuelle/jüngere Akten; Tiefenrecherche im Archiv nur für Spezialfälle.
+- Optionale Vor-Klassifikation via Erkennungs-/Validierungsprompts (z. B. Arztbrief, OP-Bericht) mit Nutzerkorrekturmöglichkeit.
+
+**Berechtigungskonzept:**
+- SSO über Identity Provider mit OIDC-Protokoll. M-KIS-Berechtigungen werden durchgeschleust. Identity Provider ist Teil der NEXT-Betriebsumgebung und zum 1.10. kommunikationsbereit. Keine Zusatzkosten für Identity-Integration.
+
+**Quellen:** Besprechungsprotokoll vom 27.02.2026 (Fachablage), Architekturskizze (Fachablage/Averbis_Integration Architekturbild.jpg), Mail Dr. Cundius (Fachablage/Mail_'Carina_Averbis.pdf).
+
+#### Piloterfahrungen und Referenzen (Stand 27.02.2026)
+
+| Referenzkunde | Status | Anmerkung |
+|---------------|--------|-----------|
+| **Asklepios Kliniken** | Testphase (bis 3 Monate) | Nach Testphase Lizenzierung und Live-Betrieb |
+| **UMG Greifswald** | Verzögert | IT-Leiterwechsel; Testphase geplant |
+| **Klinikum Rheine** | Produktiv (Azure) | Nicht direkt vergleichbar für Sachsen (Cloud-Restriktionen) |
+
+#### Kostenindikatoren (Stand 27.02.2026)
+
+| Position | Betrag | Quelle |
+|----------|--------|--------|
+| **Teststellung** (aktueller Funktionsumfang, Dienstleistung) | **~90.000 €** | Mail Dr. Cundius |
+| **Averbis-Lizenz + Meierhofer-Lizenz** (p.a.) | **~200.000 €/Jahr** | Mail Dr. Cundius (Meierhofer-Lizenz noch nicht beziffert) |
+| **Archiv-/HYDMedia-Anbindung** (Entwicklung) | **10–20 Personentage** zusätzlich | Besprechung 27.02.2026 (Averbis-Schätzung) |
+| Identity-Integration (OIDC/SSO) | Im Standardumfang enthalten | Keine Zusatzkosten |
+
+**Hinweis:** Die exakte Aufwandsabschätzung für die HYDMedia-Anbindung ist erst nach Detailprüfung der Datenlage (Dokumententypen, Qualität, KDL-Labelstatus) möglich.
+
+#### Offene Risiken und Qualitätsprobleme (Besprechung 27.02.2026)
+
+| Risiko | Beschreibung | Auswirkung |
+|--------|-------------|------------|
+| **OCR-Rückwirkung unklar** | OCR in HYDMedia seit Feb. 2026 implementiert; ob rückwirkend für alle Bestandsdokumente angewendet wird, ist ungeklärt | Nicht maschinenlesbare PDFs können nicht von der NLP-Engine verarbeitet werden |
+| **KDL-Klassifikation lückenhaft** | Systematische KDL-Klassifizierung erst seit ~2 Jahren; rückwirkende Klassifizierung vermutlich nicht erfolgt | Filterlogik in Medical Summary kann Dokumententypen (Arztbrief, Laborbefund etc.) nicht zuverlässig unterscheiden |
+| **Heterogene Dokumentenqualität** | Mehrfach-Scans, Handyfotos, inkonsistente Zeitstempel im Archiv | Erhöhter Dienstleistungsaufwand über die geschätzten 10–20 PT hinaus |
+| **Cloud-Freigabe Sachsen** | Landesweite Cloud-Restriktionen in Sachsen; Termin mit Landesdatenschützer angesetzt (März 2026) | Ggf. Stackit (DE) statt Azure erforderlich → höhere Kosten; ggf. Datenschutzgutachten (~100.000 €) |
+| **Zeitplan-Konflikt** | Projektteam priorisiert KIS-Einführung; parallele Systemeinführung zum 1.10. kritisch | Eskalation an Lenkungsausschuss/Vorstand erforderlich (Dr. Vasipki) |
+
 ## 16.2 Strukturierter Variantenvergleich
 
 | Kriterium | UKLGPT (Eigenlösung) | Averbis/Meierhofer |
 |-----------|----------------------|-------------------|
-| **Datenhoheit & Kontrolle** | **Vollständig beim UKL.** Alle Daten, Modelle und Pipelines unter eigener Kontrolle. On-Premise. | Geteilte Kontrolle. Averbis Health Discovery als Cloud-/SaaS-Komponente. Datenverarbeitung teilweise beim Anbieter. |
-| **Archivdaten-Zugriff (21 Mio. PDFs)** | **Vollzugriff** über GraphRAG + Dokumenten-RAG. Semantische Suche, kontextualisierte Antworten über gesamten Datenbestand. | Zugriff über Kommunikationsserver auf HYDMedia. Umfang und Performance des Archivzugriffs unklar. Primär für aktuelle Falldaten konzipiert. |
+| **Datenhoheit & Kontrolle** | **Vollständig beim UKL.** Alle Daten, Modelle und Pipelines unter eigener Kontrolle. On-Premise. | Teilweise beim UKL. Medical Summary Backend + Vektordatenbank on-prem; LLM-Verarbeitung temporär in Azure Cloud (EU, Schweden). Keine persistente Cloud-Datenhaltung, aber Verarbeitungshoheit liegt bei Azure/Averbis. (Stand: Besprechung 27.02.2026) |
+| **Archivdaten-Zugriff (21 Mio. PDFs)** | **Vollzugriff** über GraphRAG + Dokumenten-RAG. Semantische Suche, kontextualisierte Antworten über gesamten Datenbestand. | ADT-basierter Abruf aus HYDMedia bestätigt (REST-API oder FHIR). Keine Massenindexierung – Dokumente werden erst bei Fallanlage patientenbezogen geladen. Archivzugriff technisch machbar (10–20 PT Aufwand), aber abhängig von OCR-/KDL-Qualität der Altdaten. (Stand: Besprechung 27.02.2026) |
 | **Archivierungs-Strategie** | Hybride Strategie: PDF/A-Archiv (Compliance) + FHIR-GraphRAG (KI-Readiness). Maximale Nutzung der Altdaten. | Kein eigenes Archivierungskonzept. Setzt auf vorhandene HYDMedia-Infrastruktur. Keine FHIR-Graph-Anreicherung. |
 | **Funktionsumfang** | Umfassend: Intelligente Recherche, Patientenakten-Zusammenfassung, Leitlinienabgleich, Kodierunterstützung, interdisziplinäre Workflows. Erweiterbar. | Fokussiert: Medical Summary + Gesprächsdokumentation. Weitere Module anbieterspezifisch und kostenpflichtig. |
-| **Berechtigungskonzept** | **Detailliertes 3-Ebenen-Modell** (Kontext, Behandlungsauftrag, Dokumentenschutz) mit Break-the-Glass. SAP/M-KIS-geführt. | Im M-KIS integriert. Berechtigungskonzept des KIS wird genutzt. Feinsteuerung (PSY/KJP-Schutz, dokumentenspezifisch) unklar. |
+| **Berechtigungskonzept** | **Detailliertes 3-Ebenen-Modell** (Kontext, Behandlungsauftrag, Dokumentenschutz) mit Break-the-Glass. SAP/M-KIS-geführt. | M-KIS-Berechtigungen werden via SSO/OIDC (Identity Provider, NEXT-Umgebung) durchgeschleust – bestätigt (27.02.2026). Feinsteuerung PSY/KJP-Schutz und dokumentenspezifischer Schutz weiterhin unklar. |
 | **Unabhängigkeit / Vendor Lock-in** | **Technologisch unabhängig.** Offene Standards (FHIR, SNOMED). LLM austauschbar. Keine Bindung an einzelnen Anbieter. | **Hoher Vendor Lock-in.** Abhängigkeit von Meierhofer + Averbis. Funktionserweiterungen nur über Anbieter. Preisgestaltung nicht kontrollierbar. |
 | **Innovationstiefe** | **Hoch.** GraphRAG mit FHIR/SNOMED, mehrstufige Prompt-Pipeline, episodisches RAG mit Zweckbindung, deterministische Qualitätssicherung. | Mittel. NLP-basierte Textanalyse (Averbis Health Discovery). Kein GraphRAG, kein FHIR-basiertes Wissensnetz. |
 | **Qualitätssicherung KI** | **Mehrstufige Prompt-Pipeline** mit Domain-Classification, SNOMED-Normalisierung, Validierung, Quellentrennung (Fakten/Dokumente/Leitlinien). | Feedback-Mechanismus (Daumen hoch/runter). Interne Validierungslogik von Averbis (intransparent für UKL). |
-| **Time-to-Market** | Länger: Eigenentwicklung erfordert Aufbau von Team, Infrastruktur, Pilotierung. MVP realistisch ab Q4/2026 (vgl. Kap. 17.2). | Kürzer: M-KIS 15.1.0 mit Averbis-Funktionen könnte parallel zur KIS-Einführung verfügbar sein. |
-| **Kosten (Einschätzung)** | Höhere Initialkosten (Infrastruktur, Personal, LLM-Lizenzen). Langfristig niedrigere laufende Kosten durch Eigenhoheit. | Lizenzkosten für Averbis + Meierhofer-Module. Dienstleistungskosten Averbis noch offen (Angebot ausstehend). Langfristig steigende Lizenzkosten möglich. |
+| **Time-to-Market** | Länger: Eigenentwicklung erfordert Aufbau von Team, Infrastruktur, Pilotierung. MVP realistisch ab Q4/2026 (vgl. Kap. 17.2). | Kürzer: M-KIS 15.1.0 mit Averbis-Funktionen könnte parallel zur KIS-Einführung verfügbar sein. Testphase bis 3 Monate. Aber: Zeitplan-Konflikt – Projektteam priorisiert KIS-Einführung (Besprechung 27.02.2026). |
+| **Kosten (Einschätzung)** | Höhere Initialkosten (Infrastruktur, Personal, LLM-Lizenzen). Langfristig niedrigere laufende Kosten durch Eigenhoheit. | **Teststellung ~90.000 €**, laufend **~200.000 €/Jahr** (Averbis- + Meierhofer-Lizenz, Meierhofer-Anteil noch nicht beziffert) + 10–20 PT für HYDMedia-Anbindung. Langfristig steigende Lizenzkosten möglich. (Quelle: Mail Dr. Cundius, 27.02.2026) |
 | **Compliance (EU AI Act, DSGVO)** | Volle Kontrolle über Compliance-Maßnahmen. Transparenz der KI-Pipeline gewährleistet Hochrisiko-KI-Anforderungen. | Compliance-Verantwortung teilweise beim Anbieter. Transparenz der Averbis-Algorithmen für UKL nicht vollständig gegeben. |
 | **Strategischer Wert** | **Hoch.** Aufbau interner KI-Kompetenz. Universitätsklinikum als Innovationsführer. Nachnutzungspotenzial, Forschungsanbindung. | Mittel. Standardprodukt. Kein Kompetenzaufbau am UKL. Kein Alleinstellungsmerkmal. |
 
@@ -2721,19 +2801,25 @@ Die **Averbis/Meierhofer-Lösung** hat Vorteile bei Time-to-Market und könnte a
 
 ### 16.4.1 Risiken der Averbis-Variante
 
-| Risiko | Bewertung |
-|--------|-----------|
-| Cloud-Datenverarbeitung (DSGVO-kritisch bei Patientendaten) | Hoch |
-| Fehlende Transparenz der KI-Pipeline (EU AI Act Hochrisiko) | Hoch |
-| Kein Zugriff auf Altdaten-Gesamtbestand über GraphRAG | Hoch |
-| Langfristig steigende Lizenzkosten ohne Exit-Strategie | Mittel |
-| Abhängigkeit von Produktroadmap eines Drittanbieters | Hoch |
+| Risiko | Bewertung | Anmerkung (v2.1) |
+|--------|-----------|------------------|
+| Cloud-Datenverarbeitung (DSGVO-kritisch bei Patientendaten) | **Hoch** | Bestätigt: LLM-Verarbeitung via Azure OpenAI (Schweden). Cloud-Freigabe in Sachsen unklar – Termin Landesdatenschützer März 2026. Ggf. Stackit (DE) erforderlich (höhere Kosten). |
+| Fehlende Transparenz der KI-Pipeline (EU AI Act Hochrisiko) | Hoch | Unverändert |
+| Kein Zugriff auf Altdaten-Gesamtbestand über GraphRAG | Hoch | Präzisiert: ADT-basierter Einzelabruf bestätigt – kein semantischer Gesamtzugriff, kein GraphRAG. |
+| Langfristig steigende Lizenzkosten ohne Exit-Strategie | **Hoch** | Neu bewertet: ~200.000 €/Jahr Lizenz + 90.000 € Teststellung. TCO 5 Jahre: >1 Mio. € (ohne Infrastruktur). |
+| Abhängigkeit von Produktroadmap eines Drittanbieters | Hoch | Bestätigt: Exklusivvertrieb Meierhofer–Averbis. |
+| OCR-/KDL-Qualitätsrisiko im Archiv | **Hoch** | Neu: Rückwirkende OCR/KDL unklar. Kann Dienstleistungsaufwand erheblich über 10–20 PT treiben. |
+| Datenschutzgutachten Sachsen | **Mittel** | Neu: Ggf. externes Gutachten (KPMG o. ä.) erforderlich (~100.000 €). |
 
 ### 16.4.2 Offene Punkte für Finalisierung der Bewertung
 
-1. Angebot von Meierhofer/Averbis liegt noch nicht vor – Kosten müssen verglichen werden.
-2. Technischer Klärungstermin mit Meierhofer ist anzusetzen, um die Averbis-Variante detaillierter zu prüfen.
-3. Prüfung, ob Averbis als Übergangslösung (Medical Summary only) parallel zur UKLGPT-Entwicklung einsetzbar ist, ohne Lock-in zu erzeugen.
+1. ~~Angebot von Meierhofer/Averbis liegt noch nicht vor – Kosten müssen verglichen werden.~~ **TEILWEISE GEKLÄRT (27.02.2026):** Kostenindikatoren vorhanden (Teststellung ~90.000 €, Lizenz ~200.000 €/a), Meierhofer-Lizenzanteil noch nicht beziffert. TCO-Vergleich ausstehend.
+2. ~~Technischer Klärungstermin mit Meierhofer ist anzusetzen.~~ **ERLEDIGT (27.02.2026):** Besprechung mit Averbis, Meierhofer, 4K Analytics durchgeführt. Architektur dokumentiert (Kap. 16.1.1).
+3. Prüfung, ob Averbis als Übergangslösung (Medical Summary only) parallel zur EMRGPT-Entwicklung einsetzbar ist, ohne Lock-in zu erzeugen. **Weiterhin offen.**
+4. **NEU:** Schnittstellenspezifikation HYDMedia (REST vs. FHIR) klären und mit Dedalus abstimmen.
+5. **NEU:** Cloud-/Datenschutzklärung Sachsen – Ergebnis des Datenschützer-Termins (März 2026) abwarten. AVVs und Architekturskizze vorab bereitstellen.
+6. **NEU:** Detailanalyse Dokumentenqualität im HYDMedia-Archiv: OCR-Status, KDL-Label-Qualität, repräsentative Stichprobe zur Risikobewertung.
+7. **NEU:** Eskalation Zeitplan/Übersichtsfunktion bis 1.10. an Lenkungsausschuss (Abstimmung mit Dr. Vasipki).
 
 ---
 
@@ -3050,7 +3136,7 @@ Jeder Vorfall ab Schweregrad "Hoch" wird innerhalb von 10 Werktagen in einem **P
 | **Softwarelizenzen (laufend)** | Neo4j, ggf. LLM-API-Kosten (bei Cloud-Modell) | [ ] € | IT + Einkauf | OFFEN |
 | **Wartung/Support Hardware** | Herstellerwartung Server + GPU | [ ] € | IT-Infrastruktur | OFFEN |
 | **OCR-Verarbeitung** | Laufende OCR für neue Dokumente | [ ] € | IT | OFFEN |
-| **Averbis/Meierhofer-Lizenz (Alternative)** | 1.000–2.500 €/Monat (lt. Pitchdeck analog) | 12.000–30.000 € | Meierhofer-Angebot abwarten | Referenzwert |
+| **Averbis/Meierhofer-Lizenz (Alternative)** | Averbis-Lizenz + Meierhofer-Lizenz (Meierhofer-Anteil noch nicht beziffert) | **~200.000 €** | Mail Dr. Cundius (27.02.2026) | **KONKRETISIERT** |
 | **Externer Support / Beratung** | Optional: Architektur-Reviews, Security-Audits | [ ] € | PMO | OFFEN |
 | **SUMME OPEX p.a.** | | **[ ] €** | | |
 
@@ -3058,17 +3144,19 @@ Jeder Vorfall ab Schweregrad "Hoch" wird innerhalb von 10 Werktagen in einem **P
 
 | Kostenart | Eigenlösung UKLGPT | Averbis/Meierhofer | Anmerkung |
 |-----------|--------------------|--------------------|-----------|
-| CAPEX (einmalig) | [ ] € (Hardware + Implementierung) | ~9.520 € (Implementierung) | Eigenlösung: höhere Anfangsinvestition |
-| OPEX p.a. (Betrieb) | [ ] € (Personal + Infra + Lizenzen) | 12.000–30.000 € (Lizenz) + geringer Personalaufwand | Averbis: geringere laufende Kosten, aber Vendor Lock-in |
-| **TCO 5 Jahre** | **[ ] €** | **[ ] €** | Entscheidungsrelevant |
+| CAPEX (einmalig) | [ ] € (Hardware + Implementierung) | **~90.000 €** (Teststellung) + 10–20 PT HYDMedia-Anbindung | Eigenlösung: höhere HW-Investition; Averbis: Teststellung allein 90 k€ (Quelle: Mail Dr. Cundius, 27.02.2026) |
+| OPEX p.a. (Betrieb) | [ ] € (Personal + Infra + Lizenzen) | **~200.000 €/Jahr** (Averbis- + Meierhofer-Lizenz, Meierhofer-Anteil noch offen) + geringer Personalaufwand | Averbis: **deutlich höhere laufende Kosten** als ursprünglich geschätzt. Vendor Lock-in. |
+| **TCO 5 Jahre** | **[ ] €** | **≥ 1.090.000 €** (90 k€ + 5 × 200 k€, ohne Anbindungsaufwand und Datenschutzgutachten) | Entscheidungsrelevant – Averbis-TCO nun bezifferbar |
 | Personalaufbau | 2,5–3,5 FTE (Kompetenzaufbau) | 0,5–1 FTE (Administration) | Eigenlösung: Know-how bleibt im Haus |
 | Strategischer Wert | Hoch (Datenhoheit, Erweiterbarkeit) | Niedrig (Abhängigkeit von Anbieter-Roadmap) | Nicht in € bezifferbar |
+| Datenschutzgutachten (ggf.) | Im internen DSB abgedeckt | Ggf. **~100.000 €** (externes Gutachten bei Cloud-Restriktionen Sachsen) | Risiko nur bei Averbis/Cloud-Variante |
 
 **Handlungsbedarf:**
 1. IT-Infrastruktur: GPU-Sizing und Hardware-Kosten ermitteln
 2. Controlling: FTE-Kosten kalkulieren (Entgeltgruppen TV-L)
-3. Einkauf: Averbis-Angebot von Meierhofer anfordern (Samira Grass)
-4. PMO: TCO-Vergleich erstellen, sobald Werte vorliegen
+3. ~~Einkauf: Averbis-Angebot von Meierhofer anfordern (Samira Grass)~~ **TEILWEISE ERLEDIGT (27.02.2026):** Kostenindikatoren liegen vor (90 k€ Teststellung, ~200 k€/a Lizenz). Detailliertes Angebot mit Meierhofer-Lizenzanteil noch ausstehend.
+4. PMO: TCO-Vergleich erstellen – **Averbis-Seite nun weitgehend bezifferbar (≥ 1,09 Mio. € / 5 Jahre)**. Eigenlösung-Kosten noch offen.
+5. **NEU:** Prüfung Zusatzkosten Datenschutzgutachten (~100 k€) bei Cloud-Variante in Sachsen.
 
 ---
 

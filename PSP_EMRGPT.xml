@@ -1,143 +1,66 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<map version="1.0.1">
-  <node TEXT="PSP EMRGPT – Vorprojekt">
+<map version="1.0">
+  <node TEXT="PSP EMRGPT">
     <node TEXT="Gesamtübersicht PSP-Produkte">
-      <node TEXT="1.1: Projektauftrag Vorprojekt">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="1.2: Projektorganisation">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="1.3: Stakeholderanalyse">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="1.4: Kommunikationsplan">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="1.5: Vorläufiger Business Case">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="1.6: Risiko- und Chancenliste">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="2.1: Zielbild EMRGPT">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="2.2: Use-Case-Beschreibung LLM-Anbindung">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="2.2.1: Kostenanalyse">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="2.3: Fachliche Anforderungen">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="2.3.1: Daten aus UKLytics">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="3.1: Technische Zielarchitektur">
-        <attribute NAME="Status" VALUE="Umfassend"/>
-      </node>
-      <node TEXT="3.1.1: Infrastruktur">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="3.2: Marktanalyse">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="3.3: Analyse HYDMedia">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="3.3.1: Schnittstellenbeschreibung FHIR">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="3.4: Analyse DMI Lösung">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="3.5: Vergleich HYDMedia vs. DMI">
-        <attribute NAME="Status" VALUE="ENTFÄLLT"/>
-      </node>
-      <node TEXT="3.6: Schnittstellenübersicht">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="3.7: Technisches Vorgehensmodell">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="3.8: Zugriff auf ISILON">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="3.9: KIS-Dokumentenzugriff (Meierhofer)">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="4.1: Datenschutzkonzept">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="4.2: DSFA (Vorprüfung)">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="4.3: Informationssicherheitsbewertung">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="4.4: Berechtigungskonzept">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="4.5: SAP-Berechtigungsanalyse">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="4.6: Logging-/Nachvollziehbarkeitskonzept">
-        <attribute NAME="Status" VALUE="Abgedeckt"/>
-      </node>
-      <node TEXT="5.1: Entscheidungsgrundlage Datenhaltung">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="5.2: Entscheidungsgrundlage LLM-Anbindung">
-        <attribute NAME="Status" VALUE="Teilweise"/>
-      </node>
-      <node TEXT="5.3: Management-Entscheidungsvorlage">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="6.1: Empfehlung für Hauptprojekt">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="6.2: Grober Umsetzungsfahrplan">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="6.3: Abnahmedokument Vorprojekt">
-        <attribute NAME="Status" VALUE="OFFEN"/>
-      </node>
-      <node TEXT="7.1: Betriebskonzept (Gerüst)">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="7.2: Incident-Response-Plan">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="7.3: Kostengerüst-Template">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="7.4: Change-Management-Konzept">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
-      <node TEXT="7.5: SAP IS-H/i.s.h.med KI-Konnektor">
-        <attribute NAME="Status" VALUE="ERGÄNZT"/>
-      </node>
+      <node TEXT="1.1: Projektauftrag Vorprojekt"/>
+      <node TEXT="1.2: Projektorganisation"/>
+      <node TEXT="1.3: Stakeholderanalyse"/>
+      <node TEXT="1.4: Kommunikationsplan"/>
+      <node TEXT="1.5: Vorläufiger Business Case"/>
+      <node TEXT="1.6: Risiko- und Chancenliste"/>
+      <node TEXT="2.1: Zielbild EMRGPT"/>
+      <node TEXT="2.2: Use-Case-Beschreibung LLM-Anbindung"/>
+      <node TEXT="2.2.1: Kostenanalyse"/>
+      <node TEXT="2.3: Fachliche Anforderungen"/>
+      <node TEXT="2.3.1: Daten aus UKLytics"/>
+      <node TEXT="3.1: Technische Zielarchitektur"/>
+      <node TEXT="3.1.1: Infrastruktur"/>
+      <node TEXT="3.2: Marktanalyse"/>
+      <node TEXT="3.3: Analyse HYDMedia"/>
+      <node TEXT="3.3.1: Schnittstellenbeschreibung FHIR"/>
+      <node TEXT="3.4: Analyse DMI Lösung"/>
+      <node TEXT="~~3.5~~: ~~Vergleich HYDMedia vs. DMI~~"/>
+      <node TEXT="3.6: Schnittstellenübersicht"/>
+      <node TEXT="3.7: Technisches Vorgehensmodell"/>
+      <node TEXT="3.8: Zugriff auf ISILON"/>
+      <node TEXT="3.9: KIS-Dokumentenzugriff (Meierhofer)"/>
+      <node TEXT="4.1: Datenschutzkonzept"/>
+      <node TEXT="4.2: DSFA (Vorprüfung)"/>
+      <node TEXT="4.3: Informationssicherheitsbewertung"/>
+      <node TEXT="4.4: Berechtigungskonzept"/>
+      <node TEXT="4.5: SAP-Berechtigungsanalyse"/>
+      <node TEXT="4.6: Logging-/Nachvollziehbarkeitskonzept"/>
+      <node TEXT="5.1: Entscheidungsgrundlage Datenhaltung"/>
+      <node TEXT="5.2: Entscheidungsgrundlage LLM-Anbindung"/>
+      <node TEXT="5.3: Management-Entscheidungsvorlage"/>
+      <node TEXT="6.1: Empfehlung für Hauptprojekt"/>
+      <node TEXT="6.2: Grober Umsetzungsfahrplan"/>
+      <node TEXT="6.3: Abnahmedokument Vorprojekt"/>
+      <node TEXT="7.1: Betriebskonzept (Gerüst)"/>
+      <node TEXT="7.2: Incident-Response-Plan"/>
+      <node TEXT="7.3: Kostengerüst-Template"/>
+      <node TEXT="7.4: Change-Management-Konzept"/>
+      <node TEXT="7.5: SAP IS-H/i.s.h.med KI-Konnektor"/>
+      <node TEXT="7.6: Cloud-Datenschutzklärung Sachsen"/>
     </node>
     <node TEXT="1. Projektorganisation">
       <node TEXT="1.1 Projektauftrag Vorprojekt">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Ziele, Scope, Nicht-Ziele, Budgetrahmen, Zeitrahmen, Auftraggeber"/>
-        <node TEXT="Qualitätskriterien: Vollständig, genehmigt, verständlich"/>
-        <node TEXT="Abnahmekriterien: Schriftliche Freigabe durch Auftraggeber"/>
-        <node TEXT="Verantwortlich: Auftraggeber"/>
-        <node TEXT="Konzept-Referenz: Kap. 0 – Management Summary und Entscheidungsbedarf"/>
-        <node TEXT="Status: Teilweise – Separater Projektauftrag erforderlich"/>
+        <node TEXT="**Zusammensetzung**: Ziele, Scope, Nicht-Ziele, Budgetrahmen, Zeitrahmen, Auftraggeber"/>
+        <node TEXT="**Qualitätskriterien**: Vollständig, genehmigt, verständlich"/>
+        <node TEXT="**Abnahmekriterien**: Schriftliche Freigabe durch Auftraggeber"/>
+        <node TEXT="**Verantwortlich**: Auftraggeber"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0 – Management Summary und Entscheidungsbedarf"/>
+        <node TEXT="**Status**: Teilweise – Separater Projektauftrag erforderlich"/>
       </node>
       <node TEXT="1.2 Projektorganisation">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Rollenbeschreibung, Organigramm, Vertretungsregelung"/>
-        <node TEXT="Qualitätskriterien: Vollständig, nachvollziehbar"/>
-        <node TEXT="Abnahmekriterien: Bestätigung durch Projektleitung"/>
-        <node TEXT="Verantwortlich: Projektmanager"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.3 (Projektorganisation), Kap. 0.9 (RACI-Matrix)"/>
-        <node TEXT="Status: ERGÄNZT – inkl. RACI-Matrix mit allen PSP-Produkten"/>
+        <node TEXT="**Zusammensetzung**: Rollenbeschreibung, Organigramm, Vertretungsregelung"/>
+        <node TEXT="**Qualitätskriterien**: Vollständig, nachvollziehbar"/>
+        <node TEXT="**Abnahmekriterien**: Bestätigung durch Projektleitung"/>
+        <node TEXT="**Verantwortlich**: Projektmanager"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.3 (Projektorganisation), Kap. 0.9 (RACI-Matrix)"/>
+        <node TEXT="**Status**: ERGÄNZT – inkl. RACI-Matrix mit allen PSP-Produkten"/>
         <node TEXT="Rolle: Person/Bereich"/>
         <node TEXT="Auftraggeber: [zu benennen]"/>
         <node TEXT="Projektleiter: [PM-Exzellenz erforderlich – zu installieren]"/>
@@ -150,300 +73,288 @@
       </node>
       <node TEXT="1.3 Stakeholderanalyse">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Stakeholderliste, Einfluss-/Interessenmatrix"/>
-        <node TEXT="Qualitätskriterien: Vollständig, aktuell"/>
-        <node TEXT="Abnahmekriterien: Freigabe durch Lenkungsausschuss"/>
-        <node TEXT="Verantwortlich: Projektmanager"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.4 – Stakeholder-Übersicht"/>
-        <node TEXT="Status: ERGÄNZT – 12 Stakeholder-Gruppen identifiziert und bewertet"/>
+        <node TEXT="**Zusammensetzung**: Stakeholderliste, Einfluss-/Interessenmatrix"/>
+        <node TEXT="**Qualitätskriterien**: Vollständig, aktuell"/>
+        <node TEXT="**Abnahmekriterien**: Freigabe durch Lenkungsausschuss"/>
+        <node TEXT="**Verantwortlich**: Projektmanager"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.4 – Stakeholder-Übersicht"/>
+        <node TEXT="**Status**: ERGÄNZT – 12 Stakeholder-Gruppen identifiziert und bewertet"/>
       </node>
       <node TEXT="1.4 Kommunikationsplan">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Kommunikationsmatrix (7 Maßnahmen), Termine, Formate"/>
-        <node TEXT="Qualitätskriterien: Klar, realistisch"/>
-        <node TEXT="Abnahmekriterien: Zustimmung der Projektleitung"/>
-        <node TEXT="Verantwortlich: Projektmanager"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.8 – Kommunikationsplan mit Eskalationswegen"/>
-        <node TEXT="Status: ERGÄNZT – LA-Bericht, Statusbericht, Tech-Jour-fixe, Fachbereich-Abstimmung, DS/IS-Review, Externe Partner, Change-Info"/>
+        <node TEXT="**Zusammensetzung**: Kommunikationsmatrix (7 Maßnahmen), Termine, Formate"/>
+        <node TEXT="**Qualitätskriterien**: Klar, realistisch"/>
+        <node TEXT="**Abnahmekriterien**: Zustimmung der Projektleitung"/>
+        <node TEXT="**Verantwortlich**: Projektmanager"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.8 – Kommunikationsplan mit Eskalationswegen"/>
+        <node TEXT="**Status**: ERGÄNZT – LA-Bericht, Statusbericht, Tech-Jour-fixe, Fachbereich-Abstimmung, DS/IS-Review, Externe Partner, Change-Info"/>
       </node>
       <node TEXT="1.5 Vorläufiger Business Case">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Nutzenargumentation, Kostenabschätzung, Risiken"/>
-        <node TEXT="Qualitätskriterien: Plausibel, nachvollziehbar"/>
-        <node TEXT="Abnahmekriterien: Genehmigung durch Lenkungsausschuss"/>
-        <node TEXT="Verantwortlich: Auftraggeber"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.5 (Business Case), Kap. 20 (Kostengerüst-Template)"/>
-        <node TEXT="Status: ERGÄNZT – Nutzen quantifiziert (250 Arztstunden/Tag Einsparungspotenzial), Kostengerüst-Template vorhanden, konkrete Werte durch Controlling zu befüllen"/>
+        <node TEXT="**Zusammensetzung**: Nutzenargumentation, Kostenabschätzung, Risiken"/>
+        <node TEXT="**Qualitätskriterien**: Plausibel, nachvollziehbar"/>
+        <node TEXT="**Abnahmekriterien**: Genehmigung durch Lenkungsausschuss"/>
+        <node TEXT="**Verantwortlich**: Auftraggeber"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.5 (Business Case), Kap. 20 (Kostengerüst-Template)"/>
+        <node TEXT="**Status**: ERGÄNZT – Nutzen quantifiziert (250 Arztstunden/Tag Einsparungspotenzial), Kostengerüst-Template vorhanden, konkrete Werte durch Controlling zu befüllen"/>
       </node>
       <node TEXT="1.6 Risiko- und Chancenliste">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Risiko-ID, Beschreibung, Bewertung, Maßnahme"/>
-        <node TEXT="Qualitätskriterien: Vollständig, aktuell"/>
-        <node TEXT="Abnahmekriterien: Kenntnisnahme durch Projektleitung"/>
-        <node TEXT="Verantwortlich: Projektmanager"/>
-        <node TEXT="Konzept-Referenz: Kap. 1.4 (Kritische Erfolgsfaktoren), QUALITAETSANALYSE.md (Risiko-Register)"/>
-        <node TEXT="Status: Teilweise – Risiken im Konzept identifiziert, formale Risikobewertung mit Eintrittswahrscheinlichkeiten noch zu erstellen"/>
+        <node TEXT="**Zusammensetzung**: Risiko-ID, Beschreibung, Bewertung, Maßnahme"/>
+        <node TEXT="**Qualitätskriterien**: Vollständig, aktuell"/>
+        <node TEXT="**Abnahmekriterien**: Kenntnisnahme durch Projektleitung"/>
+        <node TEXT="**Verantwortlich**: Projektmanager"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 1.4 (Kritische Erfolgsfaktoren), QUALITAETSANALYSE.md (Risiko-Register)"/>
+        <node TEXT="**Status**: Teilweise – Risiken im Konzept identifiziert, formale Risikobewertung mit Eintrittswahrscheinlichkeiten noch zu erstellen"/>
       </node>
     </node>
     <node TEXT="2. Fachlich">
       <node TEXT="2.1 Zielbild EMRGPT">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Vision, Nutzen, Architektur-Skizze"/>
-        <node TEXT="Qualitätskriterien: Verständlich, konsistent"/>
-        <node TEXT="Abnahmekriterien: Zustimmung des Auftraggebers"/>
-        <node TEXT="Verantwortlich: PM, Carina, Gert, Robert W."/>
-        <node TEXT="Konzept-Referenz: Kap. 1 (Zielbeschreibung), Kap. 2 (Nutzen/Innovation), Kap. 3.1 (Klinischer Informationsassistent)"/>
-        <node TEXT="Status: Abgedeckt – Vision, Nutzen, Innovation (6 Innovationsaspekte), Anwendungsszenarien dokumentiert"/>
+        <node TEXT="**Zusammensetzung**: Vision, Nutzen, Architektur-Skizze"/>
+        <node TEXT="**Qualitätskriterien**: Verständlich, konsistent"/>
+        <node TEXT="**Abnahmekriterien**: Zustimmung des Auftraggebers"/>
+        <node TEXT="**Verantwortlich**: PM, Carina, Gert, Robert W."/>
+        <node TEXT="**Konzept-Referenz**: Kap. 1 (Zielbeschreibung), Kap. 2 (Nutzen/Innovation), Kap. 3.1 (Klinischer Informationsassistent)"/>
+        <node TEXT="**Status**: Abgedeckt – Vision, Nutzen, Innovation (6 Innovationsaspekte), Anwendungsszenarien dokumentiert"/>
       </node>
       <node TEXT="2.2 Use-Case-Beschreibung LLM-Anbindung">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Akteure, Ablauf, Datenquellen, Nutzen"/>
-        <node TEXT="Qualitätskriterien: Praxisnah, eindeutig"/>
-        <node TEXT="Abnahmekriterien: Freigabe durch Fachbereich"/>
-        <node TEXT="Verantwortlich: Fachbereich (Felix, Carina, Martin Neef, Niko v.D.)"/>
-        <node TEXT="Konzept-Referenz: Kap. 3.3 (Use Cases 1–4), Use Case Beschreibung 02.docx"/>
-        <node TEXT="Status: Abgedeckt – 4 Use Cases definiert"/>
-        <node TEXT="2.2.1 Kostenanalyse"/>
+        <node TEXT="**Zusammensetzung**: Akteure, Ablauf, Datenquellen, Nutzen"/>
+        <node TEXT="**Qualitätskriterien**: Praxisnah, eindeutig"/>
+        <node TEXT="**Abnahmekriterien**: Freigabe durch Fachbereich"/>
+        <node TEXT="**Verantwortlich**: Fachbereich (Felix, Carina, Martin Neef, Niko v.D.)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 3.3 (Use Cases 1–4), Use Case Beschreibung 02.docx"/>
+        <node TEXT="**Status**: Abgedeckt – 4 Use Cases definiert"/>
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: CAPEX/OPEX-Struktur, TCO-Vergleich Eigenlösung vs. Averbis"/>
-        <node TEXT="Verantwortlich: PMO / Controlling"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.5 (Business Case), Kap. 0.7 (Preisreferenz hAIppokrates), Kap. 20 (Kostengerüst-Template)"/>
-        <node TEXT="Status: ERGÄNZT – Template vorhanden, Werte durch IT/Controlling zu befüllen"/>
+        <node TEXT="**Zusammensetzung**: CAPEX/OPEX-Struktur, TCO-Vergleich Eigenlösung vs. Averbis"/>
+        <node TEXT="**Verantwortlich**: PMO / Controlling"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.5 (Business Case), Kap. 0.7 (Preisreferenz hAIppokrates), Kap. 20 (Kostengerüst-Template)"/>
+        <node TEXT="**Status**: ERGÄNZT – Template vorhanden, Werte durch IT/Controlling zu befüllen"/>
       </node>
       <node TEXT="2.3 Fachliche Anforderungen">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: 16 funktionale Anforderungen (FA-01 bis FA-16), 12 nicht-funktionale Anforderungen (NFA-01 bis NFA-12)"/>
-        <node TEXT="Qualitätskriterien: Vollständig, verständlich"/>
-        <node TEXT="Abnahmekriterien: Freigabe Fachbereich"/>
-        <node TEXT="Verantwortlich: Fachbereich (Carina, Niko v.D., Martin Neef)"/>
-        <node TEXT="Konzept-Referenz: Kap. 0.10 (Anforderungsliste), Kap. 3.2, 3.3"/>
-        <node TEXT="Status: ERGÄNZT – Entwurf vorhanden, Abstimmung mit Fachbereich erforderlich"/>
-        <node TEXT="2.3.1 Daten aus UKLytics"/>
+        <node TEXT="**Zusammensetzung**: 16 funktionale Anforderungen (FA-01 bis FA-16), 12 nicht-funktionale Anforderungen (NFA-01 bis NFA-12)"/>
+        <node TEXT="**Qualitätskriterien**: Vollständig, verständlich"/>
+        <node TEXT="**Abnahmekriterien**: Freigabe Fachbereich"/>
+        <node TEXT="**Verantwortlich**: Fachbereich (Carina, Niko v.D., Martin Neef)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0.10 (Anforderungsliste), Kap. 3.2, 3.3"/>
+        <node TEXT="**Status**: ERGÄNZT – Entwurf vorhanden, Abstimmung mit Fachbereich erforderlich"/>
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT"/>
-        <node TEXT="Konzept-Referenz: Kap. 8 (Datenzufluss DWH→GraphRAG)"/>
-        <node TEXT="Status: Abgedeckt – DWH als Quelle für strukturierte Fakten (Diagnosen, Medikation, Labor)"/>
+        <node TEXT="**Verantwortlich**: IT"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 8 (Datenzufluss DWH→GraphRAG)"/>
+        <node TEXT="**Status**: Abgedeckt – DWH als Quelle für strukturierte Fakten (Diagnosen, Medikation, Labor)"/>
       </node>
     </node>
     <node TEXT="3. Technisch">
       <node TEXT="3.1 Technische Zielarchitektur">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Architekturdiagramm, Schichtenbeschreibung (6 Schichten)"/>
-        <node TEXT="Qualitätskriterien: Konsistent, nachvollziehbar"/>
-        <node TEXT="Abnahmekriterien: Freigabe IT-Architektur"/>
-        <node TEXT="Verantwortlich: IT-Architektur (Gert, Carina)"/>
-        <node TEXT="Konzept-Referenz: Kap. 4 (Frontend/UI), 5 (Orchestrierungsschicht), 6 (Prompt-Pipeline), 7 (Datenschicht), 8–10 (Schnittstellen), 15 (Gesamtarchitektur)"/>
-        <node TEXT="Status: Umfassend – inkl. Dokumentenpipeline und Datenqualitätsanalyse"/>
-        <node TEXT="3.1.1 Infrastruktur"/>
+        <node TEXT="**Zusammensetzung**: Architekturdiagramm, Schichtenbeschreibung (6 Schichten)"/>
+        <node TEXT="**Qualitätskriterien**: Konsistent, nachvollziehbar"/>
+        <node TEXT="**Abnahmekriterien**: Freigabe IT-Architektur"/>
+        <node TEXT="**Verantwortlich**: IT-Architektur (Gert, Carina)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 4 (Frontend/UI), 5 (Orchestrierungsschicht), 6 (Prompt-Pipeline), 7 (Datenschicht), 8–10 (Schnittstellen), 15 (Gesamtarchitektur)"/>
+        <node TEXT="**Status**: Umfassend – inkl. Dokumentenpipeline und Datenqualitätsanalyse"/>
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT-Infrastruktur"/>
-        <node TEXT="Konzept-Referenz: Kap. 7 (Datenschicht), Kap. 8 (DWH-Anbindung), Kap. 0.7 (Preisreferenz), Kap. 18.5 (Kapazitätsplanung)"/>
-        <node TEXT="Status: Teilweise – Sizing und konkrete Kosten offen, Preisreferenz hAIppokrates ergänzt"/>
+        <node TEXT="**Verantwortlich**: IT-Infrastruktur"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 7 (Datenschicht), Kap. 8 (DWH-Anbindung), Kap. 0.7 (Preisreferenz), Kap. 18.5 (Kapazitätsplanung)"/>
+        <node TEXT="**Status**: Teilweise – Sizing und konkrete Kosten offen, Preisreferenz hAIppokrates ergänzt"/>
       </node>
       <node TEXT="3.2 Marktanalyse">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Variantenvergleich, Bewertungsmatrix (gewichtet)"/>
-        <node TEXT="Verantwortlich: PM, 4K"/>
-        <node TEXT="Konzept-Referenz: Kap. 16 (Variantenvergleich), Kap. 16.3 (Bewertungsmatrix), Kap. 16.4 (Empfehlung)"/>
-        <node TEXT="Status: ERGÄNZT – Empfehlung: Eigenlösung mit MVP-Ansatz"/>
+        <node TEXT="**Zusammensetzung**: Variantenvergleich, Bewertungsmatrix (gewichtet)"/>
+        <node TEXT="**Verantwortlich**: PM, 4K"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 16 (Variantenvergleich), Kap. 16.3 (Bewertungsmatrix), Kap. 16.4 (Empfehlung)"/>
+        <node TEXT="**Status**: ERGÄNZT – Empfehlung: Eigenlösung mit MVP-Ansatz"/>
       </node>
       <node TEXT="3.3 Analyse HYDMedia">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Systembeschreibung, Schnittstellen, Bewertung"/>
-        <node TEXT="Qualitätskriterien: Technisch korrekt, vollständig"/>
-        <node TEXT="Abnahmekriterien: Bestätigung durch IT"/>
-        <node TEXT="Verantwortlich: Valentin"/>
-        <node TEXT="Konzept-Referenz: Kap. 2.4 (PDF-Archivierung), Kap. 3.2.6 (HYDMedia-Analyse), Kap. 0.6 (Dokumentenpipeline)"/>
-        <node TEXT="Status: Abgedeckt – inkl. KRITISCHER Befund: HYDMedia-Berechtigungslücke (Need-to-Know nicht umgesetzt)"/>
-        <node TEXT="3.3.1 Schnittstellenbeschreibung FHIR"/>
+        <node TEXT="**Zusammensetzung**: Systembeschreibung, Schnittstellen, Bewertung"/>
+        <node TEXT="**Qualitätskriterien**: Technisch korrekt, vollständig"/>
+        <node TEXT="**Abnahmekriterien**: Bestätigung durch IT"/>
+        <node TEXT="**Verantwortlich**: Valentin"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 2.4 (PDF-Archivierung), Kap. 3.2.6 (HYDMedia-Analyse), Kap. 0.6 (Dokumentenpipeline)"/>
+        <node TEXT="**Status**: Abgedeckt – inkl. KRITISCHER Befund: HYDMedia-Berechtigungslücke (Need-to-Know nicht umgesetzt)"/>
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: FHIR-Ressourcen (Patient, Encounter, DocumentReference, Binary), ISiK Stufe 3"/>
-        <node TEXT="Verantwortlich: Schnittstellenverantwortlicher"/>
-        <node TEXT="Konzept-Referenz: Kap. 3.2.6.2 (FHIR-Schnittstelle), Kap. 0.6 (Conformance Statement)"/>
-        <node TEXT="Status: ERGÄNZT – FHIR R4, ISiK Stufe 3, DocumentReference→Binary als zentraler Pfad"/>
+        <node TEXT="**Zusammensetzung**: FHIR-Ressourcen (Patient, Encounter, DocumentReference, Binary), ISiK Stufe 3"/>
+        <node TEXT="**Verantwortlich**: Schnittstellenverantwortlicher"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 3.2.6.2 (FHIR-Schnittstelle), Kap. 0.6 (Conformance Statement)"/>
+        <node TEXT="**Status**: ERGÄNZT – FHIR R4, ISiK Stufe 3, DocumentReference→Binary als zentraler Pfad"/>
       </node>
       <node TEXT="3.4 Analyse DMI Lösung">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Systemübersicht, Architektur, Bewertung"/>
-        <node TEXT="Verantwortlich: Valentin, Carina"/>
-        <node TEXT="Konzept-Referenz: Kap. 2.1 (Archivsystem), Kap. 0.6 (Dokumentenpipeline – DMI-Klassifizierung)"/>
-        <node TEXT="Status: Teilweise – Dokumentenpipeline über DMI beschrieben, Detailanalyse noch ausstehend"/>
+        <node TEXT="**Zusammensetzung**: Systemübersicht, Architektur, Bewertung"/>
+        <node TEXT="**Verantwortlich**: Valentin, Carina"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 2.1 (Archivsystem), Kap. 0.6 (Dokumentenpipeline – DMI-Klassifizierung)"/>
+        <node TEXT="**Status**: Teilweise – Dokumentenpipeline über DMI beschrieben, Detailanalyse noch ausstehend"/>
       </node>
       <node TEXT="~~3.5 Vergleich HYDMedia vs. DMI~~"/>
       <node TEXT="3.6 Schnittstellenübersicht">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Übersichtsgrafik, Schnittstellenliste"/>
-        <node TEXT="Verantwortlich: IT-Architektur, Valentin"/>
-        <node TEXT="Konzept-Referenz: Kap. 8 (DWH-Anbindung), Kap. 10 (FHIR-Connector)"/>
-        <node TEXT="Status: Abgedeckt – Datenflüsse und Systemintegration dokumentiert"/>
+        <node TEXT="**Zusammensetzung**: Übersichtsgrafik, Schnittstellenliste"/>
+        <node TEXT="**Verantwortlich**: IT-Architektur, Valentin"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 8 (DWH-Anbindung), Kap. 10 (FHIR-Connector)"/>
+        <node TEXT="**Status**: Abgedeckt – Datenflüsse und Systemintegration dokumentiert"/>
       </node>
       <node TEXT="3.7 Technisches Vorgehensmodell">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Variantenbeschreibung, Bewertung"/>
-        <node TEXT="Verantwortlich: IT-Architektur, 4K"/>
-        <node TEXT="Konzept-Referenz: Kap. 5 (Orchestrierungsschicht), Kap. 6 (Prompt-Pipeline), Kap. 9 (LLM-Integration)"/>
-        <node TEXT="Status: Abgedeckt – RAG-Architektur mit vier Wissensdomänen gewählt"/>
+        <node TEXT="**Zusammensetzung**: Variantenbeschreibung, Bewertung"/>
+        <node TEXT="**Verantwortlich**: IT-Architektur, 4K"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 5 (Orchestrierungsschicht), Kap. 6 (Prompt-Pipeline), Kap. 9 (LLM-Integration)"/>
+        <node TEXT="**Status**: Abgedeckt – RAG-Architektur mit vier Wissensdomänen gewählt"/>
       </node>
       <node TEXT="3.8 Zugriff auf ISILON">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Analysebericht"/>
-        <node TEXT="Verantwortlich: IT-Infrastruktur – Carina fragt Daniel"/>
-        <node TEXT="Konzept-Referenz: Kap. 3.2.6.1 (ISILON-Zugriff)"/>
-        <node TEXT="Status: Teilweise – 21 Mio. PDFs auf ISILON dokumentiert, Performance-/Sicherheitsanalyse noch ausstehend"/>
+        <node TEXT="**Zusammensetzung**: Analysebericht"/>
+        <node TEXT="**Verantwortlich**: IT-Infrastruktur – Carina fragt Daniel"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 3.2.6.1 (ISILON-Zugriff)"/>
+        <node TEXT="**Status**: Teilweise – 21 Mio. PDFs auf ISILON dokumentiert, Performance-/Sicherheitsanalyse noch ausstehend"/>
       </node>
       <node TEXT="3.9 KIS-Dokumentenzugriff (Meierhofer)">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Schnittstellenbeschreibung, Nutzungsszenarien"/>
-        <node TEXT="Verantwortlich: Robert W., Carina, Valentin"/>
-        <node TEXT="Konzept-Referenz: Kap. 16 (Variantenvergleich inkl. M-KIS-Integration)"/>
-        <node TEXT="Status: ERGÄNZT – Meierhofer/Averbis-Integration bewertet"/>
+        <node TEXT="**Zusammensetzung**: Schnittstellenbeschreibung, Nutzungsszenarien"/>
+        <node TEXT="**Verantwortlich**: Robert W., Carina, Valentin"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 16 (Variantenvergleich inkl. M-KIS-Integration)"/>
+        <node TEXT="**Status**: ERGÄNZT – Meierhofer/Averbis-Integration bewertet"/>
       </node>
     </node>
     <node TEXT="4. Rechtebewertung und Sicherheit">
       <node TEXT="4.1 Datenschutzkonzept">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Zusammensetzung: Datenschutzanalyse, Maßnahmen"/>
-        <node TEXT="Qualitätskriterien: DSGVO-konform"/>
-        <node TEXT="Verantwortlich: DSB (Hr. Sünkel)"/>
-        <node TEXT="Konzept-Referenz: Kap. 13.1 (DSGVO), Kap. 14.4 (Episodische Datenverarbeitung), Kap. 14.5 (Least Privilege)"/>
-        <node TEXT="Status: Abgedeckt – Privacy by Design, episodische Verarbeitung mit TTL, Zweckbindung dokumentiert"/>
+        <node TEXT="**Zusammensetzung**: Datenschutzanalyse, Maßnahmen"/>
+        <node TEXT="**Qualitätskriterien**: DSGVO-konform"/>
+        <node TEXT="**Verantwortlich**: DSB (Hr. Sünkel)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 13.1 (DSGVO), Kap. 14.4 (Episodische Datenverarbeitung), Kap. 14.5 (Least Privilege)"/>
+        <node TEXT="**Status**: Abgedeckt – Privacy by Design, episodische Verarbeitung mit TTL, Zweckbindung dokumentiert"/>
       </node>
       <node TEXT="4.2 Datenschutz-Folgenabschätzung (Vorprüfung)">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: DSB (Hr. Sünkel)"/>
-        <node TEXT="Konzept-Referenz: Kap. 13.1"/>
-        <node TEXT="Status: Teilweise – Vorprüfung empfohlen, formale DSFA im Hauptprojekt durchzuführen"/>
+        <node TEXT="**Verantwortlich**: DSB (Hr. Sünkel)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 13.1"/>
+        <node TEXT="**Status**: Teilweise – Vorprüfung empfohlen, formale DSFA im Hauptprojekt durchzuführen"/>
       </node>
       <node TEXT="4.3 Informationssicherheitsbewertung">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: ISB (S. Krause)"/>
-        <node TEXT="Konzept-Referenz: Kap. 12 (Sicherheitsarchitektur), Kap. 13.4 (KRITIS), Kap. 19 (Incident-Response)"/>
-        <node TEXT="Status: ERGÄNZT – Schutzbedarfsanalyse, KRITIS-Konformität, Incident-Response-Plan mit Meldepflichten"/>
+        <node TEXT="**Verantwortlich**: ISB (S. Krause)"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 12 (Sicherheitsarchitektur), Kap. 13.4 (KRITIS), Kap. 19 (Incident-Response)"/>
+        <node TEXT="**Status**: ERGÄNZT – Schutzbedarfsanalyse, KRITIS-Konformität, Incident-Response-Plan mit Meldepflichten"/>
       </node>
       <node TEXT="4.4 Berechtigungskonzept">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich"/>
-        <node TEXT="Konzept-Referenz: Kap. 12 (Sicherheitskonzept), Kap. 12.1.1 (SAP-Berechtigungsmodell), Kap. 12.3.3 (PSY/KJP-Schutz), Kap. 12.4 (Break-the-Glass)"/>
-        <node TEXT="Status: ERGÄNZT – SAP-Modell detailliert gemappt (BA-Typen, SBG, OE-Schutz PSY/KJP)"/>
+        <node TEXT="**Verantwortlich**: M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 12 (Sicherheitskonzept), Kap. 12.1.1 (SAP-Berechtigungsmodell), Kap. 12.3.3 (PSY/KJP-Schutz), Kap. 12.4 (Break-the-Glass)"/>
+        <node TEXT="**Status**: ERGÄNZT – SAP-Modell detailliert gemappt (BA-Typen, SBG, OE-Schutz PSY/KJP)"/>
       </node>
       <node TEXT="4.5 SAP-Berechtigungsanalyse">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich"/>
-        <node TEXT="Konzept-Referenz: Kap. 12.1 (SAP-Berechtigungen), Kap. 12.1.1 (Detailanalyse), Kap. 0.6 (HYDMedia-Lücke), Kap. 22.5 (Berechtigungsmigration)"/>
-        <node TEXT="Status: ERGÄNZT – Migration der Berechtigungshoheit auf M-KIS dokumentiert, HYDMedia Need-to-Know-Lücke als KRITISCH identifiziert"/>
+        <node TEXT="**Verantwortlich**: M. Schmeißer, Fr. Stallmach, Fr. Schmidt-Morich"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 12.1 (SAP-Berechtigungen), Kap. 12.1.1 (Detailanalyse), Kap. 0.6 (HYDMedia-Lücke), Kap. 22.5 (Berechtigungsmigration)"/>
+        <node TEXT="**Status**: ERGÄNZT – Migration der Berechtigungshoheit auf M-KIS dokumentiert, HYDMedia Need-to-Know-Lücke als KRITISCH identifiziert"/>
       </node>
       <node TEXT="4.6 Logging- und Nachvollziehbarkeitskonzept">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT-Sicherheit, PM"/>
-        <node TEXT="Konzept-Referenz: Kap. 12.6 (Audit-Trail), Kap. 14.6 (Governance)"/>
-        <node TEXT="Status: Abgedeckt – Revisionssicherer Audit-Trail für alle Abfragen und Zugriffe konzipiert"/>
+        <node TEXT="**Verantwortlich**: IT-Sicherheit, PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 12.6 (Audit-Trail), Kap. 14.6 (Governance)"/>
+        <node TEXT="**Status**: Abgedeckt – Revisionssicherer Audit-Trail für alle Abfragen und Zugriffe konzipiert"/>
       </node>
     </node>
     <node TEXT="5. Management Summary">
       <node TEXT="5.1 Entscheidungsgrundlage Datenhaltung">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: PM, Carina"/>
-        <node TEXT="Konzept-Referenz: Kap. 2 (Nutzen und Innovation), Kap. 2.5 (Hybride Strategie)"/>
-        <node TEXT="Status: Teilweise – Hybride Strategie empfohlen, Detailentscheidung durch Hauptprojekt"/>
+        <node TEXT="**Verantwortlich**: PM, Carina"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 2 (Nutzen und Innovation), Kap. 2.5 (Hybride Strategie)"/>
+        <node TEXT="**Status**: Teilweise – Hybride Strategie empfohlen, Detailentscheidung durch Hauptprojekt"/>
       </node>
       <node TEXT="5.2 Entscheidungsgrundlage LLM-Anbindung">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT-Architektur, Carina, PM"/>
-        <node TEXT="Konzept-Referenz: Kap. 5 (Orchestrierung), Kap. 6 (Prompt-Pipeline), Kap. 7 (Datenschicht), Kap. 16 (Variantenvergleich)"/>
-        <node TEXT="Status: Teilweise – RAG-Architektur favorisiert, Variantenvergleich durchgeführt"/>
+        <node TEXT="**Verantwortlich**: IT-Architektur, Carina, PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 5 (Orchestrierung), Kap. 6 (Prompt-Pipeline), Kap. 7 (Datenschicht), Kap. 16 (Variantenvergleich)"/>
+        <node TEXT="**Status**: Teilweise – RAG-Architektur favorisiert, Variantenvergleich durchgeführt"/>
       </node>
       <node TEXT="5.3 Management-Entscheidungsvorlage">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: PM"/>
-        <node TEXT="Konzept-Referenz: Kap. 0 (Management Summary und Entscheidungsbedarf)"/>
-        <node TEXT="Status: ERGÄNZT – Drei Entscheidungspunkte formuliert: Umsetzungsvariante, Ressourcenfreigabe, Projektleiter-Installation"/>
+        <node TEXT="**Verantwortlich**: PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0 (Management Summary und Entscheidungsbedarf)"/>
+        <node TEXT="**Status**: ERGÄNZT – Drei Entscheidungspunkte formuliert: Umsetzungsvariante, Ressourcenfreigabe, Projektleiter-Installation"/>
       </node>
     </node>
     <node TEXT="6. Abschlussdokumentation">
       <node TEXT="6.1 Empfehlung für Hauptprojekt">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: PM"/>
-        <node TEXT="Konzept-Referenz: Kap. 0 (Empfehlung), Kap. 16.4 (Variantenempfehlung)"/>
-        <node TEXT="Status: ERGÄNZT – Empfehlung: Eigenlösung EMRGPT mit MVP-Ansatz und stufenweiser Umsetzung"/>
+        <node TEXT="**Verantwortlich**: PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 0 (Empfehlung), Kap. 16.4 (Variantenempfehlung)"/>
+        <node TEXT="**Status**: ERGÄNZT – Empfehlung: Eigenlösung EMRGPT mit MVP-Ansatz und stufenweiser Umsetzung"/>
       </node>
       <node TEXT="6.2 Grober Umsetzungsfahrplan">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: PM"/>
-        <node TEXT="Konzept-Referenz: Kap. 17 (Umsetzungsfahrplan – 4 Phasen, 27 Meilensteine)"/>
-        <node TEXT="Status: ERGÄNZT – Phase 0 bis Phase 3 (Feb 2026 – Jun 2027), kritischer Pfad und Rollback-Strategie dokumentiert"/>
+        <node TEXT="**Verantwortlich**: PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 17 (Umsetzungsfahrplan – 4 Phasen, 27 Meilensteine)"/>
+        <node TEXT="**Status**: ERGÄNZT – Phase 0 bis Phase 3 (Feb 2026 – Jun 2027), kritischer Pfad und Rollback-Strategie dokumentiert"/>
       </node>
       <node TEXT="6.3 Abnahmedokument Vorprojekt">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: Auftraggeber"/>
-        <node TEXT="Status: OFFEN – Am Ende des Vorprojekts zu erstellen"/>
+        <node TEXT="**Verantwortlich**: Auftraggeber"/>
+        <node TEXT="**Status**: OFFEN – Am Ende des Vorprojekts zu erstellen"/>
       </node>
     </node>
     <node TEXT="7. Ergänzende Produkte (ab v1.4)">
       <node TEXT="7.1 Betriebskonzept (Gerüst)">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT-Betrieb"/>
-        <node TEXT="Konzept-Referenz: Kap. 18 (SLA, Monitoring, Support, Backup/DR, Release-Management)"/>
-        <node TEXT="Status: ERGÄNZT – Gerüst vorhanden, konkrete SLA-Werte als Vorschlag"/>
+        <node TEXT="**Verantwortlich**: IT-Betrieb"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 18 (SLA, Monitoring, Support, Backup/DR, Release-Management)"/>
+        <node TEXT="**Status**: ERGÄNZT – Gerüst vorhanden, konkrete SLA-Werte als Vorschlag"/>
       </node>
       <node TEXT="7.2 Incident-Response-Plan">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: ISB / DSB"/>
-        <node TEXT="Konzept-Referenz: Kap. 19 (Vorfallkategorien, Eskalation, DSGVO-Meldepflicht, KI-spezifische Response)"/>
-        <node TEXT="Status: ERGÄNZT – inkl. Halluzinations-Response und Berechtigungsfehler-Protokoll"/>
+        <node TEXT="**Verantwortlich**: ISB / DSB"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 19 (Vorfallkategorien, Eskalation, DSGVO-Meldepflicht, KI-spezifische Response)"/>
+        <node TEXT="**Status**: ERGÄNZT – inkl. Halluzinations-Response und Berechtigungsfehler-Protokoll"/>
       </node>
       <node TEXT="7.3 Kostengerüst-Template">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: PMO / Controlling"/>
-        <node TEXT="Konzept-Referenz: Kap. 20 (CAPEX/OPEX-Struktur, TCO-Vergleich)"/>
-        <node TEXT="Status: ERGÄNZT – Template mit Kostenblöcken, Werte durch IT und Controlling zu befüllen"/>
+        <node TEXT="**Verantwortlich**: PMO / Controlling"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 20 (CAPEX/OPEX-Struktur, TCO-Vergleich)"/>
+        <node TEXT="**Status**: ERGÄNZT – Averbis-Kosten konkretisiert (v2.1): Teststellung ~90.000 €, Lizenz ~200.000 €/a, TCO ≥ 1,09 Mio. €/5 Jahre. Eigenlösungs-Werte durch IT und Controlling noch zu befüllen."/>
       </node>
       <node TEXT="7.4 Change-Management-Konzept">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: Fachbereich / PMO"/>
-        <node TEXT="Konzept-Referenz: Kap. 21 (Pilotierung, Champions-Netzwerk, Schulung, Feedback, Erfolgsmessung)"/>
-        <node TEXT="Status: ERGÄNZT – 3-Phasen-Pilotierung (Station → Erweiterter Pilot → Klinikweiter Rollout)"/>
+        <node TEXT="**Verantwortlich**: Fachbereich / PMO"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 21 (Pilotierung, Champions-Netzwerk, Schulung, Feedback, Erfolgsmessung)"/>
+        <node TEXT="**Status**: ERGÄNZT – 3-Phasen-Pilotierung (Station → Erweiterter Pilot → Klinikweiter Rollout)"/>
       </node>
       <node TEXT="7.5 SAP IS-H/i.s.h.med KI-Konnektor">
         <node TEXT="Attribut: Beschreibung"/>
-        <node TEXT="Verantwortlich: IT-Architektur"/>
-        <node TEXT="Konzept-Referenz: Kap. 22 (Systemübersicht, Connectoren, KI-Integrationspfade, FHIR-Transformation, Berechtigungsmigration)"/>
-        <node TEXT="Status: ERGÄNZT – BAPI, HL7, FHIR-Fähigkeiten, IHE-Profile und Empfehlungen für Connector-Strategie"/>
+        <node TEXT="**Verantwortlich**: IT-Architektur"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 22 (Systemübersicht, Connectoren, KI-Integrationspfade, FHIR-Transformation, Berechtigungsmigration)"/>
+        <node TEXT="**Status**: ERGÄNZT – BAPI, HL7, FHIR-Fähigkeiten, IHE-Profile und Empfehlungen für Connector-Strategie"/>
+      </node>
+      <node TEXT="7.6 Cloud-Datenschutzklärung Sachsen">
+        <node TEXT="Attribut: Beschreibung"/>
+        <node TEXT="**Verantwortlich**: DSB (Hr. Sünkel) / PM"/>
+        <node TEXT="**Konzept-Referenz**: Kap. 13.1.6 (Landesspezifische Cloud-Restriktionen Sachsen)"/>
+        <node TEXT="**Zweck**: Klärung der rechtlichen Zulässigkeit von Cloud-LLM-Verarbeitung (Azure OpenAI) im Kontext sächsischer Datenschutzvorgaben. Relevant für die Bewertung der Averbis/Meierhofer-Variante."/>
+        <node TEXT="**Zusammensetzung**: AVVs, TOMs, Architekturskizze, Ergebnis Datenschützer-Termin, ggf. Gutachten"/>
+        <node TEXT="**Qualitätskriterien**: Rechtsverbindliche Einschätzung, dokumentiert"/>
+        <node TEXT="**Abnahmekriterien**: Schriftliche Stellungnahme des Landesdatenschützers oder Freigabe durch DSB"/>
+        <node TEXT="**Status**: OFFEN – Termin mit Landesdatenschützer für März 2026 angesetzt. AVVs und Architekturskizze sind vorab bereitzustellen."/>
       </node>
     </node>
     <node TEXT="Offene Punkte und Handlungsbedarf">
-      <node TEXT="Nr: Offener Punkt">
-        <attribute NAME="Status" VALUE="Frist"/>
-      </node>
-      <node TEXT="OP-01: Projektauftrag formal erstellen und genehmigen">
-        <attribute NAME="Status" VALUE="Mär 2026"/>
-      </node>
-      <node TEXT="OP-02: Projektleiter mit PM-Exzellenz installieren">
-        <attribute NAME="Status" VALUE="Mai 2026"/>
-      </node>
-      <node TEXT="OP-03: Kostengerüst mit konkreten Werten befüllen">
-        <attribute NAME="Status" VALUE="Apr 2026"/>
-      </node>
-      <node TEXT="OP-04: Averbis/Meierhofer-Angebot einholen und bewerten">
-        <attribute NAME="Status" VALUE="Mär 2026"/>
-      </node>
-      <node TEXT="OP-05: Formale Risikobewertung mit Eintrittswahrscheinlichkeiten erstellen">
-        <attribute NAME="Status" VALUE="Mär 2026"/>
-      </node>
-      <node TEXT="OP-06: ISILON-Performance- und Sicherheitsanalyse durchführen">
-        <attribute NAME="Status" VALUE="Apr 2026"/>
-      </node>
-      <node TEXT="OP-07: DSFA formell im Hauptprojekt durchführen">
-        <attribute NAME="Status" VALUE="Q3/2026"/>
-      </node>
-      <node TEXT="OP-08: Abnahmedokument Vorprojekt erstellen">
-        <attribute NAME="Status" VALUE="Jun 2026"/>
-      </node>
-      <node TEXT="OP-09: Fachliche Anforderungen mit Fachbereich abstimmen">
-        <attribute NAME="Status" VALUE="Mär 2026"/>
-      </node>
-      <node TEXT="OP-10: GPU-Infrastruktur-Sizing und Beschaffung einleiten">
-        <attribute NAME="Status" VALUE="Apr 2026"/>
-      </node>
+      <node TEXT="Nr: Offener Punkt"/>
+      <node TEXT="OP-01: Projektauftrag formal erstellen und genehmigen"/>
+      <node TEXT="OP-02: Projektleiter mit PM-Exzellenz installieren"/>
+      <node TEXT="OP-03: Kostengerüst mit konkreten Werten befüllen"/>
+      <node TEXT="OP-04: ~~Averbis/Meierhofer-Angebot einholen und bewerten~~ **TEILWEISE ERLEDIGT (27.02.2026):** Kostenindikatoren liegen vor. Detailiertes Angebot mit Meierhofer-Anteil ausstehend."/>
+      <node TEXT="OP-05: Formale Risikobewertung mit Eintrittswahrscheinlichkeiten erstellen"/>
+      <node TEXT="OP-06: ISILON-Performance- und Sicherheitsanalyse durchführen"/>
+      <node TEXT="OP-07: DSFA formell im Hauptprojekt durchführen"/>
+      <node TEXT="OP-08: Abnahmedokument Vorprojekt erstellen"/>
+      <node TEXT="OP-09: Fachliche Anforderungen mit Fachbereich abstimmen"/>
+      <node TEXT="OP-10: GPU-Infrastruktur-Sizing und Beschaffung einleiten"/>
+      <node TEXT="OP-11: **NEU:** Schnittstellenspezifikation HYDMedia (REST vs. FHIR) klären"/>
+      <node TEXT="OP-12: **NEU:** Cloud-Datenschutzklärung Sachsen – Termin Landesdatenschützer"/>
+      <node TEXT="OP-13: **NEU:** Datenqualitätsanalyse HYDMedia (OCR, KDL, Stichprobe)"/>
+      <node TEXT="OP-14: **NEU:** Eskalation Zeitplan/Übersichtsfunktion 1.10. an Lenkungsausschuss"/>
     </node>
   </node>
 </map>
