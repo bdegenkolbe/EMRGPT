@@ -1,0 +1,150 @@
+Ticket-ID;Titel;Phase;Typ;Priorität;Startdatum;Enddatum;Dauer (Tage);Abhängigkeit;Meilenstein;Verantwortlich;Fortschritt (%)
+;;;;;;;;;;;;
+EMRGPT-P0;Phase 0: Vorprojekt-Abschluss;Phase 0;Epic;Critical;2026-02-23;2026-06-26;124;;;PM;0
+EMRGPT-P0-001;Vorprojekt-Ergebnisse konsolidieren und QA;Phase 0;Story;Critical;2026-02-23;2026-03-20;25;;M0.1;PM;0
+EMRGPT-P0-002;Qualitätsanalyse aller Konzeptdokumente;Phase 0;Task;Major;2026-02-23;2026-03-06;11;;M0.1;PM;0
+EMRGPT-P0-003;PSP-Vollständigkeitsprüfung;Phase 0;Task;Major;2026-03-02;2026-03-13;11;EMRGPT-P0-002;M0.1;PM;0
+EMRGPT-P0-004;Averbis/Meierhofer-Angebot einholen;Phase 0;Story;Critical;2026-02-23;2026-03-27;32;;M0.2;PM;0
+EMRGPT-P0-005;Anfrage an Meierhofer senden;Phase 0;Task;Major;2026-02-23;2026-02-27;4;;M0.2;PM;0
+EMRGPT-P0-006;Variantenvergleich finalisieren;Phase 0;Task;Critical;2026-03-16;2026-03-27;11;EMRGPT-P0-005;M0.2;PM;0
+EMRGPT-P0-007;Kostenseite Business Case fertigstellen;Phase 0;Story;Critical;2026-03-02;2026-04-17;46;EMRGPT-P0-004;M0.3;Controlling;0
+EMRGPT-P0-008;IT-Infrastruktur-Sizing;Phase 0;Task;Major;2026-03-02;2026-04-03;32;;M0.3;IT-Infra;0
+EMRGPT-P0-009;Kostengerüst mit Werten befüllen;Phase 0;Task;Critical;2026-03-30;2026-04-17;18;EMRGPT-P0-008;M0.3;Controlling;0
+EMRGPT-P0-010;LA-Entscheidungsvorlage erstellen;Phase 0;Story;Blocker;2026-04-06;2026-04-24;18;EMRGPT-P0-001;M0.4;PM;0
+EMRGPT-P0-011;Management-Entscheidungsvorlage aufbereiten;Phase 0;Task;Critical;2026-04-06;2026-04-17;11;EMRGPT-P0-001;M0.4;PM;0
+EMRGPT-P0-012;LA-Präsentation durchführen;Phase 0;Task;Critical;2026-04-13;2026-04-24;11;EMRGPT-P0-011;M0.4;PM;0
+EMRGPT-P0-013;Projektleiter installieren;Phase 0;Story;Critical;2026-04-20;2026-05-29;39;EMRGPT-P0-010;M0.5;Auftraggeber;0
+EMRGPT-P0-014;Stellenausschreibung PL;Phase 0;Task;Major;2026-04-20;2026-05-08;18;EMRGPT-P0-010;M0.5;HR;0
+EMRGPT-P0-015;Projektteam-Setup und Kick-off;Phase 0;Task;Major;2026-05-11;2026-05-29;18;EMRGPT-P0-014;M0.5;PL;0
+EMRGPT-P0-016;Vorprojekt formal abschließen;Phase 0;Story;Major;2026-05-25;2026-06-26;32;;M0.6;Auftraggeber;0
+EMRGPT-P0-019;Fachliche Anforderungen abstimmen;Phase 0;Task;Critical;2026-02-23;2026-03-27;32;;M0.1;Fachbereich;0
+EMRGPT-P0-020;Formale Risikobewertung erstellen;Phase 0;Task;Major;2026-03-02;2026-03-27;25;;M0.1;PM;0
+;;;;;;;;;;;;
+EMRGPT-P1;Phase 1: Infrastruktur und Archiv-Migration;Phase 1;Epic;Blocker;2026-05-04;2026-09-25;144;;;IT;0
+EMRGPT-P1-001;GPU-Infrastruktur beschaffen;Phase 1;Story;Blocker;2026-05-04;2026-06-26;53;EMRGPT-P0-010;M1.1;IT-Infra;0
+EMRGPT-P1-002;GPU-Server spezifizieren;Phase 1;Task;Critical;2026-05-04;2026-05-15;11;EMRGPT-P0-008;M1.1;IT-Infra;0
+EMRGPT-P1-003;Beschaffungsprozess starten;Phase 1;Task;Critical;2026-05-11;2026-06-05;25;EMRGPT-P1-002;M1.1;IT-Infra;0
+EMRGPT-P1-004;GPU-Server installieren;Phase 1;Task;Major;2026-06-01;2026-06-26;25;EMRGPT-P1-003;M1.1;IT-Infra;0
+EMRGPT-P1-005;Netzwerk-Segmentierung;Phase 1;Task;Major;2026-05-18;2026-06-12;25;;M1.1;IT-Netzwerk;0
+EMRGPT-P1-010;SAP-DOK-Migration abschließen;Phase 1;Story;Blocker;2026-02-09;2026-06-26;137;;M1.2;IT;0
+EMRGPT-P1-011;Migration 20 Jahre SAP-Dokumente überwachen;Phase 1;Task;Critical;2026-02-09;2026-05-29;109;;M1.2;IT;0
+EMRGPT-P1-012;Migrationsstatus und Qualitätsstichproben;Phase 1;Task;Major;2026-03-16;2026-06-26;102;EMRGPT-P1-011;M1.2;IT;0
+EMRGPT-P1-020;OCR-Pilottest durchführen;Phase 1;Story;Critical;2026-05-04;2026-07-24;81;;M1.3;IT;0
+EMRGPT-P1-021;OCR-Testkorpus definieren;Phase 1;Task;Major;2026-05-04;2026-05-15;11;;M1.3;IT;0
+EMRGPT-P1-022;OCR-Verarbeitung durchführen;Phase 1;Task;Major;2026-05-18;2026-06-26;39;EMRGPT-P1-021;M1.3;IT;0
+EMRGPT-P1-023;OCR-Qualitätsbericht erstellen;Phase 1;Task;Major;2026-06-29;2026-07-24;25;EMRGPT-P1-022;M1.3;IT;0
+EMRGPT-P1-030;FHIR-Schnittstelle validieren (Go/No-Go);Phase 1;Story;Blocker;2026-06-01;2026-07-24;53;;M1.4;IT-Arch;0
+EMRGPT-P1-031;FHIR-Testumgebung aufsetzen;Phase 1;Task;Critical;2026-06-01;2026-06-12;11;;M1.4;IT-Arch;0
+EMRGPT-P1-032;FHIR Performance-Test;Phase 1;Task;Critical;2026-06-15;2026-07-10;25;EMRGPT-P1-031;M1.4;IT-Arch;0
+EMRGPT-P1-033;FHIR Scope-Validierung;Phase 1;Task;Major;2026-06-15;2026-06-26;11;EMRGPT-P1-031;M1.4;IT-Arch;0
+EMRGPT-P1-034;Go/No-Go-Entscheidung FHIR;Phase 1;Task;Blocker;2026-07-13;2026-07-24;11;EMRGPT-P1-032;M1.4;IT-Arch;0
+EMRGPT-P1-040;M-KIS-Berechtigungskonzept;Phase 1;Story;Critical;2026-06-01;2026-08-28;88;;M1.5;Security;0
+EMRGPT-P1-041;SAP-Berechtigungen auf M-KIS mappen;Phase 1;Task;Critical;2026-06-01;2026-07-10;39;;M1.5;Security;0
+EMRGPT-P1-042;Sonderberechtigungen PSY/KJP;Phase 1;Task;Major;2026-06-29;2026-07-24;25;EMRGPT-P1-041;M1.5;Security;0
+EMRGPT-P1-043;Abstimmung mit Meierhofer;Phase 1;Task;Major;2026-07-13;2026-08-07;25;EMRGPT-P1-041;M1.5;Robert W.;0
+EMRGPT-P1-044;Break-the-Glass-Prozess definieren;Phase 1;Task;Major;2026-07-27;2026-08-28;32;EMRGPT-P1-041;M1.5;Security;0
+EMRGPT-P1-050;Basisplattform bereitstellen;Phase 1;Story;Critical;2026-06-29;2026-09-25;88;EMRGPT-P1-001;M1.6;IT-Infra;0
+EMRGPT-P1-051;Vektor-Datenbank installieren;Phase 1;Task;Critical;2026-06-29;2026-07-24;25;EMRGPT-P1-004;M1.6;IT-Infra;0
+EMRGPT-P1-052;Graph-Datenbank installieren (Neo4j);Phase 1;Task;Critical;2026-06-29;2026-07-24;25;EMRGPT-P1-004;M1.6;IT-Infra;0
+EMRGPT-P1-053;LLM-Instanz deployen und validieren;Phase 1;Task;Critical;2026-07-27;2026-08-28;32;EMRGPT-P1-004;M1.6;IT-Arch;0
+EMRGPT-P1-054;Monitoring-Stack aufsetzen;Phase 1;Task;Major;2026-07-27;2026-08-28;32;EMRGPT-P1-004;M1.6;IT-Infra;0
+EMRGPT-P1-055;Backup und Recovery implementieren;Phase 1;Task;Major;2026-08-31;2026-09-25;25;EMRGPT-P1-051;M1.6;IT-Infra;0
+;;;;;;;;;;;;
+EMRGPT-P2;Phase 2: EMRGPT MVP;Phase 2;Epic;Blocker;2026-07-13;2026-12-25;165;;;Backend;0
+EMRGPT-P2-001;Dokumenten-RAG Prototyp;Phase 2;Story;Blocker;2026-07-13;2026-08-28;46;EMRGPT-P1-020;M2.1;Backend;0
+EMRGPT-P2-002;Embedding-Pipeline implementieren;Phase 2;Task;Critical;2026-07-13;2026-07-24;11;;M2.1;Backend;0
+EMRGPT-P2-003;Vektor-Suche implementieren;Phase 2;Task;Critical;2026-07-27;2026-08-07;11;EMRGPT-P2-002;M2.1;Backend;0
+EMRGPT-P2-004;FHIR-Connector implementieren;Phase 2;Task;Critical;2026-07-13;2026-08-07;25;EMRGPT-P1-030;M2.1;Backend;0
+EMRGPT-P2-005;Pilotstichprobe indexieren und evaluieren;Phase 2;Task;Critical;2026-08-10;2026-08-28;18;EMRGPT-P2-003;M2.1;Backend;0
+EMRGPT-P2-006;Dedup-Logik implementieren;Phase 2;Task;Major;2026-07-27;2026-08-21;25;EMRGPT-P2-002;M2.1;Backend;0
+EMRGPT-P2-010;Berechtigungs-Integration M-KIS;Phase 2;Story;Blocker;2026-07-27;2026-09-25;60;EMRGPT-P1-040;M2.2;Security;0
+EMRGPT-P2-011;Gatekeeper-Service implementieren;Phase 2;Task;Critical;2026-07-27;2026-08-28;32;;M2.2;Backend;0
+EMRGPT-P2-012;M-KIS Session/Token-Integration;Phase 2;Task;Critical;2026-08-10;2026-09-11;32;EMRGPT-P2-011;M2.2;Backend;0
+EMRGPT-P2-013;Berechtigungs-Integrationstests;Phase 2;Task;Critical;2026-09-14;2026-09-25;11;EMRGPT-P2-012;M2.2;QA;0
+EMRGPT-P2-020;Audit-Trail und Logging;Phase 2;Story;Critical;2026-07-27;2026-09-25;60;;M2.3;Backend;0
+EMRGPT-P2-021;Revisionssicheres Logging implementieren;Phase 2;Task;Critical;2026-07-27;2026-08-28;32;;M2.3;Backend;0
+EMRGPT-P2-022;Logging-Dashboard einrichten;Phase 2;Task;Major;2026-08-31;2026-09-11;11;EMRGPT-P2-021;M2.3;IT-Infra;0
+EMRGPT-P2-023;Compliance-Review Logging;Phase 2;Task;Major;2026-09-14;2026-09-25;11;EMRGPT-P2-021;M2.3;ISB;0
+EMRGPT-P2-030;Frontend MVP entwickeln;Phase 2;Story;Critical;2026-07-27;2026-10-02;67;;M2.4;Frontend;0
+EMRGPT-P2-031;Chat-Interface implementieren;Phase 2;Task;Critical;2026-07-27;2026-08-28;32;;M2.4;Frontend;0
+EMRGPT-P2-032;Quellenangaben-Panel einbauen;Phase 2;Task;Critical;2026-08-17;2026-09-11;25;EMRGPT-P2-031;M2.4;Frontend;0
+EMRGPT-P2-033;Sicherheits-/Transparenzelemente;Phase 2;Task;Major;2026-08-31;2026-09-18;18;EMRGPT-P2-031;M2.4;Frontend;0
+EMRGPT-P2-034;M-KIS-Integration Frontend;Phase 2;Task;Critical;2026-09-07;2026-10-02;25;EMRGPT-P2-012;M2.4;Frontend;0
+EMRGPT-P2-040;Prompt-Pipeline implementieren;Phase 2;Story;Critical;2026-08-10;2026-10-02;53;EMRGPT-P2-001;M2.4;Backend;0
+EMRGPT-P2-041;Domain-aware Orchestration;Phase 2;Task;Critical;2026-08-10;2026-09-04;25;;M2.4;Backend;0
+EMRGPT-P2-042;Medizinische Prompt-Pipeline;Phase 2;Task;Critical;2026-08-24;2026-09-18;25;EMRGPT-P2-041;M2.4;Backend;0
+EMRGPT-P2-043;Halluzinations-Erkennung;Phase 2;Task;Major;2026-09-07;2026-10-02;25;EMRGPT-P2-042;M2.4;Backend;0
+EMRGPT-P2-050;MVP Go-Live Pilotstation;Phase 2;Story;Blocker;2026-09-28;2026-10-23;25;;M2.4;PL;0
+EMRGPT-P2-051;End-to-End-Test Pilotstation;Phase 2;Task;Blocker;2026-09-28;2026-10-02;4;;M2.4;QA;0
+EMRGPT-P2-052;Security-Audit vor Go-Live;Phase 2;Task;Critical;2026-10-05;2026-10-09;4;EMRGPT-P2-051;M2.4;ISB;0
+EMRGPT-P2-053;DSB-Freigabe einholen;Phase 2;Task;Critical;2026-10-12;2026-10-16;4;EMRGPT-P2-052;M2.4;DSB;0
+EMRGPT-P2-054;Schulung Pilotstation;Phase 2;Task;Major;2026-10-19;2026-10-23;4;;M2.4;Fachbereich;0
+EMRGPT-P2-055;Go-Live Pilotstation;Phase 2;Task;Blocker;2026-10-26;2026-10-26;1;EMRGPT-P2-053;M2.4;PL;0
+EMRGPT-P2-060;Pilotfeedback auswerten;Phase 2;Story;Critical;2026-10-26;2026-11-27;32;EMRGPT-P2-050;M2.5;PM;0
+EMRGPT-P2-061;Feedback-Sammlung (2 Wochen);Phase 2;Task;Major;2026-10-26;2026-11-13;18;;M2.5;Fachbereich;0
+EMRGPT-P2-062;Feedback auswerten und Plan erstellen;Phase 2;Task;Major;2026-11-16;2026-11-27;11;EMRGPT-P2-061;M2.5;PM;0
+EMRGPT-P2-070;MVP auf 3 weitere Stationen;Phase 2;Story;Major;2026-12-01;2026-12-25;24;EMRGPT-P2-060;M2.6;PL;0
+EMRGPT-P2-071;Rollout-Planung;Phase 2;Task;Major;2026-12-01;2026-12-04;3;EMRGPT-P2-062;M2.6;PL;0
+EMRGPT-P2-072;Schulung und Go-Live 3 Stationen;Phase 2;Task;Major;2026-12-08;2026-12-25;17;EMRGPT-P2-071;M2.6;Fachbereich;0
+;;;;;;;;;;;;
+EMRGPT-P3;Phase 3: Vollausbau;Phase 3;Epic;Critical;2027-01-04;2027-06-25;172;;;PL;0
+EMRGPT-P3-001;GraphRAG-Integration;Phase 3;Story;Critical;2027-01-04;2027-01-30;26;;M3.1;Backend;0
+EMRGPT-P3-002;DWH-Extraktor implementieren;Phase 3;Task;Critical;2027-01-04;2027-01-16;12;;M3.1;Backend;0
+EMRGPT-P3-003;FHIR→Neo4j Transformation;Phase 3;Task;Critical;2027-01-12;2027-01-23;11;EMRGPT-P3-002;M3.1;Backend;0
+EMRGPT-P3-004;GraphRAG in Orchestrierung integrieren;Phase 3;Task;Critical;2027-01-19;2027-01-30;11;EMRGPT-P3-003;M3.1;Backend;0
+EMRGPT-P3-010;Leitlinien-RAG integrieren;Phase 3;Story;Major;2027-01-26;2027-02-20;25;;M3.2;Backend;0
+EMRGPT-P3-011;Leitlinien-Korpus aufbauen;Phase 3;Task;Major;2027-01-26;2027-02-06;11;;M3.2;Backend;0
+EMRGPT-P3-012;Leitlinien-Retrieval integrieren;Phase 3;Task;Major;2027-02-08;2027-02-20;12;EMRGPT-P3-011;M3.2;Backend;0
+EMRGPT-P3-013;Europe PMC-Anbindung;Phase 3;Story;Major;2027-02-08;2027-03-05;25;EMRGPT-P3-010;M3.2a;Backend;0
+EMRGPT-P3-014;Europe PMC API-Integration;Phase 3;Task;Major;2027-02-08;2027-02-14;6;;M3.2a;Backend;0
+EMRGPT-P3-015;Evidence-Matching-Algorithmus;Phase 3;Task;Major;2027-02-15;2027-03-05;18;EMRGPT-P3-014;M3.2a;Backend;0
+EMRGPT-P3-020;OCR-Vollverarbeitung;Phase 3;Story;Critical;2027-01-04;2027-03-26;81;;M3.3;IT;0
+EMRGPT-P3-021;OCR-Batch 21 Mio. Dokumente;Phase 3;Task;Critical;2027-01-04;2027-01-30;26;;M3.3;IT;0
+EMRGPT-P3-022;OCR-Qualitäts-Monitoring;Phase 3;Task;Major;2027-01-26;2027-03-26;59;EMRGPT-P3-021;M3.3;IT;0
+EMRGPT-P3-023;SNOMED-Autotagging-Pipeline;Phase 3;Story;Major;2027-02-22;2027-03-26;32;EMRGPT-P3-020;M3.3a;Backend;0
+EMRGPT-P3-024;NER-Modell konfigurieren;Phase 3;Task;Major;2027-02-22;2027-03-05;11;;M3.3a;Backend;0
+EMRGPT-P3-025;Snowstorm On-Premise bereitstellen;Phase 3;Task;Major;2027-02-22;2027-03-26;32;;M3.3b;IT-Infra;0
+EMRGPT-P3-026;NER→Snowstorm Pipeline;Phase 3;Task;Major;2027-03-08;2027-03-26;18;EMRGPT-P3-024;M3.3a;Backend;0
+EMRGPT-P3-030;Labor-FHIR-Connector;Phase 3;Story;Major;2027-03-01;2027-04-23;53;;M3.4;IT;0
+EMRGPT-P3-031;FHIR-Mapping Labordaten;Phase 3;Task;Major;2027-03-01;2027-03-26;25;;M3.4;Backend;0
+EMRGPT-P3-032;Labordaten in GraphRAG;Phase 3;Task;Major;2027-03-29;2027-04-23;25;EMRGPT-P3-031;M3.4;Backend;0
+EMRGPT-P3-040;Klinikweiter Rollout;Phase 3;Story;Blocker;2027-04-26;2027-05-28;32;EMRGPT-P3-001;M3.5;PL;0
+EMRGPT-P3-041;Rollout-Plan erstellen;Phase 3;Task;Critical;2027-04-26;2027-05-01;5;;M3.5;PL;0
+EMRGPT-P3-042;Champions-Netzwerk aktivieren;Phase 3;Task;Major;2027-05-03;2027-05-14;11;EMRGPT-P3-041;M3.5;Fachbereich;0
+EMRGPT-P3-043;Schulungsprogramm klinikweit;Phase 3;Task;Major;2027-05-03;2027-05-28;25;EMRGPT-P3-042;M3.5;Fachbereich;0
+EMRGPT-P3-044;Evidence-Panel aktivieren;Phase 3;Task;Major;2027-04-26;2027-05-14;18;;M3.5;Frontend;0
+EMRGPT-P3-045;Go-Live klinikweit + Hypercare;Phase 3;Task;Blocker;2027-05-28;2027-05-28;1;EMRGPT-P3-041;M3.5;PL;0
+EMRGPT-P3-050;Projektabschluss;Phase 3;Story;Major;2027-05-28;2027-06-25;28;;M3.6;PL;0
+EMRGPT-P3-051;Betriebshandbuch finalisieren;Phase 3;Task;Major;2027-05-28;2027-06-11;14;;M3.6;IT-Arch;0
+EMRGPT-P3-052;SLA-Vereinbarung abschließen;Phase 3;Task;Major;2027-06-07;2027-06-18;11;EMRGPT-P3-051;M3.6;PL;0
+EMRGPT-P3-053;Lessons Learned und Abschlussbericht;Phase 3;Task;Major;2027-06-14;2027-06-25;11;;M3.6;PL;0
+EMRGPT-P3-054;Formaler Projektabschluss;Phase 3;Task;Major;2027-06-25;2027-06-25;1;EMRGPT-P3-053;M3.6;Auftraggeber;0
+;;;;;;;;;;;;
+;MEILENSTEINE;;;;;;;;;;;
+M0.1;Vorprojekt-Ergebnisse konsolidiert;Phase 0;Meilenstein;Critical;2026-03-20;2026-03-20;0;;;PM;
+M0.2;Variantenvergleich finalisiert;Phase 0;Meilenstein;Critical;2026-03-27;2026-03-27;0;;;PM;
+M0.3;Kostenseite Business Case fertig;Phase 0;Meilenstein;Critical;2026-04-17;2026-04-17;0;;;Controlling;
+M0.4;LA-Entscheidung (Go/No-Go);Phase 0;Meilenstein;Blocker;2026-04-24;2026-04-24;0;;;PM;
+M0.5;Projektleiter installiert;Phase 0;Meilenstein;Critical;2026-05-29;2026-05-29;0;;;Auftraggeber;
+M0.6;Vorprojekt formal abgenommen;Phase 0;Meilenstein;Major;2026-06-26;2026-06-26;0;;;Auftraggeber;
+M1.1;GPU-Infrastruktur bereit;Phase 1;Meilenstein;Blocker;2026-06-26;2026-06-26;0;;;IT-Infra;
+M1.2;SAP-DOK-Migration abgeschlossen;Phase 1;Meilenstein;Blocker;2026-06-26;2026-06-26;0;;;IT;
+M1.3;OCR-Pilottest abgeschlossen;Phase 1;Meilenstein;Critical;2026-07-24;2026-07-24;0;;;IT;
+M1.4;FHIR-Schnittstelle validiert (Go/No-Go);Phase 1;Meilenstein;Blocker;2026-07-24;2026-07-24;0;;;IT-Arch;
+M1.5;M-KIS-Berechtigungskonzept fertig;Phase 1;Meilenstein;Critical;2026-08-28;2026-08-28;0;;;Security;
+M1.6;Basisinfrastruktur produktionsreif;Phase 1;Meilenstein;Critical;2026-09-25;2026-09-25;0;;;IT-Infra;
+M2.1;Dokumenten-RAG Prototyp;Phase 2;Meilenstein;Blocker;2026-08-28;2026-08-28;0;;;Backend;
+M2.2;Berechtigungs-Integration validiert;Phase 2;Meilenstein;Blocker;2026-09-25;2026-09-25;0;;;Security;
+M2.3;Audit-Trail implementiert;Phase 2;Meilenstein;Critical;2026-09-25;2026-09-25;0;;;Backend;
+M2.4;MVP Go-Live Pilotstation (SAP OFF);Phase 2;Meilenstein;Blocker;2026-10-26;2026-10-26;0;;;PL;
+M2.5;Pilotfeedback ausgewertet;Phase 2;Meilenstein;Critical;2026-11-27;2026-11-27;0;;;PM;
+M2.6;MVP auf 3 Stationen ausgerollt;Phase 2;Meilenstein;Major;2026-12-25;2026-12-25;0;;;PL;
+M3.1;GraphRAG-Integration;Phase 3;Meilenstein;Critical;2027-01-30;2027-01-30;0;;;Backend;
+M3.2;Leitlinien-RAG integriert;Phase 3;Meilenstein;Major;2027-02-20;2027-02-20;0;;;Backend;
+M3.2a;Europe PMC produktiv;Phase 3;Meilenstein;Major;2027-03-05;2027-03-05;0;;;Backend;
+M3.3;OCR-Vollverarbeitung abgeschlossen;Phase 3;Meilenstein;Critical;2027-03-26;2027-03-26;0;;;IT;
+M3.3a;SNOMED-Autotagging produktiv;Phase 3;Meilenstein;Major;2027-03-26;2027-03-26;0;;;Backend;
+M3.3b;Snowstorm On-Premise bereit;Phase 3;Meilenstein;Major;2027-03-26;2027-03-26;0;;;IT-Infra;
+M3.4;Labor-FHIR-Connector produktiv;Phase 3;Meilenstein;Major;2027-04-23;2027-04-23;0;;;IT;
+M3.5;Klinikweiter Rollout (Go/No-Go);Phase 3;Meilenstein;Blocker;2027-05-28;2027-05-28;0;;;PL;
+M3.6;Projektabschluss;Phase 3;Meilenstein;Major;2027-06-25;2027-06-25;0;;;PL;
