@@ -1,4 +1,6 @@
-# Zielarchitektur UKLGPT mit Patienten‑RAG, Dokumenten‑RAG und GraphRAG (FHIR/SNOMED)
+# Konzept EMRGPT – Zielarchitektur mit Patienten-RAG, Dokumenten-RAG und GraphRAG (FHIR/SNOMED)
+
+v2.0 – Umbenennung zu Konzept EMRGPT, Konsolidierung der Projektdokumentation (Stand: 2026-02-27)
 
 v1.6 – Kapitelreihenfolge korrigiert, Inhaltsverzeichnis vervollständigt, SAP IS-H/i.s.h.med KI-Konnektor (Stand: 2026-02-27)
 Basis: v1 Björn | v1.1: QA-Review, PSP-Zuordnung, Variantenvergleich | v1.2: Dokumentenpipeline, FHIR Conformance, SAP-Berechtigungsmodell, Datenqualität, Preisreferenz | v1.3: Umnummerierung Kap. 2/3/14/15, Umsetzungsfahrplan, RACI, Kommunikationsplan, Anforderungsliste | v1.4: Betriebskonzept (Kap. 18), Incident-Response (Kap. 19), Kostengerüst-Template (Kap. 20), Change-Management (Kap. 21) | v1.4.1: QA-Korrekturen | v1.4.2: Terminologie, Struktur, Redundanzen | v1.5: Europe PMC-Anbindung (Kap. 7.2.1.1), automatisches Evidence-Matching (Kap. 7.2.1.2), SNOMED-Autotagging-Pipeline (Kap. 14.2.2), Snowstorm FHIR-API (Kap. 14.2.1), Use Case 4 (Kap. 3.3.4), FA-13 bis FA-16, UI Evidence-Panel (Kap. 4.2) | v1.5.1: Evidenz- und Studien-Domainservice als vierte Wissensschicht (Kap. 2.8.6), Studiendatenbanken (Kap. 7.2.1.3), LLM-Regelableitung (Kap. 7.2.1.4), Kap. 7.1 drei→vier Domänen, QA-Bereinigung (40+ Befunde: Querverweise, FHIR-Pfade, Terminologie, Grammatik, Markdown) | v1.6: Kapitelreihenfolge korrigiert (Kap. 14/15 nach Kap. 13 verschoben, Kap. 99 ans Ende), Inhaltsverzeichnis vollständig neu erstellt (inkl. Kap. 16–21), SAP IS-H/i.s.h.med KI-Konnektor-Analyse (Kap. 22)
@@ -31,7 +33,8 @@ Die Eigenlösung UKLGPT bietet signifikant höhere Datenhoheit, Unabhängigkeit 
 
 | Begriff | Definition |
 |---------|-----------|
-| **UKLGPT** | Offizieller Produktname des KI-gestützten klinischen Informationsassistenten des UKL. Arbeitstitel: hAIppokrates, Projekttitel: EMRgpt. Im gesamten Dokument wird einheitlich **UKLGPT** verwendet. |
+| **EMRGPT** | Kanonischer Projektname (ab v2.0). Ersetzt den bisherigen Produktnamen **UKLGPT** in allen neuen Projektdokumenten (PSP, Projektplan, Präsentationen). In diesem Konzeptdokument wird aus Gründen der Konsistenz mit früheren Versionen weiterhin **UKLGPT** als Synonym verwendet. Arbeitstitel: hAIppokrates. |
+| **UKLGPT** | Bisheriger Produktname des KI-gestützten klinischen Informationsassistenten des UKL. Ab v2.0 durch **EMRGPT** als kanonischen Projektnamen abgelöst. Im vorliegenden Dokument wird UKLGPT aus Versionskonsistenz beibehalten – alle Referenzen auf UKLGPT sind identisch mit EMRGPT. |
 | **RAG** | Retrieval-Augmented Generation – Methode, bei der ein KI-Sprachmodell mit spezifischen, abgerufenen Fakten angereichert wird, bevor es eine Antwort generiert. |
 | **GraphRAG** | RAG auf Basis eines Wissensgraphen (Netzwerkstruktur von Fakten und Beziehungen). |
 | **FHIR** | Fast Healthcare Interoperability Resources – internationaler Standard für den Austausch medizinischer Daten. |
@@ -47,7 +50,7 @@ Die Eigenlösung UKLGPT bietet signifikant höhere Datenhoheit, Unabhängigkeit 
 
 ## 0.2 PSP-Zuordnung Vorprojekt (PRINCE2-Produktstruktur) – FÜHRENDE STRUKTUR
 
-Die PSP-Produktstruktur aus PSP_Vorprojekt_v0.6.md ist die **verbindliche, mit dem Kunden UKL abgestimmte Leitstruktur** dieses Vorprojekts. Jedes Ergebnis dieses Dokuments muss einem PSP-Produkt zuordenbar sein. Die folgende Tabelle bildet den Gesamtstatus aller PSP-Produkte ab.
+Die PSP-Produktstruktur aus [PSP_EMRGPT.md](PSP_EMRGPT.md) (ehem. PSP_Vorprojekt_v0.6.md) ist die **verbindliche, mit dem Kunden UKL abgestimmte Leitstruktur** dieses Vorprojekts. Jedes Ergebnis dieses Dokuments muss einem PSP-Produkt zuordenbar sein. Die folgende Tabelle bildet den Gesamtstatus aller PSP-Produkte ab.
 
 | PSP-Nr | PSP-Produkt | Abgedeckt in Kapitel | Status | Verantwortlich |
 |--------|-------------|---------------------|--------|----------------|
