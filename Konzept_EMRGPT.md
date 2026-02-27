@@ -33,7 +33,8 @@ Die Eigenlösung UKLGPT bietet signifikant höhere Datenhoheit, Unabhängigkeit 
 
 | Begriff | Definition |
 |---------|-----------|
-| **UKLGPT** | Offizieller Produktname des KI-gestützten klinischen Informationsassistenten des UKL. Arbeitstitel: hAIppokrates, Projekttitel: EMRgpt. Im gesamten Dokument wird einheitlich **UKLGPT** verwendet. |
+| **EMRGPT** | Kanonischer Projektname (ab v2.0). Ersetzt den bisherigen Produktnamen **UKLGPT** in allen neuen Projektdokumenten (PSP, Projektplan, Präsentationen). In diesem Konzeptdokument wird aus Gründen der Konsistenz mit früheren Versionen weiterhin **UKLGPT** als Synonym verwendet. Arbeitstitel: hAIppokrates. |
+| **UKLGPT** | Bisheriger Produktname des KI-gestützten klinischen Informationsassistenten des UKL. Ab v2.0 durch **EMRGPT** als kanonischen Projektnamen abgelöst. Im vorliegenden Dokument wird UKLGPT aus Versionskonsistenz beibehalten – alle Referenzen auf UKLGPT sind identisch mit EMRGPT. |
 | **RAG** | Retrieval-Augmented Generation – Methode, bei der ein KI-Sprachmodell mit spezifischen, abgerufenen Fakten angereichert wird, bevor es eine Antwort generiert. |
 | **GraphRAG** | RAG auf Basis eines Wissensgraphen (Netzwerkstruktur von Fakten und Beziehungen). |
 | **FHIR** | Fast Healthcare Interoperability Resources – internationaler Standard für den Austausch medizinischer Daten. |

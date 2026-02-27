@@ -60,7 +60,7 @@
 | 6. Abschlussdokumentation | 3 Produkte (6.1–6.3) | 2 ERGÄNZT, 1 OFFEN |
 | 7. Ergänzungen | 5 Produkte (7.1–7.5) | 5 ERGÄNZT |
 
-**Ergebnis:** 39 PSP-Produkte, davon 29 abgedeckt/ergänzt, 8 teilweise, 1 offen, 1 entfällt. Dokumentiert in Konzept_EMRGPT.md (22 Kapitel, 3.500+ Zeilen).
+**Ergebnis:** 39 PSP-Produkte, davon 29 abgedeckt/ergänzt, 8 teilweise, 1 offen, 1 entfällt. Dokumentiert in Konzept_EMRGPT.md (22 Kapitel, ca. 3.500 Zeilen).
 
 ---
 
@@ -400,5 +400,5 @@ SAP-DOK-Migration → FHIR validiert → Dokumenten-RAG → MVP Go-Live ← SAP 
 **Vollständige Dokumentation:**
 - Konzept_EMRGPT.md (22 Kapitel, Zielarchitektur)
 - PSP_EMRGPT.md (Produktstrukturplan, PRINCE2)
-- Projektplan.md (98 Tickets, 4 Phasen)
+- Projektplan.md (116 Tickets, 4 Phasen)
 - Projektplan_Gantt.csv (Gantt-Chart für Excel)

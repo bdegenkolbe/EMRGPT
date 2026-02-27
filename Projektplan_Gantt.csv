@@ -1,5 +1,5 @@
 Ticket-ID;Titel;Phase;Typ;Priorität;Startdatum;Enddatum;Dauer (Tage);Abhängigkeit;Meilenstein;Verantwortlich;Fortschritt (%)
-;;;;;;;;;;;;
+;;;;;;;;;;;
 EMRGPT-P0;Phase 0: Vorprojekt-Abschluss;Phase 0;Epic;Critical;2026-02-23;2026-06-26;124;;;PM;0
 EMRGPT-P0-001;Vorprojekt-Ergebnisse konsolidieren und QA;Phase 0;Story;Critical;2026-02-23;2026-03-20;25;;M0.1;PM;0
 EMRGPT-P0-002;Qualitätsanalyse aller Konzeptdokumente;Phase 0;Task;Major;2026-02-23;2026-03-06;11;;M0.1;PM;0
@@ -17,9 +17,11 @@ EMRGPT-P0-013;Projektleiter installieren;Phase 0;Story;Critical;2026-04-20;2026-
 EMRGPT-P0-014;Stellenausschreibung PL;Phase 0;Task;Major;2026-04-20;2026-05-08;18;EMRGPT-P0-010;M0.5;HR;0
 EMRGPT-P0-015;Projektteam-Setup und Kick-off;Phase 0;Task;Major;2026-05-11;2026-05-29;18;EMRGPT-P0-014;M0.5;PL;0
 EMRGPT-P0-016;Vorprojekt formal abschließen;Phase 0;Story;Major;2026-05-25;2026-06-26;32;;M0.6;Auftraggeber;0
+EMRGPT-P0-017;Abnahmedokument Vorprojekt erstellen;Phase 0;Task;Major;2026-05-25;2026-06-12;18;EMRGPT-P0-001;M0.6;PM;0
+EMRGPT-P0-018;Formale Abnahme einholen;Phase 0;Task;Major;2026-06-15;2026-06-26;11;EMRGPT-P0-017;M0.6;Auftraggeber;0
 EMRGPT-P0-019;Fachliche Anforderungen abstimmen;Phase 0;Task;Critical;2026-02-23;2026-03-27;32;;M0.1;Fachbereich;0
 EMRGPT-P0-020;Formale Risikobewertung erstellen;Phase 0;Task;Major;2026-03-02;2026-03-27;25;;M0.1;PM;0
-;;;;;;;;;;;;
+;;;;;;;;;;;
 EMRGPT-P1;Phase 1: Infrastruktur und Archiv-Migration;Phase 1;Epic;Blocker;2026-05-04;2026-09-25;144;;;IT;0
 EMRGPT-P1-001;GPU-Infrastruktur beschaffen;Phase 1;Story;Blocker;2026-05-04;2026-06-26;53;EMRGPT-P0-010;M1.1;IT-Infra;0
 EMRGPT-P1-002;GPU-Server spezifizieren;Phase 1;Task;Critical;2026-05-04;2026-05-15;11;EMRGPT-P0-008;M1.1;IT-Infra;0
@@ -29,6 +31,7 @@ EMRGPT-P1-005;Netzwerk-Segmentierung;Phase 1;Task;Major;2026-05-18;2026-06-12;25
 EMRGPT-P1-010;SAP-DOK-Migration abschließen;Phase 1;Story;Blocker;2026-02-09;2026-06-26;137;;M1.2;IT;0
 EMRGPT-P1-011;Migration 20 Jahre SAP-Dokumente überwachen;Phase 1;Task;Critical;2026-02-09;2026-05-29;109;;M1.2;IT;0
 EMRGPT-P1-012;Migrationsstatus und Qualitätsstichproben;Phase 1;Task;Major;2026-03-16;2026-06-26;102;EMRGPT-P1-011;M1.2;IT;0
+EMRGPT-P1-013;Migration abschließen und Vollständigkeit bestätigen;Phase 1;Task;Critical;2026-06-15;2026-06-26;11;EMRGPT-P1-011;M1.2;IT;0
 EMRGPT-P1-020;OCR-Pilottest durchführen;Phase 1;Story;Critical;2026-05-04;2026-07-24;81;;M1.3;IT;0
 EMRGPT-P1-021;OCR-Testkorpus definieren;Phase 1;Task;Major;2026-05-04;2026-05-15;11;;M1.3;IT;0
 EMRGPT-P1-022;OCR-Verarbeitung durchführen;Phase 1;Task;Major;2026-05-18;2026-06-26;39;EMRGPT-P1-021;M1.3;IT;0
@@ -49,7 +52,7 @@ EMRGPT-P1-052;Graph-Datenbank installieren (Neo4j);Phase 1;Task;Critical;2026-06
 EMRGPT-P1-053;LLM-Instanz deployen und validieren;Phase 1;Task;Critical;2026-07-27;2026-08-28;32;EMRGPT-P1-004;M1.6;IT-Arch;0
 EMRGPT-P1-054;Monitoring-Stack aufsetzen;Phase 1;Task;Major;2026-07-27;2026-08-28;32;EMRGPT-P1-004;M1.6;IT-Infra;0
 EMRGPT-P1-055;Backup und Recovery implementieren;Phase 1;Task;Major;2026-08-31;2026-09-25;25;EMRGPT-P1-051;M1.6;IT-Infra;0
-;;;;;;;;;;;;
+;;;;;;;;;;;
 EMRGPT-P2;Phase 2: EMRGPT MVP;Phase 2;Epic;Blocker;2026-07-13;2026-12-25;165;;;Backend;0
 EMRGPT-P2-001;Dokumenten-RAG Prototyp;Phase 2;Story;Blocker;2026-07-13;2026-08-28;46;EMRGPT-P1-020;M2.1;Backend;0
 EMRGPT-P2-002;Embedding-Pipeline implementieren;Phase 2;Task;Critical;2026-07-13;2026-07-24;11;;M2.1;Backend;0
@@ -83,10 +86,11 @@ EMRGPT-P2-055;Go-Live Pilotstation;Phase 2;Task;Blocker;2026-10-26;2026-10-26;1;
 EMRGPT-P2-060;Pilotfeedback auswerten;Phase 2;Story;Critical;2026-10-26;2026-11-27;32;EMRGPT-P2-050;M2.5;PM;0
 EMRGPT-P2-061;Feedback-Sammlung (2 Wochen);Phase 2;Task;Major;2026-10-26;2026-11-13;18;;M2.5;Fachbereich;0
 EMRGPT-P2-062;Feedback auswerten und Plan erstellen;Phase 2;Task;Major;2026-11-16;2026-11-27;11;EMRGPT-P2-061;M2.5;PM;0
+EMRGPT-P2-063;Kritische Verbesserungen umsetzen;Phase 2;Task;Major;2026-11-30;2026-12-11;11;EMRGPT-P2-062;M2.6;Backend;0
 EMRGPT-P2-070;MVP auf 3 weitere Stationen;Phase 2;Story;Major;2026-12-01;2026-12-25;24;EMRGPT-P2-060;M2.6;PL;0
 EMRGPT-P2-071;Rollout-Planung;Phase 2;Task;Major;2026-12-01;2026-12-04;3;EMRGPT-P2-062;M2.6;PL;0
 EMRGPT-P2-072;Schulung und Go-Live 3 Stationen;Phase 2;Task;Major;2026-12-08;2026-12-25;17;EMRGPT-P2-071;M2.6;Fachbereich;0
-;;;;;;;;;;;;
+;;;;;;;;;;;
 EMRGPT-P3;Phase 3: Vollausbau;Phase 3;Epic;Critical;2027-01-04;2027-06-25;172;;;PL;0
 EMRGPT-P3-001;GraphRAG-Integration;Phase 3;Story;Critical;2027-01-04;2027-01-30;26;;M3.1;Backend;0
 EMRGPT-P3-002;DWH-Extraktor implementieren;Phase 3;Task;Critical;2027-01-04;2027-01-16;12;;M3.1;Backend;0
@@ -119,7 +123,7 @@ EMRGPT-P3-051;Betriebshandbuch finalisieren;Phase 3;Task;Major;2027-05-28;2027-0
 EMRGPT-P3-052;SLA-Vereinbarung abschließen;Phase 3;Task;Major;2027-06-07;2027-06-18;11;EMRGPT-P3-051;M3.6;PL;0
 EMRGPT-P3-053;Lessons Learned und Abschlussbericht;Phase 3;Task;Major;2027-06-14;2027-06-25;11;;M3.6;PL;0
 EMRGPT-P3-054;Formaler Projektabschluss;Phase 3;Task;Major;2027-06-25;2027-06-25;1;EMRGPT-P3-053;M3.6;Auftraggeber;0
-;;;;;;;;;;;;
+;;;;;;;;;;;
 ;MEILENSTEINE;;;;;;;;;;;
 M0.1;Vorprojekt-Ergebnisse konsolidiert;Phase 0;Meilenstein;Critical;2026-03-20;2026-03-20;0;;;PM;
 M0.2;Variantenvergleich finalisiert;Phase 0;Meilenstein;Critical;2026-03-27;2026-03-27;0;;;PM;
